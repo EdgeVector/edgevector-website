@@ -1,0 +1,218 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #e8e8e8;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 900px; margin: 0 auto; padding: 0 24px; overflow-x: hidden; }
+p { margin: 0.8em 0; }
+h2 { font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.6em; text-transform: uppercase; letter-spacing: 2px; }
+pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
+
+/* hero title — massive responsive text */
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85;
+  margin: 0.1em 0;
+}
+.hero-title-line {
+  font-size: clamp(4rem, 18vw, 12rem);
+  font-weight: 700;
+  color: #0a0a0a;
+  letter-spacing: -0.04em;
+  display: block;
+}
+
+/* hero */
+.tagline {
+  font-size: 2.4em;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin: 0.4em 0;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.subtitle { font-size: 1.1em; color: #777; margin: 0.3em 0; }
+
+/* grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
+
+/* sections — no background color, separated by heavy rules */
+[class^="section-"] {
+  background: transparent;
+  color: #1a1a1a;
+  padding: 2.5em 0;
+  margin: 0;
+  border-top: 4px solid #0a0a0a;
+}
+
+/* cards — thick borders, harsh */
+.card {
+  border: 2px solid #999;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #f5f5f5;
+}
+.card:hover { border-color: #0a0a0a; }
+.card pre { background: #e0e0e0; padding: 12px; margin: 0.5em 0; border: 2px solid #999; }
+
+/* labels — bold blocky tags */
+.label {
+  padding: 2px 10px;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.label-red    { background: #cc0000; }
+.label-green  { background: #007700; }
+.label-blue   { background: #0055cc; }
+.label-yellow { background: #cc8800; }
+.label-purple { background: #8800cc; }
+.label-orange { background: #cc5500; }
+
+/* text utilities */
+.white { color: #0a0a0a; }
+.dim { color: #888; }
+.bold { font-weight: 700; color: #0a0a0a; }
+
+/* links — stark, underlined */
+a { color: #0a0a0a; text-decoration: none; border-bottom: 1px solid #999; }
+a:hover { color: #cc0000; border-bottom-color: #cc0000; }
+.link-btn {
+  font-weight: 700;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85em;
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+}
+.link-btn:hover { background: #0a0a0a; color: #e8e8e8; border-bottom: 2px solid #0a0a0a; }
+
+/* decorative rules — heavy */
+.decorative-rule {
+  border: none;
+  border-top: 4px solid #0a0a0a;
+  margin: 0.8em 0;
+}
+
+/* navigation — bold bar */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-bottom: 4px solid #999;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0a0a0a;
+  text-decoration: none;
+  border-bottom: none;
+}
+.nav-brand:hover { border-bottom: none; }
+.nav-brand-text {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.nav-spacer { flex: 1; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-links .link-btn { font-size: 0.75em; padding: 3px 8px; }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 2px solid #999;
+  color: #0a0a0a;
+  font: inherit;
+  font-size: 22px;
+  padding: 2px 10px;
+  cursor: pointer;
+  line-height: 1;
+}
+.nav-toggle:hover { border-color: #0a0a0a; background: #0a0a0a; color: #e8e8e8; }
+
+/* footer — heavy rule */
+.site-footer {
+  margin-top: 3em;
+  padding: 1.5em 0;
+  border-top: 4px solid #999;
+}
+.site-footer p { margin: 0.3em 0; }
+.site-footer a { border-bottom: 1px solid #999; }
+.site-footer a:hover { border-bottom-color: #cc0000; }
+
+/* card stack */
+.card-stack { display: flex; flex-direction: column; gap: 2px; margin: 1em 0; }
+
+/* section subheading */
+.section-subheading { margin-top: 2em; font-size: 1.1em; }
+
+/* principle list — hard lines */
+.principle-list { list-style: none; padding: 0; margin: 1em 0; }
+.principle-list li { padding: 0.8em 0; border-bottom: 2px solid #ccc; }
+.principle-list li:last-child { border-bottom: none; }
+
+/* big number stat */
+.stat-number { font-size: 2.5em; font-weight: 700; color: #0a0a0a; line-height: 1; }
+.stat-label { color: #888; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85em; }
+
+/* cta block */
+.cta-block {
+  text-align: center;
+  padding: 3em 0;
+  border-top: 4px solid #999;
+  margin-top: 0;
+}
+.cta-block .tagline { font-size: 1.8em; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  body { font-size: 14px; }
+  .tagline { font-size: 1.8em; }
+  h2 { font-size: 1.2em; }
+  .stat-number { font-size: 2em; }
+  [class^="section-"] { padding: 28px 16px; }
+
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    background: #f0f0f0;
+    border: 2px solid #999;
+    flex-direction: column;
+    padding: 12px;
+    gap: 6px;
+    z-index: 50;
+  }
+  .nav-links.open { display: flex; }
+  .site-nav { position: relative; }
+}

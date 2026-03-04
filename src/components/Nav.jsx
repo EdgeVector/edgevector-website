@@ -1,0 +1,37 @@
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+const NAV_LINKS = [
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'About' },
+  { to: '/technology', label: 'Technology' },
+  { to: '/whitepaper', label: 'Whitepaper' },
+];
+
+export default function Nav() {
+  const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <nav className="site-nav" aria-label="Main navigation">
+      <Link to="/" className="nav-brand">
+        <span className="nav-brand-text">Edge Vector</span>
+      </Link>
+      <span className="nav-spacer" />
+      <button
+        className="nav-toggle"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-expanded={menuOpen}
+        aria-label="Toggle navigation menu"
+      >
+        {menuOpen ? '\u2715' : '\u2630'}
+      </button>
+      <div className={`nav-links${menuOpen ? ' open' : ''}`}>
+        {NAV_LINKS.filter(link => link.to !== pathname).map(link => (
+          <Link key={link.to} to={link.to} className="link-btn" onClick={() => setMenuOpen(false)}>[{link.label}]</Link>
+        ))}
+        <a href="https://github.com/shiba4life/fold_db" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
+      </div>
+    </nav>
+  );
+}
