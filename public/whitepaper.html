@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdgeVector: Personal AI Knowledge Infrastructure — Technical Whitepaper</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: letter;
+    margin: 1in 1.2in;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Serif', 'Georgia', serif;
+    font-size: 11.5pt;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.75in 0.5in;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Title Page ── */
+  .title-page {
+    text-align: center;
+    padding: 2.5in 0 1in;
+    page-break-after: always;
+  }
+  .title-page h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 28pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.15em;
+  }
+  .title-page .subtitle {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14pt;
+    font-weight: 300;
+    color: #555;
+    margin-bottom: 2em;
+  }
+  .title-page .org {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11pt;
+    color: #777;
+    margin-top: 1em;
+  }
+  .title-page .rule {
+    width: 3in;
+    height: 2px;
+    background: #1a1a1a;
+    margin: 1.5em auto;
+  }
+
+  /* ── Headings ── */
+  h2 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 17pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.25em;
+    border-bottom: 1.5px solid #ddd;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12.5pt;
+    font-weight: 600;
+    color: #333;
+    margin-top: 1.5em;
+    margin-bottom: 0.4em;
+    page-break-after: avoid;
+  }
+
+  /* ── Paragraphs ── */
+  p {
+    margin-bottom: 0.8em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  /* ── Abstract ── */
+  .abstract {
+    border-left: 3px solid #999;
+    padding-left: 1em;
+    margin: 1.5em 0 2em;
+    color: #333;
+    font-style: italic;
+  }
+
+  /* ── Lists ── */
+  ul, ol {
+    margin: 0.5em 0 1em 1.5em;
+  }
+  li {
+    margin-bottom: 0.35em;
+  }
+  ol li { padding-left: 0.2em; }
+
+  /* ── Blockquote ── */
+  blockquote {
+    border-left: 3px solid #bbb;
+    padding: 0.5em 0 0.5em 1em;
+    margin: 1em 0;
+    font-style: italic;
+    color: #444;
+  }
+
+  /* ── Code / Pre ── */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88em;
+    background: #f5f5f5;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9pt;
+    line-height: 1.5;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    padding: 0.8em 1em;
+    margin: 0.8em 0 1.2em;
+    overflow-x: auto;
+    white-space: pre;
+    page-break-inside: avoid;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8em 0 1.2em;
+    font-size: 10.5pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.45em 0.7em;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+  }
+  th {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555;
+    border-bottom: 2px solid #bbb;
+  }
+  tr:last-child td { border-bottom: 1px solid #ddd; }
+
+  /* ── Horizontal Rules ── */
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 2em 0;
+  }
+
+  /* ── Section Numbers ── */
+  .section-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    margin-right: 0.3em;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 3em;
+    padding-top: 1.5em;
+    border-top: 1.5px solid #ddd;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10pt;
+    color: #777;
+    font-style: italic;
+  }
+
+  /* ── Diagram blocks ── */
+  .diagram {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 1em 1.5em;
+    margin: 1em 0 1.5em;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  .diagram pre {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: inline-block;
+  }
+
+  /* ── Print styles ── */
+  @media print {
+    body { padding: 0; max-width: none; }
+    h2 { page-break-before: auto; }
+    .title-page { padding-top: 3in; }
+    pre, table, .diagram { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TITLE PAGE ═══════════ -->
+<div class="title-page">
+  <h1>EdgeVector</h1>
+  <div class="subtitle">Personal AI Knowledge Infrastructure</div>
+  <div class="rule"></div>
+  <div class="subtitle" style="font-size:12pt;">A Technical Whitepaper</div>
+  <div class="org">Edge Vector Foundation, 2026</div>
+</div>
+
+<!-- ═══════════ ABSTRACT ═══════════ -->
+<div class="abstract">
+  <p>Artificial intelligence systems increasingly assist users in reasoning over complex information. However, current AI tools depend on centralized cloud infrastructure that requires users to surrender private data to remote servers. This architecture is fundamentally incompatible with privacy, data sovereignty, and the nature of personal knowledge.</p>
+  <p>This paper introduces <strong>EdgeVector</strong>, a new architecture for personal AI knowledge infrastructure that runs entirely on local edge devices. The reference implementation, <strong>FoldDB</strong>, is a database system that converts a user's local storage into an AI-queryable knowledge corpus&nbsp;&mdash; without any data leaving the machine.</p>
+  <p>We describe the system architecture, ingestion pipeline, query engine, encryption model, and performance characteristics. We argue that the convergence of capable local language models, high-capacity NVMe storage, and growing personal data volumes creates a unique opportunity to shift AI infrastructure from the cloud to the edge.</p>
+</div>
+
+<!-- ═══════════ 1. INTRODUCTION ═══════════ -->
+<h2><span class="section-num">1.</span> Introduction</h2>
+
+<h3>1.1 The Problem</h3>
+
+<p>Modern knowledge work produces a vast and growing archive of personal data: source code, documents, emails, notes, research papers, configuration files, and more. These artifacts collectively represent a user's <em>intellectual corpus</em>&nbsp;&mdash; the accumulated output of their professional and creative work.</p>
+
+<p>AI assistants promise to make this corpus searchable and useful. In practice, however, every major AI platform requires users to upload their data to centralized cloud systems. This introduces several critical problems:</p>
+
+<ol>
+  <li><strong>Privacy exposure.</strong> Sensitive data&nbsp;&mdash; proprietary code, confidential documents, personal communications&nbsp;&mdash; must be transmitted to and stored on third-party servers.</li>
+  <li><strong>Fragmented access.</strong> AI tools operate on individual documents, repositories, or conversations. No existing system provides unified semantic access across a user's entire data corpus.</li>
+  <li><strong>No local retrieval infrastructure.</strong> File systems organize data by location, not by meaning. Local AI models have no structured index to query against.</li>
+  <li><strong>Vendor lock-in.</strong> Cloud-based AI knowledge systems bind users to specific platforms, making data portability difficult or impossible.</li>
+</ol>
+
+<p>The fundamental tension is clear: AI needs structured access to data, but users need sovereignty over that data. These goals are treated as mutually exclusive by current architectures.</p>
+
+<h3>1.2 Our Thesis</h3>
+
+<p>EdgeVector proposes that this tension is resolvable. The key insight is:</p>
+
+<blockquote>AI knowledge infrastructure does not need to be centralized. It can run locally, on the same machine where the data already lives.</blockquote>
+
+<p>Three converging trends make this feasible now:</p>
+
+<ul>
+  <li><strong>Local large language models.</strong> Models in the 2B&ndash;13B parameter range run efficiently on consumer hardware with acceptable latency and quality for retrieval-augmented generation (RAG) tasks.</li>
+  <li><strong>High-capacity NVMe storage.</strong> Multi-terabyte NVMe drives are commodity hardware, capable of sustaining the I/O throughput required for large-scale file indexing.</li>
+  <li><strong>Personal data explosion.</strong> The volume of data generated per knowledge worker continues to grow, increasing both the need for and the value of semantic search.</li>
+</ul>
+
+<!-- ═══════════ 2. SYSTEM ARCHITECTURE ═══════════ -->
+<h2><span class="section-num">2.</span> System Architecture</h2>
+
+<p>FoldDB is a <em>local AI knowledge database</em>. Unlike traditional databases that store application data, FoldDB indexes existing files on the user's filesystem and constructs semantic retrieval layers over them. The system is designed to be used by local AI models as a knowledge backend.</p>
+
+<h3>2.1 High-Level Architecture</h3>
+
+<div class="diagram">
+<pre><code>                  +-------------------------+
+                  |       User Interface    |
+                  |    (Chat / CLI / API)   |
+                  +-----------+-------------+
+                              |
+                              v
+                     +-----------------+
+                     |    Local LLM    |
+                     +-----------------+
+                              |
+                              v
+                     +-----------------+
+                     |     FoldDB      |
+                     |   Query Engine  |
+                     +--------+--------+
+                     /        |        \
+                    v         v         v
+             +---------+ +--------+ +----------+
+             |  File   | | Vector | | Metadata |
+             |  Index  | | Store  | |  Store   |
+             +---------+ +--------+ +----------+
+                    \        |        /
+                     v       v       v
+                +------------------------+
+                |      File System       |
+                |   (User's NVMe Drive)  |
+                +------------------------+</code></pre>
+</div>
+
+<p>The architecture consists of six core subsystems:</p>
+
+<ol>
+  <li><strong>File Ingestion Engine</strong>&nbsp;&mdash; scans and parses files</li>
+  <li><strong>Metadata Extractor</strong>&nbsp;&mdash; derives structured metadata from content</li>
+  <li><strong>Vector Store</strong>&nbsp;&mdash; stores embeddings for semantic search</li>
+  <li><strong>Delta Scanner</strong>&nbsp;&mdash; detects and processes file changes</li>
+  <li><strong>Query Engine</strong>&nbsp;&mdash; combines multiple retrieval strategies</li>
+  <li><strong>Encryption Layer</strong>&nbsp;&mdash; protects content and keys at rest</li>
+</ol>
+
+<h3>2.2 Design Principles</h3>
+
+<ul>
+  <li><strong>Zero exfiltration.</strong> No data, metadata, telemetry, or analytics leave the local machine under any circumstance.</li>
+  <li><strong>Index, don't copy.</strong> FoldDB creates retrieval layers over existing files. It does not duplicate or relocate user data.</li>
+  <li><strong>Format-agnostic.</strong> The system supports a broad whitelist of file types through pluggable parsers.</li>
+  <li><strong>Background-first.</strong> Indexing and re-indexing happen as background processes that do not block user interaction.</li>
+</ul>
+
+<!-- ═══════════ 3. FILE INGESTION ═══════════ -->
+<h2><span class="section-num">3.</span> File Ingestion Pipeline</h2>
+
+<h3>3.1 Supported Formats</h3>
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Formats</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Text</td><td>Markdown, plain text, RTF</td></tr>
+    <tr><td>Code</td><td>All major languages (via tree-sitter)</td></tr>
+    <tr><td>Data</td><td>JSON, CSV, YAML, TOML</td></tr>
+    <tr><td>Documents</td><td>PDF, DOCX, HTML</td></tr>
+    <tr><td>Email</td><td>EML, MBOX</td></tr>
+    <tr><td>Notes</td><td>Org-mode, Apple Notes export</td></tr>
+  </tbody>
+</table>
+
+<p>File types outside this whitelist are ignored. The whitelist is user-configurable and extensible.</p>
+
+<h3>3.2 Parsing Strategy</h3>
+
+<p>Each file type has a dedicated parser that extracts two outputs:</p>
+
+<ol>
+  <li><strong>Text content</strong>&nbsp;&mdash; the raw textual content of the file, normalized to UTF-8.</li>
+  <li><strong>Structured metadata</strong>&nbsp;&mdash; format-specific attributes extracted during parsing.</li>
+</ol>
+
+<p>For source code files, the parser additionally extracts:</p>
+
+<ul>
+  <li>Function and method names</li>
+  <li>Class and type definitions</li>
+  <li>Comments and docstrings</li>
+  <li>Import/dependency declarations</li>
+  <li>File structure (module hierarchy)</li>
+</ul>
+
+<p>Parsing is implemented as a pipeline of composable stages:</p>
+
+<pre><code>File &rarr; Format Detection &rarr; Parser Selection &rarr; Content Extraction
+                                               &rarr; Metadata Extraction
+                                               &rarr; Chunk Generation
+                                               &rarr; Embedding Generation</code></pre>
+
+<h3>3.3 Chunking</h3>
+
+<p>Documents are split into overlapping chunks for embedding. The chunking strategy is format-aware:</p>
+
+<ul>
+  <li><strong>Code:</strong> chunks align to function/class boundaries where possible.</li>
+  <li><strong>Prose:</strong> chunks split on paragraph or section boundaries.</li>
+  <li><strong>Data:</strong> chunks split on record boundaries (rows, objects).</li>
+</ul>
+
+<p>Chunk size targets 512 tokens with 64-token overlap, configurable per format.</p>
+
+<!-- ═══════════ 4. DELTA SCANNER ═══════════ -->
+<h2><span class="section-num">4.</span> Delta Scanner</h2>
+
+<h3>4.1 Purpose</h3>
+
+<p>The delta scanner is a background daemon that keeps the index synchronized with the filesystem. Rather than re-indexing the entire drive on each pass, it detects only the files that have changed and processes them incrementally.</p>
+
+<h3>4.2 Algorithm</h3>
+
+<pre><code>1. Walk the target directory tree
+2. For each file:
+   a. Compute content hash (BLAKE3)
+   b. Compare against stored hash in metadata store
+   c. If hash differs or file is new:
+      - Re-parse content
+      - Update metadata
+      - Regenerate embeddings
+      - Update vector index
+   d. If file is deleted:
+      - Remove from all indexes
+3. Record scan timestamp
+4. Sleep until next scan interval</code></pre>
+
+<h3>4.3 Performance Characteristics</h3>
+
+<ul>
+  <li><strong>Hashing:</strong> BLAKE3 processes data at memory bandwidth speeds (&gt;10 GB/s on modern hardware), making hash comparison negligible in cost relative to I/O.</li>
+  <li><strong>Incremental updates:</strong> Only changed files trigger the full parse-embed pipeline. A typical scan of 500,000 files with &lt;1% change rate completes in seconds.</li>
+  <li><strong>Filesystem events:</strong> On supported platforms, the scanner optionally subscribes to filesystem notification APIs (FSEvents on macOS, inotify on Linux) to detect changes without polling.</li>
+</ul>
+
+<!-- ═══════════ 5. METADATA ═══════════ -->
+<h2><span class="section-num">5.</span> Metadata Extraction</h2>
+
+<h3>5.1 Schema</h3>
+
+<p>Every indexed file produces a metadata record with the following fields:</p>
+
+<table>
+  <thead>
+    <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>file_path</code></td><td>string</td><td>Absolute path to the source file</td></tr>
+    <tr><td><code>file_hash</code></td><td>bytes</td><td>BLAKE3 content hash</td></tr>
+    <tr><td><code>file_size</code></td><td>u64</td><td>Size in bytes</td></tr>
+    <tr><td><code>mime_type</code></td><td>string</td><td>Detected MIME type</td></tr>
+    <tr><td><code>created_at</code></td><td>timestamp</td><td>File creation time</td></tr>
+    <tr><td><code>modified_at</code></td><td>timestamp</td><td>Last modification time</td></tr>
+    <tr><td><code>indexed_at</code></td><td>timestamp</td><td>Last indexing time</td></tr>
+    <tr><td><code>title</code></td><td>string?</td><td>Extracted or inferred title</td></tr>
+    <tr><td><code>tags</code></td><td>string[]</td><td>Extracted tags or categories</td></tr>
+    <tr><td><code>language</code></td><td>string?</td><td>Programming language (for code)</td></tr>
+    <tr><td><code>symbols</code></td><td>string[]</td><td>Function names, classes, exports</td></tr>
+    <tr><td><code>structure</code></td><td>json</td><td>Document outline / heading hierarchy</td></tr>
+    <tr><td><code>chunk_count</code></td><td>u32</td><td>Number of chunks generated</td></tr>
+  </tbody>
+</table>
+
+<h3>5.2 Storage</h3>
+
+<p>Metadata is stored in a local embedded database (Sled or SQLite). The metadata store supports full-text search over extracted text fields, filtered queries by file type, date range, tags, or symbols, and fast lookup by file path or content hash.</p>
+
+<!-- ═══════════ 6. VECTOR INDEX ═══════════ -->
+<h2><span class="section-num">6.</span> Vector Index</h2>
+
+<h3>6.1 Embedding Generation</h3>
+
+<p>Each chunk is embedded using a local embedding model. The default model is a quantized sentence-transformer (e.g., <code>all-MiniLM-L6-v2</code> or <code>bge-small-en-v1.5</code>) running on CPU or GPU. Embedding dimensions: 384 (configurable based on model choice).</p>
+
+<h3>6.2 Index Structure</h3>
+
+<p>The vector index uses <strong>HNSW (Hierarchical Navigable Small World)</strong> graphs for approximate nearest neighbor search. HNSW provides sub-millisecond query latency at million-scale vector counts, low memory overhead with memory-mapped storage, and incremental insertion without full rebuilds.</p>
+
+<h3>6.3 Storage Layout</h3>
+
+<pre><code>fold_db/
+├── metadata.db              # Metadata store (Sled/SQLite)
+├── vector_index/
+│   ├── hnsw.bin             # HNSW graph structure
+│   └── vectors.bin          # Raw embedding vectors
+├── document_store/
+│   ├── chunks/              # Serialized chunk content
+│   └── mappings/            # Chunk-to-file mappings
+└── encryption_keys/
+    ├── master.key.enc       # Encrypted master key
+    └── keyring.db           # Per-file key derivations</code></pre>
+
+<!-- ═══════════ 7. QUERY ENGINE ═══════════ -->
+<h2><span class="section-num">7.</span> Query Engine</h2>
+
+<h3>7.1 Multi-Strategy Retrieval</h3>
+
+<p>The query engine combines three retrieval strategies and merges their results:</p>
+
+<ol>
+  <li><strong>Semantic search.</strong> The user's query is embedded and compared against the vector index using cosine similarity. Returns the top-k most semantically relevant chunks.</li>
+  <li><strong>Keyword search.</strong> BM25 or full-text search over the metadata store. Catches exact matches that semantic search may rank lower.</li>
+  <li><strong>Metadata filtering.</strong> Structured filters narrow results by file type, date range, language, symbol name, or tags.</li>
+</ol>
+
+<p>Results from all three strategies are merged using <strong>reciprocal rank fusion (RRF)</strong>, which produces a unified ranking without requiring score normalization across heterogeneous retrieval methods.</p>
+
+<h3>7.2 Query API</h3>
+
+<p>FoldDB exposes a local HTTP API and an MCP (Model Context Protocol) interface for AI agent integration.</p>
+
+<p><strong>REST API:</strong></p>
+
+<pre><code>POST /v1/search
+{
+  "query": "distributed encryption design decisions",
+  "filters": {
+    "file_type": ["md", "rs", "pdf"],
+    "modified_after": "2025-01-01"
+  },
+  "top_k": 20
+}
+
+GET /v1/document/{document_id}
+GET /v1/document/{document_id}/chunks
+GET /v1/stats</code></pre>
+
+<p><strong>MCP Interface:</strong> FoldDB registers as an MCP tool provider, exposing <code>search</code>, <code>get_document</code>, and <code>list_files</code> tools that any MCP-compatible AI agent can invoke directly.</p>
+
+<h3>7.3 Query Pipeline</h3>
+
+<div class="diagram">
+<pre><code>User Query
+    │
+    ├──→ Embed query ──→ Vector search (top-k)  ──┐
+    ├──→ Tokenize    ──→ Keyword search (BM25)  ──┼──→ RRF Merge ──→ Results
+    └──→ Parse filters ──→ Metadata filter      ──┘</code></pre>
+</div>
+
+<!-- ═══════════ 8. SECURITY ═══════════ -->
+<h2><span class="section-num">8.</span> Security Model</h2>
+
+<h3>8.1 Threat Model</h3>
+
+<p>FoldDB assumes the following threat model:</p>
+
+<ul>
+  <li><strong>Trusted:</strong> The local machine and its operating system.</li>
+  <li><strong>Untrusted:</strong> All networks, cloud services, and external processes.</li>
+  <li><strong>Goal:</strong> Even if the FoldDB data directory is exfiltrated (e.g., stolen laptop), the content must remain unreadable without the user's passphrase.</li>
+</ul>
+
+<h3>8.2 Encryption Architecture</h3>
+
+<table>
+  <thead>
+    <tr><th>Layer</th><th>Encryption</th><th>Rationale</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Content</strong></td><td>AES-256-GCM</td><td>All indexed content and chunks encrypted</td></tr>
+    <tr><td><strong>Metadata</strong></td><td>Optional (AES-256)</td><td>Optionally plaintext for faster filtering</td></tr>
+    <tr><td><strong>Keys</strong></td><td>Encrypted at rest</td><td>Master key derived from user passphrase</td></tr>
+  </tbody>
+</table>
+
+<h3>8.3 Key Management</h3>
+
+<div class="diagram">
+<pre><code>User Passphrase
+       │
+       v
+   Argon2id KDF ──→ Master Key (256-bit)
+                        │
+                        v
+                   HKDF Derivation
+                   /       |       \
+                  v        v        v
+           Content Key  Metadata  Vector Key
+                        Key</code></pre>
+</div>
+
+<ul>
+  <li>The <strong>master key</strong> is derived from the user's passphrase using Argon2id with high memory and iteration parameters.</li>
+  <li><strong>Per-purpose keys</strong> are derived from the master key using HKDF.</li>
+  <li>The master key is never stored in plaintext. It is held in memory only while the application is running and the user has authenticated.</li>
+  <li>A <strong>public/private keypair</strong> (Ed25519) is generated at first launch for future node-to-node authentication in distributed scenarios.</li>
+</ul>
+
+<h3>8.4 Zero-Exfiltration Guarantee</h3>
+
+<p>FoldDB enforces a strict no-network policy:</p>
+
+<ul>
+  <li>The application makes <strong>zero outbound network connections</strong> during normal operation.</li>
+  <li>The local API binds exclusively to <code>127.0.0.1</code>.</li>
+  <li>No telemetry, crash reports, or update checks are transmitted.</li>
+  <li>Network access is only used if the user explicitly enables optional cloud sync (P1 feature).</li>
+</ul>
+
+<!-- ═══════════ 9. AI INTEGRATION ═══════════ -->
+<h2><span class="section-num">9.</span> AI Integration</h2>
+
+<h3>9.1 Local LLM</h3>
+
+<p>FoldDB ships with a bundled 2B-parameter language model for out-of-the-box functionality. Users can configure any local model that exposes an OpenAI-compatible API (Ollama, llama.cpp, LM Studio, etc.).</p>
+
+<h3>9.2 Retrieval-Augmented Generation (RAG)</h3>
+
+<p>The standard query flow follows a RAG pattern:</p>
+
+<ol>
+  <li>User submits natural language query</li>
+  <li>Query engine retrieves relevant chunks (Section 7)</li>
+  <li>Retrieved chunks are injected into the LLM prompt as context</li>
+  <li>LLM generates a grounded response with source citations</li>
+  <li>Response includes file paths and chunk references for verification</li>
+</ol>
+
+<h3>9.3 Agent Tooling</h3>
+
+<p>For AI agent frameworks, FoldDB functions as a tool provider:</p>
+
+<ul>
+  <li><strong>MCP server</strong>&nbsp;&mdash; compatible with Claude, Cursor, and other MCP-aware agents</li>
+  <li><strong>Function calling</strong>&nbsp;&mdash; exposes search/retrieve/list as callable tools</li>
+  <li><strong>Streaming</strong>&nbsp;&mdash; supports streaming chunk retrieval for long-running agent workflows</li>
+</ul>
+
+<p>This allows any local AI agent to treat the user's entire filesystem as a queryable knowledge base.</p>
+
+<!-- ═══════════ 10. PERFORMANCE ═══════════ -->
+<h2><span class="section-num">10.</span> Performance</h2>
+
+<h3>10.1 Targets</h3>
+
+<table>
+  <thead>
+    <tr><th>Metric</th><th>Target</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Installation time</td><td>&lt; 2 minutes</td></tr>
+    <tr><td>Initial indexing speed</td><td>&gt; 200,000 files/hr</td></tr>
+    <tr><td>Incremental scan (500K files)</td><td>&lt; 10 seconds</td></tr>
+    <tr><td>Query latency (semantic)</td><td>&lt; 500ms</td></tr>
+    <tr><td>Query latency (keyword)</td><td>&lt; 100ms</td></tr>
+    <tr><td>Memory usage (idle)</td><td>&lt; 200 MB</td></tr>
+    <tr><td>Memory usage (indexing)</td><td>&lt; 1 GB</td></tr>
+    <tr><td>Disk overhead</td><td>~20% of source</td></tr>
+  </tbody>
+</table>
+
+<h3>10.2 Optimizations</h3>
+
+<ul>
+  <li><strong>Parallel ingestion.</strong> File parsing and embedding generation are parallelized across available CPU cores.</li>
+  <li><strong>Memory-mapped I/O.</strong> The vector index and metadata store use memory-mapped files, allowing the OS to manage caching efficiently.</li>
+  <li><strong>Lazy embedding.</strong> Embeddings are generated on-demand for newly added files and cached persistently. Unchanged files are never re-embedded.</li>
+  <li><strong>Tiered storage.</strong> Hot metadata (frequently queried) remains in memory; cold data is accessed via memory-mapped disk.</li>
+</ul>
+
+<!-- ═══════════ 11. APPLICATIONS ═══════════ -->
+<h2><span class="section-num">11.</span> Applications</h2>
+
+<h3>11.1 Near-Term (v1)</h3>
+
+<ul>
+  <li><strong>Personal knowledge search.</strong> Ask natural language questions across all local files.</li>
+  <li><strong>Codebase understanding.</strong> Query function definitions, design patterns, and architectural decisions across repositories.</li>
+  <li><strong>Document recall.</strong> Find documents by content rather than filename or folder.</li>
+  <li><strong>Research synthesis.</strong> Surface connections between papers, notes, and code across projects.</li>
+</ul>
+
+<h3>11.2 Medium-Term (v2)</h3>
+
+<ul>
+  <li><strong>Meeting preparation.</strong> Before a meeting, query FoldDB for all relevant context&nbsp;&mdash; past notes, related code changes, prior decisions.</li>
+  <li><strong>Cloud sync and resilience.</strong> Optional encrypted backup to user-controlled cloud storage.</li>
+  <li><strong>Mobile access.</strong> Query your knowledge base from a mobile device via encrypted tunnel to your local machine.</li>
+</ul>
+
+<h3>11.3 Long-Term Vision</h3>
+
+<p>EdgeVector envisions a future where individuals operate <strong>sovereign AI knowledge nodes</strong>. Each node indexes its owner's data locally, runs its own AI models, and optionally connects to other nodes in a <em>distributed knowledge network</em>.</p>
+
+<p>In this architecture, collaboration happens through structured queries between nodes, not by centralizing data. Privacy is preserved because each node decides what to share, with whom, and under what conditions.</p>
+
+<p>This is the vision of <strong>personal AI infrastructure</strong>&nbsp;&mdash; the computational and data sovereignty equivalent of personal computing.</p>
+
+<!-- ═══════════ 12. RELATED WORK ═══════════ -->
+<h2><span class="section-num">12.</span> Related Work</h2>
+
+<table>
+  <thead>
+    <tr><th>System</th><th>Approach</th><th>Key Limitation</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>ChatGPT / Claude</td><td>Cloud LLM + uploaded documents</td><td>Data leaves the machine</td></tr>
+    <tr><td>GitHub Copilot</td><td>Cloud LLM + code context</td><td>Limited to code; cloud-dependent</td></tr>
+    <tr><td>Apple Spotlight</td><td>Local keyword search</td><td>No semantic search; no AI integration</td></tr>
+    <tr><td>Obsidian + plugins</td><td>Local notes with community search</td><td>Single format; no universal file index</td></tr>
+    <tr><td>Rewind.ai</td><td>Local screen recording + search</td><td>Screen-level; no structured retrieval</td></tr>
+    <tr><td>RAGFlow / PrivateGPT</td><td>Local RAG over documents</td><td>No background sync; manual upload</td></tr>
+  </tbody>
+</table>
+
+<p>FoldDB differentiates by combining <strong>automatic filesystem indexing</strong>, <strong>background incremental sync</strong>, <strong>multi-format parsing</strong>, <strong>encrypted storage</strong>, and <strong>native AI agent integration</strong> in a single local system.</p>
+
+<!-- ═══════════ 13. ORGANIZATION ═══════════ -->
+<h2><span class="section-num">13.</span> Organizational Structure</h2>
+
+<p>EdgeVector operates as a <strong>non-profit foundation</strong> (Edge Vector Foundation) with a for-profit subsidiary.</p>
+
+<ul>
+  <li>The <strong>foundation</strong> stewards the open-source FoldDB core, maintains the protocol specifications, and governs the ecosystem.</li>
+  <li>The <strong>subsidiary</strong> builds commercial products on top of the open-source platform: managed cloud sync, enterprise features, mobile applications, and premium support.</li>
+</ul>
+
+<p>This structure ensures that the core technology remains open and community-governed while enabling sustainable commercial development.</p>
+
+<!-- ═══════════ 14. CONCLUSION ═══════════ -->
+<h2><span class="section-num">14.</span> Conclusion</h2>
+
+<p>The current paradigm of centralized AI infrastructure forces a false trade-off between AI capability and data privacy. EdgeVector rejects this trade-off.</p>
+
+<p>By running AI knowledge infrastructure locally&nbsp;&mdash; indexing files where they already live, embedding content on the user's own hardware, and encrypting everything at rest&nbsp;&mdash; FoldDB demonstrates that AI assistants can understand a user's complete data corpus without that data ever leaving the machine.</p>
+
+<p>The technical foundations are sound: local LLMs are capable enough, NVMe storage is fast enough, and HNSW indexes are efficient enough. What has been missing is the system that ties these components together into a coherent, privacy-preserving knowledge platform.</p>
+
+<p>FoldDB is that system. EdgeVector is the architecture. The shift from centralized AI to personal AI infrastructure begins at the edge.</p>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  Edge Vector Foundation &mdash; edgevector.org
+</div>
+
+</body>
+</html>
