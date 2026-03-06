@@ -56,11 +56,12 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 
 /* cards — clean text blocks */
 .card {
-  padding: 20px 0;
+  padding: 20px 0 20px 20px;
   display: flex;
   flex-direction: column;
   min-width: 0;
   background: transparent;
+  border-left: 2px solid #999;
 }
 .card pre { background: #e0e0e0; padding: 12px; margin: 0.5em 0; border: 2px solid #999; }
 
