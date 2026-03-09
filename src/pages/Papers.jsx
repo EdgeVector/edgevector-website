@@ -70,7 +70,6 @@ export default function Papers() {
 
       <h1 className="tagline">Papers</h1>
       <p className="subtitle">Technical papers from the Edge Vector Foundation</p>
-      <hr className="decorative-rule" aria-hidden="true" />
 
       {PAPERS.map((section) => (
         <Section key={section.category} variant="slate">
