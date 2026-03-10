@@ -1,0 +1,10 @@
+#!/bin/bash
+# Pre-commit hook: refresh public/docs/ from workspace docs/ and stage changes.
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SITE_DIR="$(dirname "$SCRIPT_DIR")"
+
+bash "$SITE_DIR/scripts/copy-docs.sh" > /dev/null 2>&1
+
+cd "$SITE_DIR"
+git add public/docs/
