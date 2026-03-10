@@ -43,12 +43,6 @@ const PAPERS = [
         description: 'How user schemas converge over time through WASM-based views, a content-addressed view registry, bidirectional consistency, and micropayment incentives.',
         pdf: '/papers/schema_convergence_views.pdf',
       },
-      {
-        title: 'Sealed Transforms: Secure, Verifiable Cloud Compute on User Data with Zero Knowledge',
-        authors: 'Tom Tang',
-        description: 'A WASM-based architecture for executing computations on encrypted user data such that the cloud learns nothing, while anyone can verify what computation was performed.',
-        pdf: '/papers/zero_knowledge_cloud_compute.pdf',
-      },
     ],
   },
   {
