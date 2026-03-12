@@ -42,6 +42,9 @@ const PAPERS = [
         authors: 'Tom Tang',
         description: 'How user schemas converge over time through WASM-based views, a content-addressed view registry, bidirectional consistency, and micropayment incentives.',
         pdf: '/papers/schema_convergence_views.pdf',
+        simplified: [
+          { label: 'ELI5 Version', pdf: '/papers/schema_convergence_views_eli5.pdf' },
+        ],
       },
       {
         title: 'Preventing Data Structure Fragmentation Through Canonical Schema and Field Resolution',
@@ -63,6 +66,9 @@ const PAPERS = [
         authors: 'Tom Tang, Fei Jia',
         description: 'A system for discovering private data without exposing it, using semantic atomization and anonymized vector fragments that enable search while preserving privacy.',
         pdf: '/papers/pseudonymous_vectorized_discovery.pdf',
+        simplified: [
+          { label: 'ELI5 Version', pdf: '/papers/pseudonymous_vectorized_discovery_eli5.pdf' },
+        ],
       },
     ],
   },
