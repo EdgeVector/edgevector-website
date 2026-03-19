@@ -33,4 +33,5 @@ cp "$WORKSPACE/docs/corporate/nonprofit_edge_vector_foundation.md" "$DEST/corpor
 # Progress
 cp "$WORKSPACE/docs/progress/roadmap.md" "$DEST/progress/"
 
+
 echo "Copied docs to $DEST"

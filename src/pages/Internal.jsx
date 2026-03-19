@@ -18,6 +18,11 @@ const TABS = [
       '/docs/design/THIRD_PARTY_APP_AUTHORIZATION.md',
     ],
   },
+  {
+    id: 'video',
+    label: 'Explainer Video',
+    video: '/videos/FoldDB_Overview_V3_with_audio.mp4',
+  },
 ];
 
 const tabStyle = (active) => ({
@@ -138,7 +143,20 @@ export default function Internal() {
         ))}
       </div>
 
-      {tab && tab.docs.map(path => (
+      {tab && tab.video && (
+        <div style={{ marginBottom: '3em' }}>
+          <h2 style={{ fontFamily: 'inherit', fontWeight: 'bold', marginBottom: '1em' }}>FoldDB Overview</h2>
+          <video
+            controls
+            style={{ width: '100%', maxWidth: '960px', border: '2px solid #0a0a0a' }}
+            src={tab.video}
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
+
+      {tab && tab.docs && tab.docs.map(path => (
         <div key={path} className="markdown-body" style={{ marginBottom: '3em' }}>
           {docs[path] ? (
             <MermaidMarkdown>{docs[path]}</MermaidMarkdown>
