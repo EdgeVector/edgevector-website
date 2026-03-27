@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import MermaidMarkdown from '../components/MermaidMarkdown';
 
-const DOC_PATH = '/docs/WHITEPAPER.md';
+const DOC_PATH = '/docs/product/WHITEPAPER.md';
 
 export default function Whitepaper() {
   const [content, setContent] = useState('');

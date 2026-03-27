@@ -16,12 +16,12 @@ if [ ! -d "$WORKSPACE/docs" ]; then
 fi
 
 rm -rf "$DEST"
-mkdir -p "$DEST/design" "$DEST/corporate" "$DEST/progress"
+mkdir -p "$DEST/product" "$DEST/design" "$DEST/corporate" "$DEST/progress"
 
-# Top-level docs
-cp "$WORKSPACE/docs/PITCH_DECK.md" "$DEST/"
-cp "$WORKSPACE/docs/WHITEPAPER.md" "$DEST/"
-cp "$WORKSPACE/docs/PRD.md" "$DEST/"
+# Product docs
+cp "$WORKSPACE/docs/product/PITCH_DECK.md" "$DEST/product/"
+cp "$WORKSPACE/docs/product/WHITEPAPER.md" "$DEST/product/"
+cp "$WORKSPACE/docs/product/PRD.md" "$DEST/product/"
 
 # Design docs
 cp "$WORKSPACE/docs/design/DATA_ACCESS_ARCHITECTURE.md" "$DEST/design/"
