@@ -86,41 +86,19 @@ The user node is a local database that:
 
 The node is the sole point of decryption. No external system — including the relay — ever sees plaintext data.
 
-```
-                    SYSTEM ARCHITECTURE
+```mermaid
+graph TD
+    AppA["Third-Party App A"] -- "E2E Encrypted" --> Relay["Encrypted Relay<br/>(JWT validation, ciphertext relay,<br/>access count / expiration enforcement)"]
+    AppB["Third-Party App B"] -- "E2E Encrypted" --> Relay
+    Relay -- "E2E Encrypted" --> Node["User's Node (Local)"]
 
-    +-------------------+          +-------------------+
-    | Third-Party App   |          | Third-Party App   |
-    +--------+----------+          +--------+----------+
-             |                              |
-             | E2E Encrypted                | E2E Encrypted
-             v                              v
-    +------------------------------------------------+
-    |              Encrypted Relay                    |
-    |  - JWT validation                              |
-    |  - Ciphertext relay (never decrypts)           |
-    |  - Access count / expiration enforcement       |
-    +------------------------+-----------------------+
-                             |
-                             | E2E Encrypted
-                             v
-    +------------------------------------------------+
-    |              User's Node (Local)                |
-    |                                                 |
-    |  +------------------+  +---------------------+  |
-    |  | Schema System    |  | WASM Transform      |  |
-    |  | (Folds)          |  | Engine              |  |
-    |  | - Per-field ACL  |  | - Sandboxed exec    |  |
-    |  | - Trust distance |  | - Content-addressed |  |
-    |  | - Security labels|  | - Gas-metered       |  |
-    |  | - Payment gates  |  | - No I/O access     |  |
-    |  +------------------+  +---------------------+  |
-    |                                                 |
-    |  +--------------------------------------------+ |
-    |  | Encrypted Data Store (AES-256-GCM)         | |
-    |  | Keys derived from user passkey via Argon2id| |
-    |  +--------------------------------------------+ |
-    +------------------------------------------------+
+    subgraph Node["User's Node (Local)"]
+        Schema["Schema System (Folds)<br/>Per-field ACL, Trust distance,<br/>Security labels, Payment gates"]
+        WASM["WASM Transform Engine<br/>Sandboxed exec, Content-addressed,<br/>Gas-metered, No I/O access"]
+        Store["Encrypted Data Store (AES-256-GCM)<br/>Keys derived from user passkey via Argon2id"]
+        Schema --> Store
+        WASM --> Store
+    end
 ```
 
 #### Schema System (Folds)
@@ -145,35 +123,26 @@ Data passing between host and guest occurs through serialized field values copie
 
 #### Three-Layer Composition Model
 
-```
-         THREE-LAYER COMPOSITION MODEL
+```mermaid
+graph TD
+    subgraph L1["Layer 1: Standard Library (Public, Auditable)"]
+        multiply["multiply<br/>(Float → Float)"]
+        add["add<br/>(Float → Float)"]
+        uppercase["uppercase<br/>(String → String)"]
+        array_sum["array_sum<br/>(Array → Float)"]
+    end
 
-    Layer 1: Standard Library (Public, Auditable)
-    +------------+ +----------+ +-------------+ +----------+
-    | multiply   | | add      | | uppercase   | | array_sum|
-    | (Float->   | | (Float-> | | (String->   | | (Array-> |
-    |  Float)    | |  Float)  | |  String)    | |  Float)  |
-    +------+-----+ +----+-----+ +-------------+ +----------+
-           |             |
-           v             v
-    Layer 2: Composed Transforms (Public, Chained)
-    +----------------------------------+
-    | usd_to_eur_rounded               |
-    | imports: multiply_085, round_2   |
-    | input -> multiply -> round ->    |
-    |                          output  |
-    +----------------+-----------------+
-                     |
-                     v
-    Layer 3: Encrypted Wrappers (Private, User-Generated)
-    +----------------------------------+
-    | alice_to_bob_salary              |
-    | imports: multiply_085            |
-    | decrypt(OWNER_KEY) ->            |
-    |   multiply_085 ->                |
-    |     encrypt(RECIPIENT_KEY) ->    |
-    |                          output  |
-    +----------------------------------+
+    subgraph L2["Layer 2: Composed Transforms (Public, Chained)"]
+        composed["usd_to_eur_rounded<br/>imports: multiply_085, round_2<br/>input → multiply → round → output"]
+    end
+
+    subgraph L3["Layer 3: Encrypted Wrappers (Private, User-Generated)"]
+        wrapper["alice_to_bob_salary<br/>imports: multiply_085<br/>decrypt(OWNER_KEY) → multiply_085 → encrypt(RECIPIENT_KEY) → output"]
+    end
+
+    multiply --> composed
+    add --> composed
+    composed --> wrapper
 ```
 
 **Layer 1 — Standard Library (Public):** Pre-compiled WASM modules for common operations (arithmetic, string operations, array aggregation, classification). Published with source code for full public verifiability.
@@ -191,27 +160,18 @@ An encrypted wrapper transform operates as follows:
 4. Encrypts the result using the recipient's key (embedded in WASM)
 5. Returns encrypted output (ciphertext bytes)
 
-```
-         ENCRYPTED WRAPPER TRANSFORM (Layer 3)
+```mermaid
+sequenceDiagram
+    participant Host as Host Runtime
+    participant WASM as WASM Sandbox
 
-    Host Runtime                  WASM Sandbox
-    ============                  ============
-
-    Encrypted Input
-    [ciphertext] ----copy--->  1. decrypt(ciphertext, OWNER_KEY)
-                                        |
-                               2. plaintext (visible only in sandbox)
-                                        |
-                               3. inner_transform(plaintext)
-                                  [publicly verifiable Layer 1/2]
-                                        |
-                               4. encrypt(result, RECIPIENT_KEY)
-                                        |
-    Encrypted Output <--copy---  [ciphertext]
-    [ciphertext]
-
-    Host sees: bytes in, bytes out. Never plaintext.
-    Keys exist only inside WASM linear memory.
+    Host->>WASM: Encrypted Input [ciphertext]
+    Note over WASM: 1. decrypt(ciphertext, OWNER_KEY)
+    Note over WASM: 2. plaintext (visible only in sandbox)
+    Note over WASM: 3. inner_transform(plaintext)<br/>[publicly verifiable Layer 1/2]
+    Note over WASM: 4. encrypt(result, RECIPIENT_KEY)
+    WASM->>Host: Encrypted Output [ciphertext]
+    Note over Host: Host sees: bytes in, bytes out.<br/>Never plaintext. Keys exist<br/>only inside WASM linear memory.
 ```
 
 The host sees bytes in, bytes out. The plaintext is never exposed outside the WASM sandbox.
@@ -252,32 +212,17 @@ Transform fields operate under a three-state machine:
 - **Cached**: Value computed from source via WASM transform. Recomputes when source changes (invalidation via dependency map).
 - **Overridden**: Value directly written by user. Source link is stale. Persists until explicitly cleared.
 
-```
-         TRANSFORM FIELD STATE MACHINE
-
-                  +-------+
-                  | Empty |<--------------------------+
-                  +---+---+                           |
-                      |                               |
-              read    |                    reversible write
-          (compute    |                   (inverse WASM ->
-           via WASM)  |                    mutate source ->
-                      v                    invalidate)
-                  +--------+                          |
-       +--------->| Cached |------------>-------------+
-       |          +--------+
-       |              |
-       |   source     |  irreversible
-       |   mutation   |  write (direct)
-       |   (invalidate|
-       |    to Empty) |
-       |              v
-       |          +------------+
-       +----------| Overridden |
-        source    +------------+
-        mutation     ^      |
-        (no change)  |      | irreversible write
-                     +------+ (stays Overridden)
+```mermaid
+stateDiagram-v2
+    [*] --> Empty
+    Empty --> Cached: read (compute via WASM)
+    Cached --> Empty: source mutation (invalidate)
+    Cached --> Empty: reversible write (inverse WASM → mutate source)
+    Cached --> Overridden: irreversible write (direct store)
+    Overridden --> Overridden: source mutation (no change)
+    Overridden --> Overridden: irreversible write (stays Overridden)
+    Overridden --> Empty: reversible write (inverse WASM → mutate source)
+    Empty --> Overridden: irreversible write (direct store)
 ```
 
 Transitions:
@@ -290,28 +235,28 @@ Transitions:
 
 ### Data Flow — End-to-End Encrypted Computation
 
-```
-    END-TO-END ENCRYPTED COMPUTATION FLOW
+```mermaid
+sequenceDiagram
+    participant Alice as Alice's Client
+    participant Server as Server Storage
+    participant WASM as WASM Sandbox
+    participant Bob as Bob's Client
 
-    WRITE:
-    Alice's Client                Server Storage
-    plaintext: 75000.0
-    encrypt(alice_key) -------->  Encrypted([0xa3,0xf2,...])
-                                  type: Encrypted(Float)
+    Note over Alice,Bob: WRITE PATH
+    Alice->>Server: encrypt(alice_key, 75000.0) → [0xa3,0xf2,...]
+    Note over Server: Stores Encrypted(Float) — knows only "an encrypted float"
 
-    TRANSFORM:
-    Server                        WASM Sandbox
-    load WASM by hash
-    call transform() ---------->  decrypt(ALICE_KEY) -> 75000.0
-                                  multiply_085()     -> 63750.0
-                                  encrypt(BOB_KEY)   -> [0xb7,0x01,...]
-    receive ciphertext <--------  return [0xb7,0x01,...]
-    (never saw 75000 or 63750)
+    Note over Alice,Bob: TRANSFORM PATH
+    Server->>WASM: load WASM by hash, call transform([0xa3,0xf2,...])
+    Note over WASM: decrypt(ALICE_KEY) → 75000.0
+    Note over WASM: multiply_085() → 63750.0
+    Note over WASM: encrypt(BOB_KEY) → [0xb7,0x01,...]
+    WASM->>Server: return [0xb7,0x01,...]
+    Note over Server: Never saw 75000.0 or 63750.0
 
-    READ:
-    Server                        Bob's Client
-    Encrypted([0xb7,0x01,...])
-    relay ciphertext ---------->  decrypt(bob_key) -> 63750.0
+    Note over Alice,Bob: READ PATH
+    Server->>Bob: relay ciphertext [0xb7,0x01,...]
+    Note over Bob: decrypt(bob_key) → 63750.0
 ```
 
 **Write Path (client encrypts):**

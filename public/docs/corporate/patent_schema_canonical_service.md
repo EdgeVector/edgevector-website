@@ -84,41 +84,23 @@ The present invention provides a system and method comprising:
 
 The system comprises a centralized schema service that maintains the canonical registry, and distributed client nodes that submit schemas for registration and receive canonical mappings. The schema service operates as a standalone HTTP server with persistent storage (an embedded key-value store for local deployment, a managed cloud database for cloud deployment).
 
-```
-    SYSTEM ARCHITECTURE — SCHEMA SERVICE
+```mermaid
+graph TD
+    A["Node A<br/>(ingests recipes)"] -->|submit schema| SS
+    B["Node B<br/>(ingests recipes)"] -->|submit schema| SS
+    C["Node C<br/>(ingests health)"] -->|submit schema| SS
 
-    Node A                  Node B                  Node C
-    (ingests               (ingests                (ingests
-     recipes)               recipes)                health)
-       |                       |                       |
-       | submit schema         | submit schema         | submit schema
-       v                       v                       v
-    +------------------------------------------------------+
-    |                   Schema Service                      |
-    |                                                       |
-    |  +------------------+    +-------------------------+  |
-    |  | Schema Identity  |    | Canonical Field         |  |
-    |  | Hash Registry    |    | Registry                |  |
-    |  |                  |    |                         |  |
-    |  | descriptive_name |    | field_name -> {         |  |
-    |  | + sorted fields  |    |   description,          |  |
-    |  | -> SHA-256 hash  |    |   type,                 |  |
-    |  +--------+---------+    |   classification,       |  |
-    |           |              |   interest_category     |  |
-    |     +-----+-----+       | }                       |  |
-    |     |     |     |       +-------------------------+  |
-    |     v     v     v                                     |
-    |  Added  Already Expanded                              |
-    |         Exists  (superset                              |
-    |                  with molecule                         |
-    |                  pointers)                             |
-    +------------------------------------------------------+
-       |                       |                       |
-       v                       v                       v
-    mutation                mutation                mutation
-    mappers                 mappers                 mappers
-    {original ->            {original ->            {original ->
-     canonical}              canonical}              canonical}
+    subgraph SS["Schema Service"]
+        Hash["Schema Identity Hash Registry<br/>descriptive_name + sorted fields → SHA-256"]
+        Canon["Canonical Field Registry<br/>field_name → description, type,<br/>classification, interest_category"]
+        Hash --> Added["Added"]
+        Hash --> Exists["AlreadyExists"]
+        Hash --> Expanded["Expanded<br/>(superset with<br/>molecule pointers)"]
+    end
+
+    SS -->|"mutation mappers<br/>{original → canonical}"| A
+    SS -->|"mutation mappers<br/>{original → canonical}"| B
+    SS -->|"mutation mappers<br/>{original → canonical}"| C
 ```
 
 #### Schema Identity Hash
@@ -183,28 +165,21 @@ When a new schema's fields are canonicalized:
 
 The bidirectional check prevents degenerate mappings.
 
+```mermaid
+graph LR
+    subgraph Without["Without Bidirectional Check (WRONG)"]
+        notes1["notes"] -->|0.90| desc1["description"]
+        summary1["summary"] -->|0.89| desc1
+        desc1 --> collision["COLLISION — data lost"]
+    end
 ```
-    BIDIRECTIONAL BEST-MATCH VERIFICATION
 
-    Without bidirectional check (WRONG):
-
-    Incoming Fields          Canonical Fields
-    ===============          ================
-    "notes"    ----0.90----> "description"  <----0.89---- "summary"
-    "summary"  ----0.89--/
-
-    Both map to "description" — COLLISION, data lost.
-
-    With bidirectional check (CORRECT):
-
-    Step 1: "notes" best canonical match = "description" (0.90)     OK
-    Step 2: "description" best incoming match = "notes" (0.90)      OK
-            Bidirectional? YES -> ACCEPT mapping
-
-    Step 3: "summary" best canonical match = "description" (0.89)   OK
-    Step 4: "description" best incoming match = "notes" (0.90)      != "summary"
-            Bidirectional? NO -> REJECT mapping
-            "summary" registered as NEW canonical field
+```mermaid
+graph LR
+    subgraph With["With Bidirectional Check (CORRECT)"]
+        notes2["notes"] -->|"0.90 (best match both directions)"| desc2["description"]
+        summary2["summary"] -->|"0.89 → but description's best = notes"| new2["NEW canonical field"]
+    end
 ```
 
 Without it, if canonical field "description" is the closest match for both incoming "notes" and incoming "summary", both would be mapped to "description", losing distinction. With bidirectional verification:
@@ -219,32 +194,25 @@ Field descriptions are embedded rather than field names because different data s
 
 #### Schema Expansion
 
-```
-    SCHEMA EXPANSION WITH MOLECULE-LEVEL DATA POINTERS
+```mermaid
+graph TD
+    subgraph Old["Existing: Recipe Collection (hash: abc123)"]
+        title_old["title → mol_001"]
+        ingr_old["ingredients → mol_002"]
+    end
 
-    Existing: "Recipe Collection"         New: "Recipe Collection"
-    fields: [title, ingredients]          fields: [title, ingredients,
-    hash: abc123                                   prep_time, servings]
-    molecules:                            hash: def456 (different!)
-      title -> mol_001
-      ingredients -> mol_002
+    subgraph New["New: Recipe Collection (hash: def456)"]
+        title_new["title → mol_001 (REUSED)"]
+        ingr_new["ingredients → mol_002 (REUSED)"]
+        prep["prep_time → mol_003 (NEW)"]
+        serv["servings → mol_004 (NEW)"]
+    end
 
-                        EXPANSION
-                           |
-                           v
+    Old -->|"EXPANSION<br/>Old schema BLOCKED"| New
+    title_old -.->|"field mapper"| title_new
+    ingr_old -.->|"field mapper"| ingr_new
 
-    Old schema abc123: BLOCKED (deprecated)
-
-    New schema def456:
-      title       -> mol_001  (REUSED via field mapper)
-      ingredients -> mol_002  (REUSED via field mapper)
-      prep_time   -> mol_003  (NEW molecule)
-      servings    -> mol_004  (NEW molecule)
-
-    Descriptive name index: "Recipe Collection" -> def456
-
-    Result: Zero data migration. Existing records accessible
-    through new schema via shared molecule pointers.
+    New --> Result["Zero data migration.<br/>Descriptive name index:<br/>Recipe Collection → def456"]
 ```
 
 When a new schema shares its descriptive name with an existing schema but contains additional fields:
@@ -280,42 +248,44 @@ Each canonical field optionally receives an interest category (e.g., "Photograph
 
 ### Information-Theoretic Transform Classification
 
+```mermaid
+graph TD
+    subgraph Phase1["Phase 1: Input Ceiling"]
+        name_in["name (LOW)"]
+        age_in["age (LOW)"]
+        diag_in["diagnosis (HIGH)"]
+        rx_in["rx_list (HIGH)"]
+        ceiling["Input ceiling = max(LOW, LOW, HIGH, HIGH) = HIGH"]
+        name_in --> ceiling
+        age_in --> ceiling
+        diag_in --> ceiling
+        rx_in --> ceiling
+    end
 ```
-    TWO-PHASE TRANSFORM CLASSIFICATION
 
-    Phase 1: Input Ceiling
-    ======================
+```mermaid
+graph LR
+    subgraph Phase2["Phase 2: NMI Leakage Detection"]
+        subgraph Inputs
+            name["name (LOW)"]
+            age["age (LOW)"]
+            diag["diagnosis (HIGH)"]
+            rx["rx_list (HIGH)"]
+        end
 
-    Transform inputs:
-      MedicalSchema.name        -> LOW
-      MedicalSchema.age         -> LOW
-      MedicalSchema.diagnosis   -> HIGH
-      MedicalSchema.rx_list     -> HIGH
+        subgraph Outputs
+            pname["patient_name"]
+            agroup["age_group"]
+            ctext["condition_text"]
+        end
 
-    Input ceiling = max(LOW, LOW, HIGH, HIGH) = HIGH
+        name -->|"NMI=0.93 ⚠️"| pname
+        age -->|"NMI=0.41"| agroup
+        diag -->|"NMI=0.87 ⚠️"| ctext
+        rx -->|"NMI=0.03 ✓"| ctext
+    end
 
-
-    Phase 2: Output Floor via NMI
-    =============================
-
-    For each sensitive input field X_i:
-      Generate N synthetic samples (vary X_i, hold others fixed)
-      Run WASM transform on each sample
-      Measure NMI(X_i, Y_j) for each output field Y_j
-
-                        OUTPUT FIELDS
-                    patient_  age_   condition_
-    INPUT FIELDS    name      group  text
-    ============    ========  =====  =========
-    name            0.93      0.02   0.01       <- passthrough!
-    age             0.03      0.41   0.04       <- bucketed
-    diagnosis       0.02      0.01   0.87       <- LEAKS!
-    rx_list         0.01      0.02   0.03       <- stripped
-
-    Leakage threshold = 0.1
-
-    condition_text leaks from diagnosis (HIGH) -> classified HIGH
-    Overall transform classification: HIGH
+    ctext -->|"leaks from diagnosis (HIGH)"| result["Overall: HIGH"]
 ```
 
 When WASM transforms are registered with the schema service, the system automatically determines the data sensitivity of the transform's output using a two-phase information-theoretic analysis.

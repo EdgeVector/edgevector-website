@@ -79,57 +79,24 @@ The present invention provides a system and method for privacy-preserving semant
 
 The system comprises two principal components: (1) user-controlled database nodes that perform local anonymity checking and pseudonym derivation, and (2) a discovery service that maintains the searchable index and handles connection routing.
 
-```
-    SYSTEM ARCHITECTURE — PRIVACY-PRESERVING DISCOVERY
+```mermaid
+graph TD
+    subgraph UserNode["User's Database Node"]
+        Embed["Per-Field<br/>Embedding Engine"] --> Gate["Stage 1: Local Anonymity Gate<br/>1. Field Privacy Classification<br/>2. Named Entity Recognition<br/>3. Token Entropy Check"]
+        Gate -->|pass| Pseudo["Pseudonym Derivation<br/>HMAC(master_key, SHA256(content))<br/>→ Ed25519 keypair"]
+        Gate -->|reject| Dropped["Rejected"]
+    end
 
-    +--------------------------------------------------+
-    |              User's Database Node                 |
-    |                                                   |
-    |  +-------------+     +-----------------------+    |
-    |  | Per-Field   |---->| Stage 1: Local        |    |
-    |  | Embedding   |     | Anonymity Gate        |    |
-    |  | Engine      |     |                       |    |
-    |  +-------------+     | 1. Field Privacy Class|    |
-    |                      | 2. Named Entity Recog.|    |
-    |                      | 3. Token Entropy Check|    |
-    |                      +-----------+-----------+    |
-    |                            pass  |  reject        |
-    |                                  v                |
-    |                      +-----------------------+    |
-    |                      | Pseudonym Derivation  |    |
-    |                      | HMAC(master_key,      |    |
-    |                      |   SHA256(content))    |    |
-    |                      | -> Ed25519 keypair    |    |
-    |                      +-----------+-----------+    |
-    +--------------------------|------------------------+
-                               | upload: pseudonym +
-                               |   embedding only
-                               v
-    +--------------------------------------------------+
-    |              Discovery Service                    |
-    |                                                   |
-    |  +-----------------------+                        |
-    |  | Stage 2: Network      |                        |
-    |  | k-Anonymity Check     |                        |
-    |  | cosine_sim > 0.85     |                        |
-    |  | neighbors >= k        |                        |
-    |  +------+--------+------+                        |
-    |    pass  |        | fail                          |
-    |          v        v                               |
-    |  +----------+ +-------------+                     |
-    |  | Live     | | Quarantine  |---> hourly re-eval  |
-    |  | Index    | | (Staging)   |---> promote or      |
-    |  | (search- | | (invisible  |     expire (90d)    |
-    |  |  able)   | |  to search) |                     |
-    |  +----------+ +-------------+                     |
-    |                                                   |
-    |  +-------------------+  +--------------------+    |
-    |  | Pseudonym->Owner  |  | Connection         |    |
-    |  | Mapping (access-  |  | Requests           |    |
-    |  | controlled, never |  | (anonymous until    |    |
-    |  | in search results)|  |  mutual consent)    |    |
-    |  +-------------------+  +--------------------+    |
-    +--------------------------------------------------+
+    Pseudo -->|"upload: pseudonym +<br/>embedding only"| Stage2
+
+    subgraph Discovery["Discovery Service"]
+        Stage2["Stage 2: Network k-Anonymity Check<br/>cosine_sim > 0.85, neighbors >= k"]
+        Stage2 -->|pass| Live["Live Index<br/>(searchable)"]
+        Stage2 -->|fail| Quarantine["Quarantine (Staging)<br/>(invisible to search)"]
+        Quarantine -->|"hourly re-eval<br/>promote or expire (90d)"| Live
+        OwnerMap["Pseudonym→Owner Mapping<br/>(access-controlled,<br/>never in search results)"]
+        ConnReq["Connection Requests<br/>(anonymous until<br/>mutual consent)"]
+    end
 ```
 
 #### Per-Field Independent Embedding
@@ -190,45 +157,16 @@ where p_i is the frequency of token i divided by total token count.
 
 Fragments with entropy below a minimum threshold (default 2.0 bits) are rejected as too specific or repetitive to be anonymous. Fragments shorter than a minimum word count (default 3 words) are also rejected.
 
-```
-    STAGE 1: LOCAL ANONYMITY GATE (per fragment)
-
-    Field Value
-        |
-        v
-    +-------------------+
-    | Field Privacy      |
-    | Classification     |
-    +----+----+----+----+
-         |    |    |
-   Never |    |Pub-| Always
-   Pub-  |    |lish| Publish
-   lish  |    |If  |
-         v    |Anon|     v
-      REJECT  |    |   ACCEPT
-              v    |
-    +-------------------+
-    | Named Entity       |
-    | Recognition        |
-    | (email, phone,     |
-    |  URL, address, ID) |
-    +--------+----------+
-       found |    | clean
-             v    v
-          REJECT  |
-                  v
-    +-------------------+
-    | Token Entropy      |
-    | Analysis           |
-    | H < threshold?     |
-    +--------+----------+
-       low   |    | sufficient
-             v    v
-          REJECT  |
-                  v
-         SUBMIT FOR
-         NETWORK CHECK
-         (Stage 2)
+```mermaid
+flowchart TD
+    Input["Field Value"] --> FPC{"Field Privacy<br/>Classification"}
+    FPC -->|NeverPublish| R1["REJECT"]
+    FPC -->|AlwaysPublish| A1["ACCEPT"]
+    FPC -->|PublishIfAnonymous| NER{"Named Entity Recognition<br/>(email, phone, URL,<br/>address, ID)"}
+    NER -->|entity found| R2["REJECT"]
+    NER -->|clean| Entropy{"Token Entropy Analysis<br/>H < threshold?"}
+    Entropy -->|low entropy| R3["REJECT"]
+    Entropy -->|sufficient| Submit["SUBMIT FOR<br/>NETWORK CHECK<br/>(Stage 2)"]
 ```
 
 **Combined Decision:**
@@ -244,29 +182,13 @@ Each fragment that passes Stage 1 receives a unique, unlinkable pseudonym before
 
 The derivation uses HMAC-based key derivation:
 
-```
-    PER-FRAGMENT PSEUDONYM DERIVATION
-
-    User's Master             Fragment Content
-    Signing Key (sk)          "A rich curry with..."
-         |                           |
-         |                    SHA-256(content)
-         |                           |
-         v                           v
-    +--------------------------------------+
-    | HMAC-SHA256(key=sk, msg=content_hash)|
-    +------------------+-------------------+
-                       |
-                       v
-              32-byte derived seed
-                       |
-              +--------+--------+
-              |                 |
-              v                 v
-        Ed25519            Ed25519
-        Signing Key        Verifying Key
-        (retained          (= pseudonym ID,
-         locally)           published)
+```mermaid
+graph TD
+    SK["User's Master<br/>Signing Key (sk)"] --> HMAC
+    Content["Fragment Content<br/>'A rich curry with...'"] --> Hash["SHA-256(content)"] --> HMAC
+    HMAC["HMAC-SHA256<br/>(key=sk, msg=content_hash)"] --> Seed["32-byte derived seed"]
+    Seed --> SignKey["Ed25519 Signing Key<br/>(retained locally)"]
+    Seed --> PubKey["Ed25519 Verifying Key<br/>(= pseudonym ID, published)"]
 ```
 
 1. Compute SHA-256 hash of fragment content
@@ -322,48 +244,27 @@ Results never include user identity, schema name, field name, or any linkable id
 
 #### Anonymous Connection Request Protocol
 
-```
-    ANONYMOUS CONNECTION REQUEST FLOW
+```mermaid
+sequenceDiagram
+    participant S as Searcher
+    participant DS as Discovery Service
+    participant O as Data Owner
 
-    Searcher                Discovery Service           Data Owner
-    ========                =================           ==========
+    S->>DS: 1. Search by embedding vector
+    DS->>S: 2. Results: pseudonym, score, category (NO identity)
+    S->>DS: 3. POST /connect (target pseudonym, one-time requester ID, message)
+    Note over DS: 4. Lookup pseudonym in owner mapping (access-controlled)
+    Note over DS: 5. Store request keyed by owner hash
+    O->>DS: 6. Poll for pending requests
+    DS->>O: 7. Deliver message (no requester identity)
 
-    1. Search by
-       embedding vector
-          |
-          v
-    2. Receive results:
-       pseudonym, score,
-       category (NO identity)
-          |
-          v
-    3. POST /connect
-       target: pseudonym
-       requester: one-time ID
-       message: "..."
-                ------>  4. Lookup pseudonym
-                            in owner mapping
-                            (access-controlled)
-                                    |
-                                    v
-                         5. Store request
-                            keyed by owner hash
-                                                ------>  6. Poll for
-                                                            pending requests
-                                                                |
-                                                                v
-                                                         7. See message
-                                                            (no requester
-                                                             identity)
-                                                                |
-                                                          Accept | Reject
-                                                                |
-                         8a. ACCEPT: reveal      <------        |
-                             both identities                    |
-    9a. Receive            for negotiation                      |
-        owner identity
-        (data sharing     8b. REJECT: nothing
-         begins)                revealed
+    alt Accept
+        O->>DS: 8a. ACCEPT
+        DS->>S: 9a. Reveal both identities (data sharing begins)
+    else Reject
+        O->>DS: 8b. REJECT
+        Note over DS: Nothing revealed
+    end
 ```
 
 1. Searcher identifies a fragment of interest by its pseudonym
