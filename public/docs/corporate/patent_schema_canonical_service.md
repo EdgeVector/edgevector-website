@@ -91,16 +91,16 @@ graph TD
     C["Node C<br/>(ingests health)"] -->|submit schema| SS
 
     subgraph SS["Schema Service"]
-        Hash["Schema Identity Hash Registry<br/>descriptive_name + sorted fields → SHA-256"]
-        Canon["Canonical Field Registry<br/>field_name → description, type,<br/>classification, interest_category"]
+        Hash["Schema Identity Hash Registry<br/>descriptive_name + sorted fields to SHA-256"]
+        Canon["Canonical Field Registry<br/>field_name to description, type,<br/>classification, interest_category"]
         Hash --> Added["Added"]
         Hash --> Exists["AlreadyExists"]
         Hash --> Expanded["Expanded<br/>(superset with<br/>molecule pointers)"]
     end
 
-    SS -->|"mutation mappers<br/>{original → canonical}"| A
-    SS -->|"mutation mappers<br/>{original → canonical}"| B
-    SS -->|"mutation mappers<br/>{original → canonical}"| C
+    SS -->|"mutation mappers<br/>{original to canonical}"| A
+    SS -->|"mutation mappers<br/>{original to canonical}"| B
+    SS -->|"mutation mappers<br/>{original to canonical}"| C
 ```
 
 #### Schema Identity Hash
@@ -178,7 +178,7 @@ graph LR
 graph LR
     subgraph With["With Bidirectional Check (CORRECT)"]
         notes2["notes"] -->|"0.90 (best match both directions)"| desc2["description"]
-        summary2["summary"] -->|"0.89 → but description's best = notes"| new2["NEW canonical field"]
+        summary2["summary"] -->|"0.89 but description best = notes"| new2["NEW canonical field"]
     end
 ```
 
@@ -197,22 +197,22 @@ Field descriptions are embedded rather than field names because different data s
 ```mermaid
 graph TD
     subgraph Old["Existing: Recipe Collection (hash: abc123)"]
-        title_old["title → mol_001"]
-        ingr_old["ingredients → mol_002"]
+        title_old["title maps to mol_001"]
+        ingr_old["ingredients maps to mol_002"]
     end
 
     subgraph New["New: Recipe Collection (hash: def456)"]
-        title_new["title → mol_001 (REUSED)"]
-        ingr_new["ingredients → mol_002 (REUSED)"]
-        prep["prep_time → mol_003 (NEW)"]
-        serv["servings → mol_004 (NEW)"]
+        title_new["title maps to mol_001 (REUSED)"]
+        ingr_new["ingredients maps to mol_002 (REUSED)"]
+        prep["prep_time to mol_003 NEW"]
+        serv["servings to mol_004 NEW"]
     end
 
     Old -->|"EXPANSION<br/>Old schema BLOCKED"| New
     title_old -.->|"field mapper"| title_new
     ingr_old -.->|"field mapper"| ingr_new
 
-    New --> Result["Zero data migration.<br/>Descriptive name index:<br/>Recipe Collection → def456"]
+    New --> Result["Zero data migration.<br/>Descriptive name index:<br/>Recipe Collection = def456"]
 ```
 
 When a new schema shares its descriptive name with an existing schema but contains additional fields:
@@ -279,9 +279,9 @@ graph LR
             ctext["condition_text"]
         end
 
-        name -->|"NMI=0.93 ⚠️"| pname
+        name -->|"NMI=0.93 LEAK"| pname
         age -->|"NMI=0.41"| agroup
-        diag -->|"NMI=0.87 ⚠️"| ctext
+        diag -->|"NMI=0.87 LEAK"| ctext
         rx -->|"NMI=0.03 ✓"| ctext
     end
 

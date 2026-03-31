@@ -88,16 +88,16 @@ The node is the sole point of decryption. No external system — including the r
 
 ```mermaid
 graph TD
-    AppA["Third-Party App A"] -- "E2E Encrypted" --> Relay["Encrypted Relay<br/>(JWT validation, ciphertext relay,<br/>access count / expiration enforcement)"]
+    AppA["Third-Party App A"] -- "E2E Encrypted" --> Relay["Encrypted Relay<br/>JWT validation, ciphertext relay,<br/>access count and expiration enforcement"]
     AppB["Third-Party App B"] -- "E2E Encrypted" --> Relay
-    Relay -- "E2E Encrypted" --> Node["User's Node (Local)"]
+    Relay -- "E2E Encrypted" --> UserNode
 
-    subgraph Node["User's Node (Local)"]
-        Schema["Schema System (Folds)<br/>Per-field ACL, Trust distance,<br/>Security labels, Payment gates"]
-        WASM["WASM Transform Engine<br/>Sandboxed exec, Content-addressed,<br/>Gas-metered, No I/O access"]
-        Store["Encrypted Data Store (AES-256-GCM)<br/>Keys derived from user passkey via Argon2id"]
+    subgraph UserNode["User's Node - Local"]
+        Schema["Schema System - Folds<br/>Per-field ACL, Trust distance,<br/>Security labels, Payment gates"]
+        WasmEng["WASM Transform Engine<br/>Sandboxed exec, Content-addressed,<br/>Gas-metered, No I/O access"]
+        Store["Encrypted Data Store AES-256-GCM<br/>Keys derived from user passkey via Argon2id"]
         Schema --> Store
-        WASM --> Store
+        WasmEng --> Store
     end
 ```
 
@@ -125,19 +125,19 @@ Data passing between host and guest occurs through serialized field values copie
 
 ```mermaid
 graph TD
-    subgraph L1["Layer 1: Standard Library (Public, Auditable)"]
-        multiply["multiply<br/>(Float → Float)"]
-        add["add<br/>(Float → Float)"]
-        uppercase["uppercase<br/>(String → String)"]
-        array_sum["array_sum<br/>(Array → Float)"]
+    subgraph L1["Layer 1: Standard Library - Public, Auditable"]
+        multiply["multiply<br/>Float to Float"]
+        add["add<br/>Float to Float"]
+        uppercase["uppercase<br/>String to String"]
+        array_sum["array_sum<br/>Array to Float"]
     end
 
-    subgraph L2["Layer 2: Composed Transforms (Public, Chained)"]
-        composed["usd_to_eur_rounded<br/>imports: multiply_085, round_2<br/>input → multiply → round → output"]
+    subgraph L2["Layer 2: Composed Transforms - Public, Chained"]
+        composed["usd_to_eur_rounded<br/>imports: multiply_085, round_2"]
     end
 
-    subgraph L3["Layer 3: Encrypted Wrappers (Private, User-Generated)"]
-        wrapper["alice_to_bob_salary<br/>imports: multiply_085<br/>decrypt(OWNER_KEY) → multiply_085 → encrypt(RECIPIENT_KEY) → output"]
+    subgraph L3["Layer 3: Encrypted Wrappers - Private, User-Generated"]
+        wrapper["alice_to_bob_salary<br/>imports: multiply_085<br/>decrypt, transform, encrypt"]
     end
 
     multiply --> composed
@@ -217,11 +217,11 @@ stateDiagram-v2
     [*] --> Empty
     Empty --> Cached: read (compute via WASM)
     Cached --> Empty: source mutation (invalidate)
-    Cached --> Empty: reversible write (inverse WASM → mutate source)
+    Cached --> Empty: reversible write (inverse WASM, mutate source)
     Cached --> Overridden: irreversible write (direct store)
     Overridden --> Overridden: source mutation (no change)
     Overridden --> Overridden: irreversible write (stays Overridden)
-    Overridden --> Empty: reversible write (inverse WASM → mutate source)
+    Overridden --> Empty: reversible write (inverse WASM, mutate source)
     Empty --> Overridden: irreversible write (direct store)
 ```
 
@@ -237,26 +237,26 @@ Transitions:
 
 ```mermaid
 sequenceDiagram
-    participant Alice as Alice's Client
+    participant Alice as Alice Client
     participant Server as Server Storage
-    participant WASM as WASM Sandbox
-    participant Bob as Bob's Client
+    participant Sandbox as WASM Sandbox
+    participant Bob as Bob Client
 
     Note over Alice,Bob: WRITE PATH
-    Alice->>Server: encrypt(alice_key, 75000.0) → [0xa3,0xf2,...]
-    Note over Server: Stores Encrypted(Float) — knows only "an encrypted float"
+    Alice->>Server: encrypt alice_key 75000 = ciphertext_A
+    Note over Server: Stores Encrypted Float
 
     Note over Alice,Bob: TRANSFORM PATH
-    Server->>WASM: load WASM by hash, call transform([0xa3,0xf2,...])
-    Note over WASM: decrypt(ALICE_KEY) → 75000.0
-    Note over WASM: multiply_085() → 63750.0
-    Note over WASM: encrypt(BOB_KEY) → [0xb7,0x01,...]
-    WASM->>Server: return [0xb7,0x01,...]
-    Note over Server: Never saw 75000.0 or 63750.0
+    Server->>Sandbox: load WASM by hash, call transform
+    Note over Sandbox: decrypt ALICE_KEY = 75000
+    Note over Sandbox: multiply_085 = 63750
+    Note over Sandbox: encrypt BOB_KEY = ciphertext_B
+    Sandbox->>Server: return ciphertext_B
+    Note over Server: Never saw plaintext
 
     Note over Alice,Bob: READ PATH
-    Server->>Bob: relay ciphertext [0xb7,0x01,...]
-    Note over Bob: decrypt(bob_key) → 63750.0
+    Server->>Bob: relay ciphertext_B
+    Note over Bob: decrypt bob_key = 63750
 ```
 
 **Write Path (client encrypts):**

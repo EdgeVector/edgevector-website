@@ -81,21 +81,21 @@ The system comprises two principal components: (1) user-controlled database node
 
 ```mermaid
 graph TD
-    subgraph UserNode["User's Database Node"]
+    subgraph UserNode["User Database Node"]
         Embed["Per-Field<br/>Embedding Engine"] --> Gate["Stage 1: Local Anonymity Gate<br/>1. Field Privacy Classification<br/>2. Named Entity Recognition<br/>3. Token Entropy Check"]
-        Gate -->|pass| Pseudo["Pseudonym Derivation<br/>HMAC(master_key, SHA256(content))<br/>→ Ed25519 keypair"]
+        Gate -->|pass| Pseudo["Pseudonym Derivation<br/>HMAC key derivation<br/>to Ed25519 keypair"]
         Gate -->|reject| Dropped["Rejected"]
     end
 
     Pseudo -->|"upload: pseudonym +<br/>embedding only"| Stage2
 
     subgraph Discovery["Discovery Service"]
-        Stage2["Stage 2: Network k-Anonymity Check<br/>cosine_sim > 0.85, neighbors >= k"]
-        Stage2 -->|pass| Live["Live Index<br/>(searchable)"]
-        Stage2 -->|fail| Quarantine["Quarantine (Staging)<br/>(invisible to search)"]
-        Quarantine -->|"hourly re-eval<br/>promote or expire (90d)"| Live
-        OwnerMap["Pseudonym→Owner Mapping<br/>(access-controlled,<br/>never in search results)"]
-        ConnReq["Connection Requests<br/>(anonymous until<br/>mutual consent)"]
+        Stage2["Stage 2: Network k-Anonymity Check<br/>cosine_sim above 0.85, neighbors at least k"]
+        Stage2 -->|pass| Live["Live Index<br/>searchable"]
+        Stage2 -->|fail| Quarantine["Quarantine - Staging<br/>invisible to search"]
+        Quarantine -->|"hourly re-eval<br/>promote or expire 90d"| Live
+        OwnerMap["Pseudonym-to-Owner Mapping<br/>access-controlled,<br/>never in search results"]
+        ConnReq["Connection Requests<br/>anonymous until<br/>mutual consent"]
     end
 ```
 
