@@ -66,6 +66,39 @@ export default function About() {
         <p>This structure ensures the core infrastructure remains free and open while creating a sustainable path for long-term development. The foundation sets the direction. The subsidiary funds the work.</p>
       </Section>
 
+      <Section variant="slate">
+        <h2><span className="bold">TEAM</span> <span className="dim">Who&rsquo;s building this</span></h2>
+
+        <div className="grid-3">
+          <Card>
+            <p><Label color="blue">TOM TANG</Label></p>
+            <p className="bold white">Founder, Chair &amp; President</p>
+            <p>Lead architect of FoldDB and primary author of the foundation&rsquo;s technical papers on policy-enforcing data interfaces, schema convergence, and pseudonymous discovery.</p>
+            <p>
+              <a href="https://www.linkedin.com/in/tom-tang-65579616/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
+            </p>
+          </Card>
+
+          <Card>
+            <p><Label color="blue">FEI JIA</Label></p>
+            <p className="bold white">Director &amp; Treasurer</p>
+            <p>Software Engineer at Google. Co-author of the foundation&rsquo;s papers on canonical schema resolution, anonymized vector discovery, and verifiable classification downgrading.</p>
+            <p>
+              <a href="https://www.linkedin.com/in/feijia1/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
+            </p>
+          </Card>
+
+          <Card>
+            <p><Label color="blue">CEDRIC HURST</Label></p>
+            <p className="bold white">Director &amp; Secretary</p>
+            <p>Founder &amp; CEO of Spantree, a Trifork Company &mdash; a Chicago-based engineering consultancy. 25+ years building software, with a focus on user experience, decision-making tools, and disruptive technologies.</p>
+            <p>
+              <a href="https://www.linkedin.com/in/cedrichurst/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
+            </p>
+          </Card>
+        </div>
+      </Section>
+
       <Section variant="lavender">
         <h2><span className="bold">THE LONG VIEW</span> <span className="dim">Where we&rsquo;re headed</span></h2>
 
