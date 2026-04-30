@@ -40,7 +40,8 @@ const TABS = [
     pdfs: [
       { label: 'Pseudonymous Vectorized Discovery', href: '/docs/corporate/patent_vectorized_discovery.pdf' },
       { label: 'Schema Canonical Service', href: '/docs/corporate/patent_schema_canonical_service.pdf' },
-      { label: 'Verified WASM Execution', href: '/docs/corporate/patent_verified_wasm_execution.pdf' },
+      { label: 'Verified Function Execution', href: '/docs/corporate/patent_verified_function_execution.pdf' },
+      { label: 'Fold Access Architecture', href: '/docs/corporate/patent_fold_access_architecture.pdf' },
     ],
   },
   {
