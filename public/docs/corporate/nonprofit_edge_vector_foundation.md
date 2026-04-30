@@ -8,31 +8,7 @@
 
 ---
 
-## 1. Articles of Incorporation
-
-The Articles of Incorporation are maintained in their canonical, filed form in the standalone document [`articles_of_incorporation.md`](./articles_of_incorporation.md). They were filed with the Washington Secretary of State; see the WA SoS filing status section above for filing history.
-
-**Notes:**
-
-- IRS requires at least the Purpose clause (Article III), Dissolution clause (Article V), and Lobbying restriction (Article VI) to grant 501(c)(3) status.
-- Washington filing fee: $30 (online at sos.wa.gov/corps).
-- Registered agent service is handled by Northwest Registered Agent, LLC (Spokane, WA) — see Article II of the standalone file. Earlier drafts had Tom Tang as registered agent at the Bellevue business address; that was changed during the 2026-04 resubmission cycle to keep the foundation off Tom personally.
-
----
-
-## 2. Bylaws
-
-The Bylaws are maintained in their canonical form in the standalone document [`bylaws.md`](./bylaws.md). The current bylaws (post-2026-04 revision) define the Founder role and Chair succession in Article III; earlier inline drafts of bylaws in this overview document, which used different article structure ("Article I — Offices") and a "Founder Chairman" naming, are superseded by the standalone file.
-
----
-
-## 3. Conflict of Interest Policy (Required by IRS)
-
-The Conflict of Interest Policy is maintained in the standalone document [`conflict_of_interest_policy.md`](./conflict_of_interest_policy.md), as required by IRS Form 1023 / 1023-EZ for 501(c)(3) status.
-
----
-
-## 4. IRS Form 1023-EZ (Tax-Exempt Application)
+## 1. IRS Form 1023-EZ (Tax-Exempt Application)
 
 **Filed with:** IRS (online at pay.gov)
 
@@ -53,7 +29,7 @@ The Conflict of Interest Policy is maintained in the standalone document [`confl
 
 ---
 
-## 5. EIN Application (IRS Form SS-4)
+## 2. EIN Application (IRS Form SS-4)
 
 **Filed with:** IRS (online at irs.gov/businesses — instant, free)
 
@@ -70,7 +46,7 @@ The Conflict of Interest Policy is maintained in the standalone document [`confl
 
 ---
 
-## 6. Organizational Meeting Minutes
+## 3. Organizational Meeting Minutes
 
 ```
 MINUTES OF THE ORGANIZATIONAL MEETING
@@ -127,7 +103,7 @@ Cedric Hurst, Secretary
 
 ---
 
-## 7. WA Initial Report (Due within 120 days of incorporation)
+## 4. WA Initial Report (Due within 120 days of incorporation)
 
 **Filed with:** Washington Secretary of State (online)
 **Fee:** $10
@@ -143,7 +119,7 @@ Cedric Hurst, Secretary
 
 ---
 
-## 8. WA Charity Registration (Before soliciting donations)
+## 5. WA Charity Registration (Before soliciting donations)
 
 **Filed with:** Washington Secretary of State, Charities Program
 **Fee:** $20 initial registration
