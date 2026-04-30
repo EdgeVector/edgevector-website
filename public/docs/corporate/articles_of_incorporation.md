@@ -13,8 +13,8 @@ ARTICLE II --- REGISTERED AGENT
 
 The registered agent of the corporation is:
 
-- Name: Tom Tang
-- Address: 2328 Delmar Dr E, Seattle, WA 98102
+- Name: Northwest Registered Agent, LLC
+- Address: 522 W Riverside Ave, Ste N, Spokane, WA 99201
 
 ARTICLE III --- PURPOSE
 
@@ -62,13 +62,13 @@ ARTICLE VIII --- INCORPORATOR
 The name and address of the incorporator is:
 
 - Tom Tang
-- 2328 Delmar Dr E, Seattle, WA 98102
+- 14205 SE 36th Street, Suite 100, Bellevue, WA 98006
 
 ARTICLE IX --- DIRECTORS
 
 The number of directors constituting the initial board of directors is three (3).
 The names and addresses of the initial directors are:
 
-1. Tom Tang --- 2328 Delmar Dr E, Seattle, WA 98102
+1. Tom Tang --- 14205 SE 36th Street, Suite 100, Bellevue, WA 98006
 2. Fei Jia --- 7437 NE 197th Pl, Kenmore, WA 98028
 3. Cedric Hurst --- 22 N Morgan St, Apt 207, Chicago IL 60607
