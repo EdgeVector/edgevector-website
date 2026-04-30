@@ -36,6 +36,7 @@ const TABS = [
       { label: 'Schema Canonical Service', href: '/docs/corporate/patent_schema_canonical_service.pdf' },
       { label: 'Verified Function Execution', href: '/docs/corporate/patent_verified_function_execution.pdf' },
       { label: 'Fold Access Architecture', href: '/docs/corporate/patent_fold_access_architecture.pdf' },
+      { label: 'Agent Code Promotion', href: '/docs/corporate/patent_agent_code_promotion.pdf' },
     ],
   },
   {
