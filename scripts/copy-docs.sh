@@ -38,6 +38,7 @@ cp "$WORKSPACE/docs/corporate/patent_schema_canonical_service.md" "$DEST/corpora
 cp "$WORKSPACE/docs/corporate/patent_schema_canonical_service.pdf" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/patent_verified_function_execution.pdf" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/patent_fold_access_architecture.pdf" "$DEST/corporate/"
+cp "$WORKSPACE/docs/corporate/patent_agent_code_promotion.pdf" "$DEST/corporate/"
 
 # Progress
 cp "$WORKSPACE/docs/progress/roadmap.md" "$DEST/progress/"
