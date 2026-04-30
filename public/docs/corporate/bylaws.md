@@ -10,7 +10,7 @@ The name of the organization is Edge Vector Foundation ("Foundation").
 
 **1.2 Principal Office**
 
-The principal office of the Foundation shall be at 2328 Delmar Dr E, Seattle, WA 98102.
+The principal office of the Foundation shall be at 14205 SE 36th Street, Suite 100, Bellevue, WA 98006.
 
 **1.3 Purpose**
 

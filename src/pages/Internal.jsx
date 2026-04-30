@@ -23,12 +23,6 @@ const TABS = [
     docs: [
       '/docs/corporate/nonprofit_edge_vector_foundation.md',
       '/docs/corporate/filing_checklist.md',
-    ],
-  },
-  {
-    id: 'formation-docs',
-    label: 'Formation Docs',
-    docs: [
       '/docs/corporate/articles_of_incorporation.md',
       '/docs/corporate/bylaws.md',
       '/docs/corporate/conflict_of_interest_policy.md',

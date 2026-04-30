@@ -9,7 +9,7 @@
 ## Applicant
 
 Edge Vector Foundation
-2328 Delmar Dr E, Seattle, WA 98102
+14205 SE 36th Street, Suite 100, Bellevue, WA 98006
 
 ## Inventors
 
