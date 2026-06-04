@@ -51,10 +51,19 @@ cp "$WORKSPACE/docs/corporate/filing_checklist.md" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/articles_of_incorporation.md" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/bylaws.md" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/conflict_of_interest_policy.md" "$DEST/corporate/"
-cp "$WORKSPACE/docs/corporate/patent_vectorized_discovery.md" "$DEST/corporate/"
-cp "$WORKSPACE/docs/corporate/patent_vectorized_discovery.pdf" "$DEST/corporate/"
-cp "$WORKSPACE/docs/corporate/patent_schema_canonical_service.md" "$DEST/corporate/"
-cp "$WORKSPACE/docs/corporate/patent_schema_canonical_service.pdf" "$DEST/corporate/"
+
+# Patent drafts — PUBLIC DISCLOSURE WARNING.
+# This site is a PUBLIC repo deployed at a public URL; anything copied here is a
+# printed-publication disclosure that starts the US 1-year bar and forfeits
+# foreign patent rights. Only publish drafts whose posture is DEFENSIVE
+# (disclosure is on-strategy) or that are already publicly disclosed elsewhere.
+#
+# 🚫 NEVER add patent_app_scoped_transform_access — its foreign rights and
+#    first-to-file position are LIVE; publishing it here destroys them.
+# Pulled 2026-06-04 (enforceable; do not re-add): patent_vectorized_discovery,
+#    patent_schema_canonical_service (+ its split successors dedup / nmi).
+# Kept below: fold_access (defensive). verified_function_execution and
+#    agent_code_promotion remain pending a posture decision — see Tom.
 cp "$WORKSPACE/docs/corporate/patent_verified_function_execution.pdf" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/patent_fold_access_architecture.pdf" "$DEST/corporate/"
 cp "$WORKSPACE/docs/corporate/patent_agent_code_promotion.pdf" "$DEST/corporate/"
