@@ -24,7 +24,7 @@ const PAPERS = [
       {
         title: 'EdgeVector Architecture Overview',
         authors: 'Edge Vector Foundation',
-        description: 'End-to-end architecture: user-controlled FoldDB nodes, schema-enforced access control (folds), e2e encrypted relay via Exemem, passkey-based key derivation, and multi-node availability.',
+        description: 'End-to-end architecture: user-controlled LastDB nodes, schema-enforced access control (folds), e2e encrypted relay via Exemem, passkey-based key derivation, and multi-node availability.',
         link: '/whitepaper',
         linkLabel: 'Read',
       },
@@ -85,8 +85,8 @@ export default function Papers() {
     <>
       <Helmet>
         <title>Papers — Edge Vector Foundation</title>
-        <meta name="description" content="Technical papers from the Edge Vector Foundation covering personal data sovereignty, FoldDB, privacy-preserving network effects, schema convergence, and more." />
-        <meta name="keywords" content="Edge Vector papers, FoldDB whitepaper, data sovereignty, privacy, schema convergence, WASM transforms, access control" />
+        <meta name="description" content="Technical papers from the Edge Vector Foundation covering personal data sovereignty, LastDB, privacy-preserving network effects, schema convergence, and more." />
+        <meta name="keywords" content="Edge Vector papers, LastDB whitepaper, data sovereignty, privacy, schema convergence, WASM transforms, access control" />
         <meta property="og:title" content="Papers — Edge Vector Foundation" />
         <meta property="og:description" content="Technical papers on personal data sovereignty, privacy-preserving computation, and distributed schema systems." />
         <meta property="og:url" content="https://edgevector.org/papers" />
@@ -131,7 +131,7 @@ export default function Papers() {
 
       <div className="cta-block">
         <p>
-          <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer" className="link-btn">[Get FoldDB]</a>{'  '}
+          <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer" className="link-btn">[Get LastDB]</a>{'  '}
           <Link to="/technology" className="link-btn">[Technology Overview]</Link>{'  '}
           <Link to="/about" className="link-btn">[About the Foundation]</Link>
         </p>

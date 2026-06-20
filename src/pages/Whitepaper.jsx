@@ -21,7 +21,7 @@ export default function Whitepaper() {
     <>
       <Helmet>
         <title>Architecture Overview — Edge Vector Foundation</title>
-        <meta name="description" content="EdgeVector architecture overview: user-controlled FoldDB nodes, schema-enforced access control, e2e encrypted relay, passkey-based key management." />
+        <meta name="description" content="EdgeVector architecture overview: user-controlled LastDB nodes, schema-enforced access control, e2e encrypted relay, passkey-based key management." />
       </Helmet>
       <div className="markdown-body">
         {content ? (

@@ -52,7 +52,7 @@ export default function About() {
         <div className="grid-2">
           <Card>
             <p><Label color="yellow">NON-PROFIT FOUNDATION</Label></p>
-            <p>The Edge Vector Foundation governs the open-source ecosystem. We maintain FoldDB, the schema registry, and the network protocols. Our mandate is the long-term health of personal data infrastructure.</p>
+            <p>The Edge Vector Foundation governs the open-source ecosystem. We maintain LastDB, the schema registry, and the network protocols. Our mandate is the long-term health of personal data infrastructure.</p>
             <p className="dim">Open governance. Community-driven. No shareholders.</p>
           </Card>
 
@@ -73,7 +73,7 @@ export default function About() {
           <Card>
             <p><Label color="blue">TOM TANG</Label></p>
             <p className="bold white">Founder, Chair &amp; President</p>
-            <p>Lead architect of FoldDB and primary author of the foundation&rsquo;s technical papers on policy-enforcing data interfaces, schema convergence, and pseudonymous discovery.</p>
+            <p>Lead architect of LastDB and primary author of the foundation&rsquo;s technical papers on policy-enforcing data interfaces, schema convergence, and pseudonymous discovery.</p>
             <p>
               <a href="https://www.linkedin.com/in/tom-tang-65579616/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
             </p>
