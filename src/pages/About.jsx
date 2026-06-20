@@ -73,7 +73,7 @@ export default function About() {
           <Card>
             <p><Label color="blue">TOM TANG</Label></p>
             <p className="bold white">Founder, Chair &amp; President</p>
-            <p>Lead architect of LastDB and primary author of the foundation&rsquo;s technical papers on policy-enforcing data interfaces, schema convergence, and pseudonymous discovery.</p>
+            <p>Lead architect of LastDB and primary author of the foundation&rsquo;s technical papers on data access control, schema convergence, and pseudonymous discovery.</p>
             <p>
               <a href="https://www.linkedin.com/in/tom-tang-65579616/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
             </p>
