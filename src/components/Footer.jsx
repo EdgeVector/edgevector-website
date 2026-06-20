@@ -7,7 +7,7 @@ export default function Footer() {
       </p>
       <p>
         <span className="dim">PROJECTS</span>{'  '}
-        <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer">FoldDB</a>{'  '}
+        <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer">LastDB</a>{'  '}
         <a href="https://github.com/EdgeVector/file_to_markdown" target="_blank" rel="noreferrer">file_to_markdown</a>
       </p>
       <p>

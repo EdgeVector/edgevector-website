@@ -76,7 +76,7 @@ export default function Home() {
 
         <div className="grid-2">
           <Card>
-            <p><Label color="blue">FOLDDB</Label></p>
+            <p><Label color="blue">LASTDB</Label></p>
             <p>The core database. Schema-based storage and querying for personal data. Runs locally with encrypted cloud backup. The foundation for user-controlled data infrastructure.</p>
             <p>
               <a href="https://folddb.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>{'  '}
@@ -86,7 +86,7 @@ export default function Home() {
 
           <Card>
             <p><Label color="blue">EXEMEM</Label></p>
-            <p>Cloud-resilient infrastructure for networked FoldDB nodes. Multi-tenant architecture with user-level encryption. Enables collective computation while preserving individual sovereignty.</p>
+            <p>Cloud-resilient infrastructure for networked LastDB nodes. Multi-tenant architecture with user-level encryption. Enables collective computation while preserving individual sovereignty.</p>
             <p>
               <a href="https://exemem.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>
             </p>
@@ -111,7 +111,7 @@ export default function Home() {
           </Card>
         </div>
 
-        <p className="dim">Edge Vector is currently in active research and development. The FoldDB core is open source on <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer">GitHub</a> for review and contribution.</p>
+        <p className="dim">Edge Vector is currently in active research and development. The LastDB core is open source on <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer">GitHub</a> for review and contribution.</p>
       </Section>
 
       <div className="cta-block">

@@ -164,7 +164,7 @@ export default function Internal() {
 
       {tab && tab.video && (
         <div style={{ marginBottom: '3em' }}>
-          <h2 style={{ fontFamily: 'inherit', fontWeight: 'bold', marginBottom: '1em' }}>FoldDB Overview</h2>
+          <h2 style={{ fontFamily: 'inherit', fontWeight: 'bold', marginBottom: '1em' }}>LastDB Overview</h2>
           <video
             controls
             style={{ width: '100%', maxWidth: '960px', border: '2px solid #0a0a0a' }}
