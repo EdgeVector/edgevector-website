@@ -24,14 +24,14 @@ const PAPERS = [
       {
         title: 'EdgeVector Architecture Overview',
         authors: 'Edge Vector Foundation',
-        description: 'End-to-end architecture: user-controlled LastDB nodes, schema-enforced access control (folds), e2e encrypted relay via Exemem, passkey-based key derivation, and multi-node availability.',
+        description: 'End-to-end architecture: user-controlled LastDB nodes, schema-enforced access control, e2e encrypted relay via Exemem, passkey-based key derivation, and multi-node availability.',
         link: '/whitepaper',
         linkLabel: 'Read',
       },
       {
         title: 'Fold DB: Compute Without Exposure',
         authors: 'Tom Tang',
-        description: 'Formalizes the fold abstraction: policy-enforcing interfaces over stored data with composable, multi-layer access control and a data-minimality proof.',
+        description: 'Formalizes the access-control model: composable, multi-layer policies over stored data with a data-minimality proof.',
         pdf: '/papers/compute_without_exposure.pdf',
         simplified: [
           { label: 'ELI5 Version', pdf: '/papers/compute_without_exposure_eli5.pdf' },
