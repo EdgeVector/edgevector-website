@@ -205,17 +205,21 @@ Each director and officer shall annually sign a written statement that:
 
 Annual statements shall be collected by the Secretary within thirty (30) days of the beginning of each fiscal year and upon appointment of any new director or officer. The Secretary shall maintain all statements in the Foundation's corporate records.
 
-**8.3 Founder Reserved Rights**
+**8.3 Founder Reserved Rights — Interested Transactions**
 
-The Founder's consent rights under Article VI (Reserved Matters) are a separate governance right, not a Board vote. The Founder may exercise Reserved Matters consent on transactions in which the Founder has a financial interest, provided the interest has been disclosed under Sections 8.1 and 8.2. The Founder shall still recuse from the Board vote on such transactions.
+The Founder's consent rights under Article VI (Reserved Matters) are a separate governance right, not a Board vote. However, with respect to any transaction or arrangement in which the Founder has a direct or indirect financial interest, the Founder's affirmative consent right under Article VI is suspended. The Founder may withhold consent to (veto) any such transaction, but approval of the transaction shall be governed solely by Section 8.4. The Founder shall recuse from the Board vote on any such transaction.
 
-**8.4 Approval**
+**8.4 Approval of Interested Transactions**
 
-Transactions involving conflicts must be:
+A transaction or arrangement in which any director or officer has a direct or indirect financial interest may be approved only if all of the following are satisfied:
 
-- fair and reasonable
-- in the best interest of the Foundation
-- approved by the remaining non-conflicted directors (at least one non-conflicted director must approve)
+- the interest has been disclosed under Sections 8.1 and 8.2
+- the transaction is fair and reasonable and in the best interest of the Foundation
+- the transaction is approved in advance by a majority of the disinterested directors, and in no case by fewer than two (2) disinterested directors
+- prior to approval, the disinterested directors obtain and rely upon appropriate comparability data (such as compensation paid, or terms offered, by similarly situated organizations for functionally comparable positions, services, or arrangements)
+- the basis for the determination is contemporaneously documented in the records of the Foundation, including the comparability data relied upon, the directors who voted, and the terms of the approval
+
+These procedures are intended to satisfy the requirements for the rebuttable presumption of reasonableness under Section 4958 of the Internal Revenue Code and the Treasury Regulations thereunder.
 
 ---
 

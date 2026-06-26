@@ -1,9 +1,14 @@
 # Edge Vector Foundation — Non-Profit Formation Documents
 
+> **✅ INCORPORATED 2026-04-24 — UBI 606 193 277** (WA Secretary of State, Steve R. Hobbs).
+> Authoritative certificate data in `incorporation_certificate.md`.
+> ⏰ Next hard deadline: **WA Initial Report by ~2026-08-22** (120 days from effective date).
+> The checklist at the bottom of this file is the original pre-filing plan; the Articles step is now done.
+
 ## Overview
 
-- **Entity type:** 501(c)(3) Public Charity
-- **State of incorporation:** Washington
+- **Entity type:** 501(c)(3) Public Charity (incorporated as a WA nonprofit; 501(c)(3) tax-exempt status not yet applied for)
+- **State of incorporation:** Washington — incorporated 2026-04-24, UBI 606 193 277
 - **Purpose:** Open-source database technology research and development (charitable and scientific)
 
 ---
