@@ -16,7 +16,8 @@
 - [x] Hold organizational meeting and record minutes — **replaced by unanimous written consent in lieu of meeting, effective 2026-06-17** (Cedric + Fei both "Approved"; see `organizational_consent_record.md`). Formal minutes ratifying the consent are optional and still pending.
 - [x] Apply for EIN — **ASSIGNED 2026-07-02: EIN 42-3564818** (name control EDGE; online EIN assistant, Tom Tang responsible party; notice `EIN_CP575E.pdf` — IRS sends it once, keep it)
 - [ ] WA Business License Application (dor.wa.gov) — flagged in SoS letter
-- [ ] Open bank account — unblocked by EIN; bring CP 575E + Certificate of Incorporation + bylaws + organizational consent; bank not yet chosen
+- [x] Open bank account — **OPENED 2026-07-02 at Mercury** (deposits at Column N.A., Member FDIC; Tom alone per banking resolution; KYC legal address = Northwest RA Spokane office, since Mercury rejects virtual offices — Bellevue stays the mailing address everywhere else)
+- [ ] Fund the account (founder donation ~$5k discussed; document each donation with a letter) and add Fei as authorized user (Treasurer)
 - [ ] **Form 990-N/990 for tax year 2026 — due 05/15/2027** (required from the formation year even before exemption is granted, per CP 575E; 3 straight misses = automatic revocation)
 - [ ] **WA Annual Report — before 04/30/2027** (keeps status Active)
 
