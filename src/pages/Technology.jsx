@@ -10,7 +10,7 @@ export default function Technology() {
     <>
       <Helmet>
         <title>Technology — Edge Vector Foundation</title>
-        <meta name="description" content="Edge Vector's technology: user-controlled data stores with seamless ingestion, permissioned access, end-to-end encryption, signed writes, access logs, and collective computation. All open source." />
+        <meta name="description" content="Edge Vector's technology: user-controlled data stores with seamless ingestion, permissioned access, end-to-end encryption, signed writes, access logs, and collective computation. Built on open protocols." />
         <meta name="keywords" content="data sovereignty technology, personal data store, encrypted storage, permissioned APIs, signed writes, data provenance, LastDB, collective computation, open source" />
         <meta property="og:title" content="Technology — Edge Vector Foundation" />
         <meta property="og:description" content="Personal data infrastructure with seamless ingestion, security by default, verifiable trustworthiness, and collective computation. How the sovereign data stack works." />

@@ -9,7 +9,7 @@ export default function About() {
     <>
       <Helmet>
         <title>About — Edge Vector Foundation</title>
-        <meta name="description" content="Edge Vector Foundation is a non-profit building a path toward individual data ownership through open-source infrastructure. Learn about our mission, principles, and organizational structure." />
+        <meta name="description" content="Edge Vector Foundation is a non-profit building a path toward individual data ownership through open technology. Learn about our mission, principles, and organizational structure." />
         <meta name="keywords" content="Edge Vector Foundation, non-profit, data sovereignty, personal data control, open source, privacy, mission" />
         <meta property="og:title" content="About — Edge Vector Foundation" />
         <meta property="og:description" content="A non-profit dedicated to ensuring people — not corporations — control their personal data." />
@@ -30,7 +30,7 @@ export default function About() {
       <Section variant="sage">
         <h2><span className="bold">MISSION</span></h2>
 
-        <p>To ensure that every person controls their own data &mdash; how it is stored, who can access it, and how it is used. We build open-source infrastructure for seamless data ingestion, practical data use, security by default, verifiable trustworthiness, and long-term personal data resilience.</p>
+        <p>To ensure that every person controls their own data &mdash; how it is stored, who can access it, and how it is used. We build open technology for seamless data ingestion, practical data use, security by default, verifiable trustworthiness, and long-term personal data resilience.</p>
       </Section>
 
       <Section variant="slate">
@@ -42,7 +42,7 @@ export default function About() {
           <li><span className="bold white">Verifiable, not trusted</span> &mdash; Signed writes, transparent access logs, and data provenance provide cryptographic guarantees about authenticity and integrity.</li>
           <li><span className="bold white">Practical ownership</span> &mdash; Data control is meaningful only when people can use their data &mdash; through personal assistants, selective disclosure, and permissioned APIs.</li>
           <li><span className="bold white">Built for decades</span> &mdash; Personal data infrastructure must be resilient, with secure cloud backups and accessible permission management for non-technical users.</li>
-          <li><span className="bold white">Open by default</span> &mdash; Every tool, protocol, and schema is open source. No proprietary lock-in. No closed ecosystems.</li>
+          <li><span className="bold white">Open by design</span> &mdash; Open protocols, open schemas, and published research keep your data portable. No proprietary lock-in. No closed ecosystems.</li>
         </ul>
       </Section>
 
@@ -52,13 +52,13 @@ export default function About() {
         <div className="grid-2">
           <Card>
             <p><Label color="yellow">NON-PROFIT FOUNDATION</Label></p>
-            <p>The Edge Vector Foundation governs the open-source ecosystem. We maintain LastDB, the schema registry, and the network protocols. Our mandate is the long-term health of personal data infrastructure.</p>
+            <p>The Edge Vector Foundation governs the open ecosystem. We maintain LastDB, the schema registry, and the network protocols. Our mandate is the long-term health of personal data infrastructure.</p>
             <p className="dim">Open governance. Community-driven. No shareholders.</p>
           </Card>
 
           <Card>
             <p><Label color="yellow">COMMERCIAL SUBSIDIARY</Label></p>
-            <p>A for-profit subsidiary builds commercial products on top of the open-source foundation. Revenue funds continued development of the free tools. The subsidiary can never close-source the foundation&rsquo;s work.</p>
+            <p>A for-profit subsidiary builds commercial products on top of the foundation&rsquo;s technology. Revenue funds continued development of the free tools. The subsidiary can never close-source the foundation&rsquo;s published work.</p>
             <p className="dim">Sustainable funding. Aligned incentives.</p>
           </Card>
         </div>
