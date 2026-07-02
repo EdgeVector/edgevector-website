@@ -38,13 +38,13 @@
 - [ ] Open bank account (separate from Foundation account)
 - [ ] Register with WA Department of Revenue (for B&O tax)
 
-### Compensation (DECIDED 2026-06-10: Tom takes no compensation, indefinitely)
-- [ ] Fei's compensation (salary and/or PSUs): approved by Tom + Cedric — both disinterested since Tom takes no compensation (no reciprocity conflict); use comparability data + contemporaneous documentation (§4958 rebuttable presumption)
-- Tom: NO salary, NO PSUs — indefinite, by choice. Keeps him permanently disinterested for Fei's compensation and is the strongest Form 1023 posture. If this ever changes: seat a second independent director FIRST (bylaws §8.4 needs ≥2 disinterested; Cedric alone is not enough, and Fei+Cedric approving Tom while Tom approves Fei is a reciprocal conflict under the §4958 regs)
-- Board expansion: OPTIONAL — improves 1023 optics but is NOT required for the IRS filing, Labs formation, or any current operation. Cedric is the existing independent director.
-- [ ] Execute Profit Sharing Unit Agreement for Fei (none for Tom)
+### Compensation (DECIDED 2026-06-14: NOBODY takes compensation until there is revenue)
+- Neither Tom nor Fei takes any salary or PSUs at formation — both founders are uncompensated until Labs has revenue; how/whether to compensate is revisited then. (Supersedes the 2026-06-10 plan where Fei received PSUs at formation.)
+- With zero insider compensation at formation there is no §4958 reasonable-comp determination to make and no §53.4958-6 reciprocity concern; no comp package needs board approval to stand the entity up. Founders-take-nothing is the strongest Form 1023 posture.
+- When compensation is introduced: bylaws §8.4 requires ≥2 disinterested directors to approve (comparability data + contemporaneous documentation for the §4958 rebuttable presumption). If only one founder is paid at a time, the other two directors are disinterested; reciprocal "approve each other's pay" is a defined conflict under the §4958 regs.
+- Board expansion: OPTIONAL — a second independent director becomes necessary only if compensation is introduced in a configuration that needs it. Cedric is the existing independent director.
+- No PSU Agreements are executed at formation; no 83(b) election needed if/when PSUs are granted (PSUs are not equity)
 - [ ] Execute IP Assignment Agreements for Tom and Fei (IP assignment is not compensation — both sign now)
-- [ ] No 83(b) election needed — PSUs are not equity
 
 ---
 
@@ -60,8 +60,8 @@
 - [ ] WA Annual Report ($60/year, due on anniversary of formation)
 - [ ] WA B&O tax (0.471% for services; first $100k/year exempt)
 - [ ] Federal tax — LLC taxed as C corporation (Form 8832); files own Form 1120; profits up to Foundation as dividends (UBTI-excluded under §512(b)(1))
-- [ ] Quarterly profit sharing payments within 45 days of quarter end
-- [ ] Issue 1099-NEC or W-2 for profit sharing payments
+- [ ] (Once any PSUs are granted) Quarterly profit sharing payments within 45 days of quarter end
+- [ ] (Once any PSUs are granted) Issue 1099-NEC or W-2 for profit sharing payments
 - [ ] Maintain corporate minutes for all Member/Manager actions
 
 ### Cross-Entity
@@ -74,8 +74,8 @@
 ## Remaining Decisions Needed
 
 - [x] **Third board member** — Cedric Hurst (address needed for Articles filing)
-- [ ] **Profit sharing %** — what percentage of Distributable Profits for Tom and Fei
+- [ ] **Founder compensation** — DEFERRED until Labs has revenue (decided 2026-06-14); then decide structure (salary/PSUs) and amounts via the §8.4 disinterested-director procedure
 - [ ] **Manager authority thresholds** — debt limit, contract limit, hiring salary limit requiring Board approval
 - [ ] **Initial capital contribution** — amount Foundation contributes to LLC
 - [ ] **Bank** — which bank for both entities
-- [ ] **PSU post-termination** — how long vested PSUs keep paying after departure (12 months / perpetually / etc.)
+- [ ] **PSU post-termination** — how long vested PSUs keep paying after departure (12 months / perpetually / etc.) — deferred until PSUs are actually granted
