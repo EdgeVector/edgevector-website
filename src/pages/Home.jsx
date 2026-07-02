@@ -79,8 +79,8 @@ export default function Home() {
             <p><Label color="blue">LASTDB</Label></p>
             <p>The core database. Schema-based storage and querying for personal data. Runs locally with encrypted cloud backup. The foundation for user-controlled data infrastructure.</p>
             <p>
-              <a href="https://folddb.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>{'  '}
-              <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
+              <a href="https://thelastdb.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>{'  '}
+              <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
             </p>
           </Card>
 
@@ -97,21 +97,15 @@ export default function Home() {
           <Card>
             <p><Label color="orange">SCHEMA REGISTRY</Label></p>
             <p>A shared vocabulary for data schemas that enables interoperability across nodes without centralizing data.</p>
-            <p>
-              <a href="https://schema.folddb.com" target="_blank" rel="noreferrer" className="link-btn">[Registry]</a>
-            </p>
           </Card>
 
           <Card>
             <p><Label color="orange">FILE_TO_MARKDOWN</Label></p>
-            <p>A universal ingestion pipeline for converting diverse file types into structured Markdown for seamless data ingestion.</p>
-            <p>
-              <a href="https://github.com/EdgeVector/file_to_markdown" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
-            </p>
+            <p>A universal ingestion pipeline for converting diverse file types into structured Markdown for seamless data ingestion. Now part of the LastDB core.</p>
           </Card>
         </div>
 
-        <p className="dim">Edge Vector is currently in active research and development. The LastDB core is open source on <a href="https://github.com/EdgeVector/fold_db" target="_blank" rel="noreferrer">GitHub</a> for review and contribution.</p>
+        <p className="dim">Edge Vector is currently in active research and development. Open-source code and tooling are on <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer">GitHub</a>.</p>
       </Section>
 
       <div className="cta-block">
