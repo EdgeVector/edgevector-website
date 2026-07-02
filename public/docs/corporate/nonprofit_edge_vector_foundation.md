@@ -36,6 +36,8 @@
 
 ## 2. EIN Application (IRS Form SS-4)
 
+> **DONE 2026-07-02 — EIN 42-3564818 assigned** (name control EDGE; IRS Notice CP 575E, filed via the online EIN assistant). Notice: `EIN_CP575E.pdf`.
+
 **Filed with:** IRS (online at irs.gov/businesses — instant, free)
 
 **Information needed:**
