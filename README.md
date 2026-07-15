@@ -16,6 +16,14 @@ npm run build
 npm run preview
 ```
 
+Browser error reporting is enabled when `VITE_SENTRY_DSN` is present at build
+time. Optional build variables:
+
+```bash
+VITE_SENTRY_ENVIRONMENT=production
+VITE_SENTRY_RELEASE=edgevector-website@<git-sha>
+```
+
 `npm run build` copies workspace docs into `public/docs` when a sibling
 workspace is present. In isolated CI clones it uses the committed `public/docs`
 contents as-is.
