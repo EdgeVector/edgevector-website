@@ -9,8 +9,8 @@ export default function Home() {
     <>
       <Helmet>
         <title>Edge Vector Foundation — Building a Path Toward Individual Data Ownership</title>
-        <meta name="description" content="Edge Vector Foundation is building a path toward individual data ownership. We build open technology that enables secure, user-controlled computation on personal data." />
-        <meta name="keywords" content="data sovereignty, personal data, privacy, user control, encryption, data ingestion, permissioned APIs, open source, data provenance" />
+        <meta name="description" content="Edge Vector Foundation is building a path toward individual data ownership. We build open technology so people own their data — and the whole tool stack built on it." />
+        <meta name="keywords" content="data ownership, personal data, user control, own your tool stack, data ingestion, permissioned APIs, open source, data provenance" />
         <meta property="og:title" content="Edge Vector Foundation — Building a Path Toward Individual Data Ownership" />
         <meta property="og:description" content="People — not corporations — should determine how their data is stored, accessed, and used. We build the open ecosystem to make that real." />
         <meta property="og:type" content="website" />
@@ -41,7 +41,7 @@ export default function Home() {
 
       <p>The Edge Vector Foundation exists to ensure that <span className="bold white">people &mdash; not corporations or centralized platforms</span> &mdash; determine how their data is stored, accessed, and used.</p>
 
-      <p>We are building an <span className="bold white">open ecosystem</span> that enables secure computation on personal data while enabling anonymized data discovery and user-directed sharing.</p>
+      <p>We are building an <span className="bold white">open ecosystem</span> where your tools are clients of a database you own &mdash; and where you can deliver slices of your data to the people and apps you choose.</p>
 
       <p>This makes a new generation of <span className="bold white">on-device AI</span> possible: assistants and agents that can reason over your full personal context &mdash; your notes, files, calendar, messages &mdash; running on your device, with your data never leaving it.</p>
 
@@ -55,13 +55,13 @@ export default function Home() {
           </Card>
 
           <Card>
-            <p><Label color="red">PROTECT</Label></p>
-            <p>End-to-end encryption, granular permissions, signed writes, and transparent access logs. Security by default, not by opt-in.</p>
+            <p><Label color="red">BUILD</Label></p>
+            <p>Build your own tools on your data. Declare a schema, write a thin client &mdash; storage, indexing, and semantic search are already there. Own the whole stack.</p>
           </Card>
 
           <Card>
-            <p><Label color="purple">SHARE</Label></p>
-            <p>Choose what to share and with whom. Anonymized discovery lets others find relevant data without seeing it. You set the terms.</p>
+            <p><Label color="purple">DELIVER</Label></p>
+            <p>Choose what to deliver and to whom. Hand curated slices of your database to people and apps. You set the terms; you keep the source.</p>
           </Card>
         </div>
 
