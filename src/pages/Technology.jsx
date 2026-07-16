@@ -10,10 +10,10 @@ export default function Technology() {
     <>
       <Helmet>
         <title>Technology — Edge Vector Foundation</title>
-        <meta name="description" content="Edge Vector's technology: user-controlled data stores with seamless ingestion, permissioned access, end-to-end encryption, signed writes, access logs, and collective computation. Built on open protocols." />
-        <meta name="keywords" content="data sovereignty technology, personal data store, encrypted storage, permissioned APIs, signed writes, data provenance, LastDB, collective computation, open source" />
+        <meta name="description" content="Edge Vector's technology: a personal data store you own, with seamless ingestion, permissioned access, fast tool-building, and slices of your data delivered on your terms. Built on open protocols." />
+        <meta name="keywords" content="data ownership technology, personal data store, own your tool stack, permissioned APIs, data provenance, LastDB, collective computation, open source" />
         <meta property="og:title" content="Technology — Edge Vector Foundation" />
-        <meta property="og:description" content="Personal data infrastructure with seamless ingestion, security by default, verifiable trustworthiness, and collective computation. How the sovereign data stack works." />
+        <meta property="og:description" content="Personal data infrastructure with seamless ingestion, permissioned access, and collective computation. How a tool stack you own works." />
         <meta property="og:url" content="https://edgevector.org/technology" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary" />
@@ -24,7 +24,7 @@ export default function Technology() {
       <h1 className="tagline">Technology</h1>
       <hr className="decorative-rule" aria-hidden="true" />
 
-      <p>Edge Vector&rsquo;s technology gives individuals a <span className="bold white">personal data store they actually control</span> &mdash; with seamless ingestion, granular permissions, end-to-end encryption, verifiable integrity, and the option to derive collective value.</p>
+      <p>Edge Vector&rsquo;s technology gives individuals a <span className="bold white">personal data store they actually control</span> &mdash; with seamless ingestion, granular permissions, fast tool-building on top of it, and the option to deliver slices of it to others.</p>
 
       <Section variant="slate">
         <h2><span className="bold">ARCHITECTURE</span> <span className="dim">User-controlled, cloud-resilient</span></h2>
@@ -43,7 +43,7 @@ export default function Technology() {
 
           <Card>
             <p><Label color="green">THIRD-PARTY WRITES</Label></p>
-            <p>Applications and services can write data into your store with explicit permission. Medical records from your doctor, receipts from a purchase, notes from a collaborator &mdash; all land in your personal data store, signed and logged.</p>
+            <p>Applications and services can write data into your store with explicit permission. Medical records from your doctor, receipts from a purchase, notes from a collaborator &mdash; all land in your personal data store, under your control.</p>
           </Card>
 
           <Card>
@@ -59,34 +59,22 @@ export default function Technology() {
       </Section>
 
       <Section variant="rose">
-        <h2><span className="bold">SECURITY &amp; VERIFICATION</span> <span className="dim">Trust by design, not by promise</span></h2>
+        <h2><span className="bold">OWNERSHIP BY DESIGN</span> <span className="dim">Yours, on your machine</span></h2>
 
         <div className="grid-3">
           <Card>
-            <p><Label color="red">END-TO-END ENCRYPTION</Label></p>
-            <p><span className="bold">AES-256-GCM</span> for content encryption. Keys derived via <span className="bold">Argon2id</span> KDF, expanded through HKDF. Your master key never touches disk unencrypted. The cloud only ever sees ciphertext.</p>
+            <p><Label color="red">LOCAL BY DEFAULT</Label></p>
+            <p>Your store runs as one process on your machine, encrypted at rest. Local use needs no account. Cloud backup is optional and holds only what you choose to back up.</p>
           </Card>
 
           <Card>
-            <p><Label color="red">SIGNED WRITES</Label></p>
-            <p>Every data entry is cryptographically signed. You can verify who wrote what, and when. Tampered data is detectable. Authenticity is provable.</p>
+            <p><Label color="red">LIGHTWEIGHT BY DESIGN</Label></p>
+            <p>No heavyweight cryptographic ceremony. A lighter, personal identity system keeps writing and building fast &mdash; the database is yours, on your hardware, so trust follows ownership.</p>
           </Card>
 
-          <Card>
-            <p><Label color="red">TRANSPARENT ACCESS LOGS</Label></p>
-            <p>All reads and read attempts are recorded. You always know who accessed your data, what they accessed, and when. No silent surveillance.</p>
-          </Card>
-        </div>
-
-        <div className="grid-2">
           <Card>
             <p><Label color="red">DATA PROVENANCE</Label></p>
-            <p>Public, verifiable transforms ensure derived data can be traced to its original source and validated for correctness. The chain of custody is transparent.</p>
-          </Card>
-
-          <Card>
-            <p><Label color="red">ECONOMIC SAFEGUARDS</Label></p>
-            <p>Micropayment mechanisms with exponentially increasing costs make large-scale data extraction or inference attacks economically impractical.</p>
+            <p>Public, deterministic transforms ensure derived data can be traced to its original source and validated for correctness. The chain of custody is transparent.</p>
           </Card>
         </div>
       </Section>
@@ -122,8 +110,8 @@ export default function Technology() {
           </Card>
 
           <Card>
-            <p><Label color="purple">INTERPERSONAL SHARING</Label></p>
-            <p>Share information with friends, collaborators, or communities in a controlled manner. The recipient gets what you chose to share. Your underlying data stays private.</p>
+            <p><Label color="purple">DELIVERED SLICES</Label></p>
+            <p>Deliver curated slices of your database &mdash; a digest, a dataset, a rollup &mdash; to friends, collaborators, or communities. The recipient gets a usable piece of your stack; you keep the source.</p>
           </Card>
 
           <Card>

@@ -39,7 +39,7 @@ const rawNodes = [
   { id: 'files', data: { label: 'Your Files' }, style: styles.default },
   { id: 'writes', data: { label: 'Third-Party Writes' }, style: styles.default },
   { id: 'ingestion', data: { label: 'Ingestion Engine' }, style: styles.default },
-  { id: 'datastore', data: { label: subtext('Structured Data Store', 'Signed + Logged \u00b7 Append-Only') }, style: { ...styles.default, width: 210 } },
+  { id: 'datastore', data: { label: subtext('Structured Data Store', 'Yours \u00b7 Append-Only') }, style: { ...styles.default, width: 210 } },
   { id: 'query', data: { label: 'Query Engine' }, style: styles.default },
   { id: 'perms', data: { label: 'Permission Controls' }, style: styles.default },
   { id: 'cloud', data: { label: subtext('Encrypted Cloud', 'Ciphertext only') }, style: styles.heading },
