@@ -62,11 +62,11 @@ cp "$WORKSPACE/docs/corporate/conflict_of_interest_policy.md" "$DEST/corporate/"
 #    first-to-file position are LIVE; publishing it here destroys them.
 # Pulled 2026-06-04 (enforceable; do not re-add): patent_vectorized_discovery,
 #    patent_schema_canonical_service (+ its split successors dedup / nmi).
-# Kept below: fold_access (defensive). verified_function_execution and
-#    agent_code_promotion remain pending a posture decision — see Tom.
-cp "$WORKSPACE/docs/corporate/patent_verified_function_execution.pdf" "$DEST/corporate/"
+# Pulled 2026-07-17 (Tom: will not file; do not re-add):
+#    patent_verified_function_execution, patent_agent_code_promotion —
+#    see brain decision-2026-07-17-drop-vfe-acp-filings.
+# Kept below: fold_access (defensive).
 cp "$WORKSPACE/docs/corporate/patent_fold_access_architecture.pdf" "$DEST/corporate/"
-cp "$WORKSPACE/docs/corporate/patent_agent_code_promotion.pdf" "$DEST/corporate/"
 
 # Progress
 cp "$WORKSPACE/docs/progress/roadmap.md" "$DEST/progress/"
