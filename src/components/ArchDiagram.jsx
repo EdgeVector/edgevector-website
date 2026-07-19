@@ -35,18 +35,14 @@ const subtext = (main, sub) => (
 );
 
 const rawNodes = [
-  { id: 'title', data: { label: 'Your Data Store' }, style: styles.heading },
   { id: 'files', data: { label: 'Your Files' }, style: styles.default },
-  { id: 'writes', data: { label: 'Third-Party Writes' }, style: styles.default },
-  { id: 'ingestion', data: { label: 'Ingestion Engine' }, style: styles.default },
-  { id: 'datastore', data: { label: subtext('Structured Data Store', 'Yours \u00b7 Append-Only') }, style: { ...styles.default, width: 210 } },
-  { id: 'query', data: { label: 'Query Engine' }, style: styles.default },
-  { id: 'perms', data: { label: 'Permission Controls' }, style: styles.default },
-  { id: 'cloud', data: { label: subtext('Encrypted Cloud', 'Ciphertext only') }, style: styles.heading },
-  { id: 'backup', data: { label: 'Backup & Sync' }, style: styles.default },
-  { id: 'collective', data: { label: 'Collective Queries' }, style: styles.default },
-  { id: 'marketplace', data: { label: 'Marketplace' }, style: styles.default },
-  { id: 'other', data: { label: subtext('Other Data Stores', 'Answers, not data \u00b7 Opt-in only') }, style: styles.heading },
+  { id: 'writes', data: { label: subtext('Third-Party Writes', 'With your permission') }, style: styles.default },
+  { id: 'ingestion', data: { label: subtext('Ingestion', 'Files \u2192 structured records') }, style: styles.default },
+  { id: 'lastdb', data: { label: subtext('LastDB \u2014 Your Database', 'One process \u00b7 your machine') }, style: { ...styles.heading, width: 230 } },
+  { id: 'apps', data: { label: subtext('Your Apps', 'Brain \u00b7 Kanban \u00b7 yours') }, style: styles.default },
+  { id: 'slices', data: { label: subtext('Delivery Slices', 'Your terms \u00b7 you keep the source') }, style: { ...styles.default, width: 210 } },
+  { id: 'exemem', data: { label: subtext('Exemem Cloud (optional)', 'Backup \u00b7 sync \u00b7 delivery rail') }, style: { ...styles.default, width: 210 } },
+  { id: 'people', data: { label: subtext('People & Apps You Choose', 'Recipients of your slices') }, style: { ...styles.heading, width: 230 } },
 ];
 
 const solid = { stroke: 'var(--fg-strong)', strokeWidth: 2 };
@@ -55,19 +51,14 @@ const arrow = { type: MarkerType.ArrowClosed, color: 'var(--fg-strong)', width: 
 const arrowGray = { type: MarkerType.ArrowClosed, color: 'var(--border)', width: 14, height: 14 };
 
 const rawEdges = [
-  { id: 'e1', source: 'title', target: 'files', style: solid, markerEnd: arrow },
-  { id: 'e2', source: 'title', target: 'writes', style: solid, markerEnd: arrow },
-  { id: 'e3', source: 'files', target: 'ingestion', style: solid, markerEnd: arrow },
-  { id: 'e4', source: 'writes', target: 'ingestion', style: solid, markerEnd: arrow },
-  { id: 'e5', source: 'ingestion', target: 'datastore', style: solid, markerEnd: arrow },
-  { id: 'e6', source: 'datastore', target: 'query', style: solid, markerEnd: arrow },
-  { id: 'e7', source: 'datastore', target: 'perms', style: solid, markerEnd: arrow },
-  { id: 'e8', source: 'query', target: 'cloud', style: dashed, markerEnd: arrowGray },
-  { id: 'e9', source: 'perms', target: 'cloud', style: dashed, markerEnd: arrowGray },
-  { id: 'e10', source: 'cloud', target: 'backup', style: solid, markerEnd: arrow },
-  { id: 'e11', source: 'cloud', target: 'collective', style: solid, markerEnd: arrow },
-  { id: 'e12', source: 'cloud', target: 'marketplace', style: solid, markerEnd: arrow },
-  { id: 'e13', source: 'collective', target: 'other', style: solid, markerEnd: arrow },
+  { id: 'e1', source: 'files', target: 'ingestion', style: solid, markerEnd: arrow },
+  { id: 'e2', source: 'writes', target: 'ingestion', style: solid, markerEnd: arrow },
+  { id: 'e3', source: 'ingestion', target: 'lastdb', style: solid, markerEnd: arrow },
+  { id: 'e4', source: 'lastdb', target: 'apps', style: solid, markerEnd: arrow },
+  { id: 'e5', source: 'lastdb', target: 'slices', style: solid, markerEnd: arrow },
+  { id: 'e6', source: 'lastdb', target: 'exemem', style: dashed, markerEnd: arrowGray },
+  { id: 'e7', source: 'slices', target: 'people', style: solid, markerEnd: arrow },
+  { id: 'e8', source: 'exemem', target: 'people', style: dashed, markerEnd: arrowGray },
 ];
 
 function layoutGraph(nodes, edges) {

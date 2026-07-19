@@ -1,25 +1,33 @@
 /* Theme system: every color routes through these variables. The default
    (no data-theme attribute) is the original light "paper" palette; terminal
    themes override the full set via html[data-theme="..."]. */
+/* Default: inverted-gruvbox WORKSTATION spec (Tom 2026-07-19) — gruvbox
+   inverted onto warm ivory paper: a 1980s engineering-workstation / Unix
+   database-inspector feel. Palette values are Tom's spec, verbatim. */
 :root {
-  --bg: #e8e8e8;          /* page background */
-  --bg-code: #e0e0e0;     /* pre/code blocks, table headers */
-  --bg-raised: #f0f0f0;   /* mobile nav dropdown */
-  --fg: #1a1a1a;          /* body text */
-  --fg-strong: #0a0a0a;   /* headings, emphasis, heavy borders, inverted bg */
-  --fg-muted: #555;       /* blockquotes, diagram sublabels */
-  --fg-dim: #777;         /* subtitles, .dim, stat labels */
-  --border: #999;         /* standard borders and rules */
-  --border-light: #ccc;   /* light separators */
-  --accent: #cc0000;      /* link hover, ascii depth layer */
-  --term-red: #cc0000;
-  --term-green: #007700;
-  --term-blue: #0055cc;
-  --term-yellow: #cc8800;
-  --term-purple: #8800cc;
-  --term-orange: #cc5500;
+  --bg: #fbf6ec;          /* warm ivory paper */
+  --bg-code: #efe7d8;     /* surface-alt: pre/code blocks, table headers */
+  --bg-raised: #f6f0e5;   /* surface: mobile nav dropdown */
+  --fg: #3c3836;          /* body ink */
+  --fg-strong: #28221f;   /* strong ink — emphasis, inverted bg */
+  --fg-muted: #7c6f64;    /* muted metadata */
+  --fg-dim: #7c6f64;      /* subtitles, .dim, stat labels */
+  --fg-faint: #a89984;    /* faintest annotations */
+  --border: #cfc5b5;      /* panel borders, rules */
+  --border-strong: #a89c8a;
+  --border-light: #e4dccd;
+  --selection: #e4dccd;
+  --focus: #d5c4a1;
+  --accent: #076678;      /* blue — panel titles, links, active nav */
+  --term-red: #9d0006;
+  --term-green: #427b58;
+  --term-blue: #076678;
+  --term-yellow: #b57614;
+  --term-purple: #8f3f71;
+  --term-orange: #af3a03;
+  --term-aqua: #3e7a6c;
   --ascii-face: #ffffff;  /* hero ascii face */
-  --ascii-depth: #0a0a0a; /* hero ascii shadow — black on paper (Tom 07-19); themes fall back to accent */
+  --ascii-depth: #28221f; /* hero ascii shadow — ink black on paper */
 }
 
 /* Terminal themes shadow the hero with their accent; only default paper uses black. */
@@ -189,19 +197,42 @@ html[data-theme='monokai'] {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* ascii minimalism: ONE font size everywhere — hierarchy comes from bold and
+   color only; sections are tinted boxes, dividers are ascii, never rules */
 body {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px;
-  line-height: 1.6;
+  font-family: 'Berkeley Mono', 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--fg);
   background: var(--bg);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
+::selection { background: var(--selection); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
-.page { max-width: 900px; margin: 0 auto; padding: 0 24px; overflow-x: hidden; }
-p { margin: 0.8em 0; }
-h2 { font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.6em; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
+.page { max-width: 900px; margin: 0 auto; padding: 0 16px; overflow-x: hidden; }
+p { margin: 0.45em 0; }
+h1, h2, h3 { font-size: 12px; font-weight: 600; margin: 0.4em 0 0.3em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
 pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
+
+/* ascii divider — a run of ═ clipped to the container, replaces every hr rule */
+.ascii-rule,
+.decorative-rule,
+.markdown-body hr {
+  border: none;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--border);
+  margin: 0.3em 0;
+  height: 1.5em;
+}
+.ascii-rule::after,
+.decorative-rule::after,
+.markdown-body hr::after {
+  content: "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
+}
 
 /* hero title — canvas-sampled ASCII art of Anton glyphs (see AsciiTitle.jsx);
    face layer over an accent-colored extruded depth layer */
@@ -215,47 +246,78 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 }
 .ascii-title .ascii-depth { color: var(--ascii-depth, var(--accent)); }
 
-/* hero */
+/* animated ascii migration diagram (see AsciiMigration.jsx) */
+.ascii-diagram {
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--fg-dim);
+  /* overflow-x alone would force overflow-y to compute to auto, which can
+     spawn a phantom vertical scrollbar from sub-pixel height rounding */
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  margin: 0.5em 0;
+}
+.ascii-diagram .mig-apps { color: var(--term-red); font-weight: 700; }
+.ascii-diagram .mig-db   { color: var(--term-green); font-weight: 700; }
+.ascii-diagram .mig-llm  { color: var(--term-purple); font-weight: 700; }
+
+/* hero — tagline is the same size as everything else: bold + accent only */
 .tagline {
-  font-size: 2.4em;
+  font-size: inherit;
   font-weight: 700;
-  color: var(--fg-strong);
-  margin: 0.4em 0;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
+  color: var(--accent);
+  margin: 0.3em 0;
+  text-transform: none;
+  letter-spacing: 0;
 }
-.subtitle { font-size: 1.1em; color: var(--fg-dim); margin: 0.3em 0; }
+.subtitle { color: var(--fg-dim); margin: 0.3em 0; }
 
-/* grids */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
-.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
+/* grids — no card boxes; only internal split lines, bled to the pane edges
+   (negative margins cancel the section's 12px side padding) */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0.5em -12px; align-items: stretch; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; margin: 0.5em -12px; align-items: stretch; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; margin: 0.5em -12px; align-items: stretch; }
+/* vertical splits between columns */
+.grid-2 > *:not(:nth-child(2n + 1)),
+.grid-3 > *:not(:nth-child(3n + 1)),
+.grid-4 > *:not(:nth-child(4n + 1)) { border-left: 1px solid var(--border); }
+/* horizontal splits between rows */
+.grid-2 > *:nth-child(n + 3),
+.grid-3 > *:nth-child(n + 4),
+.grid-4 > *:nth-child(n + 5) { border-top: 1px solid var(--border); }
 
-/* sections — no background color, separated by heavy rules */
+/* sections — utility-window panels: 1px border, square corners, and the
+   first heading styled as the panel's title bar (spec: titles in blue) */
 [class^="section-"] {
-  background: transparent;
   color: var(--fg);
-  padding: 2.5em 0;
-  margin: 0;
-  border-top: 4px solid var(--fg-strong);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0 12px 8px;
+  margin: 10px 0;
 }
+[class^="section-"] > h2:first-child {
+  margin: 0 -12px 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+[class^="section-"] h2 .bold { color: inherit; }
 
-/* cards — clean text blocks */
+/* cards — no boxes: plain dense cells; the grid draws the split lines */
 .card {
-  padding: 20px 0 20px 20px;
+  padding: 4px 12px;
   display: flex;
   flex-direction: column;
   min-width: 0;
   background: transparent;
-  border-left: 2px solid var(--border);
+  border: none;
 }
-.card pre { background: var(--bg-code); padding: 12px; margin: 0.5em 0; border: 2px solid var(--border); }
+.card pre { background: var(--bg-code); padding: 6px; margin: 0.4em 0; border: 1px solid var(--border); }
 
 /* labels — bold text, no background */
 .label {
   padding: 0;
   font-weight: 700;
-  font-size: 0.85em;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -271,38 +333,30 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 .dim { color: var(--fg-dim); }
 .bold { font-weight: 700; color: var(--fg-strong); }
 
-/* links — stark, underlined */
-a { color: var(--fg-strong); text-decoration: none; border-bottom: 1px solid var(--border); }
-a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+/* links — blue ink, underline only on hover (spec) */
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { border-bottom-color: var(--accent); }
 .link-btn {
   font-weight: 700;
   color: var(--fg-strong);
-  border: 2px solid var(--fg-strong);
-  padding: 4px 12px;
+  border: 1px solid var(--fg-strong);
+  padding: 1px 8px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.85em;
   display: inline-block;
-  margin: 2px 4px 2px 0;
+  margin: 1px 2px 1px 0;
 }
-.link-btn:hover { background: var(--accent); color: var(--bg); border: 2px solid var(--accent); }
-.link-btn-active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.link-btn:hover { background: var(--selection); color: var(--fg-strong); border-color: var(--border-strong); }
+.link-btn-active { background: var(--selection); color: var(--accent); border-color: var(--border-strong); }
 
-/* decorative rules — heavy */
-.decorative-rule {
-  border: none;
-  border-top: 4px solid var(--fg-strong);
-  margin: 0.8em 0;
-}
 
 /* navigation — bold bar */
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 0;
-  margin-bottom: 24px;
-  border-bottom: 4px solid var(--border);
+  gap: 8px;
+  padding: 8px 0;
+  margin-bottom: 4px;
 }
 .nav-brand {
   display: flex;
@@ -338,41 +392,48 @@ a:hover { color: var(--accent); border-bottom-color: var(--accent); }
   cursor: pointer;
   line-height: 1;
 }
-.nav-toggle:hover { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+.nav-toggle:hover { border-color: var(--border-strong); background: var(--selection); color: var(--fg-strong); }
 
-/* footer — heavy rule */
+/* footer — ascii divider instead of a rule */
 .site-footer {
-  margin-top: 3em;
-  padding: 1.5em 0;
-  border-top: 4px solid var(--border);
+  margin-top: 1em;
+  padding: 0.3em 0 1em;
+}
+.site-footer::before {
+  content: "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--border);
+  height: 1.5em;
+  margin-bottom: 0.6em;
 }
 .site-footer p { margin: 0.3em 0; }
 .site-footer a { border-bottom: 1px solid var(--border); }
 .site-footer a:hover { border-bottom-color: var(--accent); }
 
-/* card stack */
-.card-stack { display: flex; flex-direction: column; gap: 2px; margin: 1em 0; }
+/* card stack — split lines between rows, no boxes */
+.card-stack { display: flex; flex-direction: column; gap: 0; margin: 0.5em -12px; }
+.card-stack > * + * { border-top: 1px solid var(--border); }
 
 /* section subheading */
-.section-subheading { margin-top: 2em; font-size: 1.1em; }
+.section-subheading { margin-top: 1.5em; }
 
-/* principle list — hard lines */
+/* principle list — ascii bullets, no rules */
 .principle-list { list-style: none; padding: 0; margin: 1em 0; }
-.principle-list li { padding: 0.8em 0; border-bottom: 2px solid var(--border-light); }
-.principle-list li:last-child { border-bottom: none; }
+.principle-list li { padding: 0.3em 0; }
+.principle-list li::before { content: "· "; color: var(--fg-dim); font-weight: 700; }
 
-/* big number stat */
-.stat-number { font-size: 2.5em; font-weight: 700; color: var(--fg-strong); line-height: 1; }
-.stat-label { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85em; }
+/* stat — same size as body, accent + bold carries the emphasis */
+.stat-number { font-weight: 700; color: var(--accent); }
+.stat-label { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 1px; }
 
 /* cta block */
 .cta-block {
   text-align: center;
-  padding: 3em 0;
-  border-top: 4px solid var(--border);
+  padding: 0.8em 0;
   margin-top: 0;
 }
-.cta-block .tagline { font-size: 1.8em; }
 
 /* architecture diagram */
 .arch-diagram {
@@ -447,10 +508,10 @@ a:hover { color: var(--accent); border-bottom-color: var(--accent); }
   color: var(--border);
 }
 
-/* markdown body — styles for rendered .md files */
-.markdown-body h1 { font-size: 1.8em; font-weight: 700; margin: 1em 0 0.5em; letter-spacing: -0.5px; }
-.markdown-body h2 { font-size: 1.3em; margin: 1.5em 0 0.5em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.3em; }
-.markdown-body h3 { font-size: 1.05em; margin: 1.2em 0 0.4em; text-transform: none; letter-spacing: 0; }
+/* markdown body — same size; bold + accent carry the hierarchy */
+.markdown-body h1 { margin: 1em 0 0.5em; }
+.markdown-body h2 { margin: 1.5em 0 0.5em; }
+.markdown-body h3 { margin: 1.2em 0 0.4em; text-transform: none; letter-spacing: 0; color: var(--fg-strong); }
 .markdown-body ul, .markdown-body ol { padding-left: 1.5em; margin: 0.5em 0; }
 .markdown-body li { margin: 0.3em 0; }
 .markdown-body pre { background: var(--bg-code); padding: 12px; margin: 0.8em 0; border: 2px solid var(--border); overflow-x: auto; }
@@ -466,14 +527,16 @@ a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 /* responsive */
 @media (max-width: 900px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  /* single column: no vertical splits; a line above every cell but the first */
+  .grid-2 > *, .grid-3 > *, .grid-4 > * { border-left: none; }
+  .grid-2 > *:nth-child(n + 2),
+  .grid-3 > *:nth-child(n + 2),
+  .grid-4 > *:nth-child(n + 2) { border-top: 1px solid var(--border); }
 }
 
 @media (max-width: 600px) {
   body { font-size: 14px; }
-  .tagline { font-size: 1.8em; }
-  h2 { font-size: 1.2em; }
-  .stat-number { font-size: 2em; }
-  [class^="section-"] { padding: 28px 16px; }
+  [class^="section-"] { padding: 8px 10px; }
 
   .nav-toggle { display: block; }
   .nav-links {
