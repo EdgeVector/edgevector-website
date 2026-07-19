@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -32,6 +33,7 @@ export default function Nav() {
         ))}
         <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
         <a href="mailto:contact@edgevector.org" className="link-btn" onClick={() => setMenuOpen(false)}>[Contact]</a>
+        <ThemeSwitcher />
       </div>
     </nav>
   );
