@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Section from '../components/Section';
 import Card from '../components/Card';
 import Label from '../components/Label';
+import AsciiTitle from '../components/AsciiTitle';
 
 export default function Home() {
   return (
@@ -30,10 +31,7 @@ export default function Home() {
         })}</script>
       </Helmet>
 
-      <div className="hero-title" aria-label="Edge Vector">
-        <span className="hero-title-line">EDGE</span>
-        <span className="hero-title-line">VECTOR</span>
-      </div>
+      <AsciiTitle lines={['EDGE', 'VECTOR']} />
       <hr className="decorative-rule" aria-hidden="true" />
       <h1 className="tagline">Building a path toward individual data ownership.</h1>
       <hr className="decorative-rule" aria-hidden="true" />

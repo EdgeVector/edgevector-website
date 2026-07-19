@@ -23,8 +23,8 @@ const baseStyle = {
 };
 
 const styles = {
-  default: { ...baseStyle, background: '#f5f5f5', border: '2px solid #0a0a0a', color: '#0a0a0a', padding: '10px 16px' },
-  heading: { ...baseStyle, background: '#0a0a0a', border: '2px solid #0a0a0a', color: '#e8e8e8', padding: '8px 16px', letterSpacing: '2px' },
+  default: { ...baseStyle, background: 'var(--bg-code)', border: '2px solid var(--fg-strong)', color: 'var(--fg-strong)', padding: '10px 16px' },
+  heading: { ...baseStyle, background: 'var(--fg-strong)', border: '2px solid var(--fg-strong)', color: 'var(--bg)', padding: '8px 16px', letterSpacing: '2px' },
 };
 
 const subtext = (main, sub) => (
@@ -49,10 +49,10 @@ const rawNodes = [
   { id: 'other', data: { label: subtext('Other Data Stores', 'Answers, not data \u00b7 Opt-in only') }, style: styles.heading },
 ];
 
-const solid = { stroke: '#0a0a0a', strokeWidth: 2 };
-const dashed = { stroke: '#999', strokeWidth: 2, strokeDasharray: '6 4' };
-const arrow = { type: MarkerType.ArrowClosed, color: '#0a0a0a', width: 14, height: 14 };
-const arrowGray = { type: MarkerType.ArrowClosed, color: '#999', width: 14, height: 14 };
+const solid = { stroke: 'var(--fg-strong)', strokeWidth: 2 };
+const dashed = { stroke: 'var(--border)', strokeWidth: 2, strokeDasharray: '6 4' };
+const arrow = { type: MarkerType.ArrowClosed, color: 'var(--fg-strong)', width: 14, height: 14 };
+const arrowGray = { type: MarkerType.ArrowClosed, color: 'var(--border)', width: 14, height: 14 };
 
 const rawEdges = [
   { id: 'e1', source: 'title', target: 'files', style: solid, markerEnd: arrow },

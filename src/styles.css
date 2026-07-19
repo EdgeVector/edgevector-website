@@ -1,45 +1,230 @@
+/* Theme system: every color routes through these variables. The default
+   (no data-theme attribute) is the original light "paper" palette; terminal
+   themes override the full set via html[data-theme="..."]. */
+:root {
+  --bg: #e8e8e8;          /* page background */
+  --bg-code: #e0e0e0;     /* pre/code blocks, table headers */
+  --bg-raised: #f0f0f0;   /* mobile nav dropdown */
+  --fg: #1a1a1a;          /* body text */
+  --fg-strong: #0a0a0a;   /* headings, emphasis, heavy borders, inverted bg */
+  --fg-muted: #555;       /* blockquotes, diagram sublabels */
+  --fg-dim: #777;         /* subtitles, .dim, stat labels */
+  --border: #999;         /* standard borders and rules */
+  --border-light: #ccc;   /* light separators */
+  --accent: #cc0000;      /* link hover, ascii depth layer */
+  --term-red: #cc0000;
+  --term-green: #007700;
+  --term-blue: #0055cc;
+  --term-yellow: #cc8800;
+  --term-purple: #8800cc;
+  --term-orange: #cc5500;
+  --ascii-face: #ffffff;  /* hero ascii face */
+  --ascii-depth: #0a0a0a; /* hero ascii shadow — black on paper (Tom 07-19); themes fall back to accent */
+}
+
+/* Terminal themes shadow the hero with their accent; only default paper uses black. */
+html[data-theme] { --ascii-depth: var(--accent); }
+
+html[data-theme='gruvbox'] {
+  --bg: #282828;
+  --bg-code: #3c3836;
+  --bg-raised: #32302f;
+  --fg: #ebdbb2;
+  --fg-strong: #fbf1c7;
+  --fg-muted: #928374;
+  --fg-dim: #a89984;
+  --border: #665c54;
+  --border-light: #504945;
+  --accent: #fe8019;
+  --term-red: #fb4934;
+  --term-green: #b8bb26;
+  --term-blue: #83a598;
+  --term-yellow: #fabd2f;
+  --term-purple: #d3869b;
+  --term-orange: #fe8019;
+  --ascii-face: #ebdbb2;
+}
+
+html[data-theme='gruvbox-light'] {
+  --bg: #fbf1c7;
+  --bg-code: #ebdbb2;
+  --bg-raised: #f2e5bc;
+  --fg: #3c3836;
+  --fg-strong: #282828;
+  --fg-muted: #7c6f64;
+  --fg-dim: #7c6f64;
+  --border: #a89984;
+  --border-light: #bdae93;
+  --accent: #af3a03;
+  --term-red: #cc241d;
+  --term-green: #79740e;
+  --term-blue: #076678;
+  --term-yellow: #b57614;
+  --term-purple: #8f3f71;
+  --term-orange: #af3a03;
+  --ascii-face: #ffffff;
+}
+
+/* gruvbox light, "hard" contrast — the whitest official gruvbox light bg */
+html[data-theme='gruvbox-light-hard'] {
+  --bg: #f9f5d7;
+  --bg-code: #ebdbb2;
+  --bg-raised: #f2e5bc;
+  --fg: #3c3836;
+  --fg-strong: #282828;
+  --fg-muted: #7c6f64;
+  --fg-dim: #7c6f64;
+  --border: #a89984;
+  --border-light: #bdae93;
+  --accent: #af3a03;
+  --term-red: #cc241d;
+  --term-green: #79740e;
+  --term-blue: #076678;
+  --term-yellow: #b57614;
+  --term-purple: #8f3f71;
+  --term-orange: #af3a03;
+  --ascii-face: #ffffff;
+}
+
+/* near-white warm paper with gruvbox accent palette */
+html[data-theme='gruvbox-paper'] {
+  --bg: #fdfdfa;
+  --bg-code: #f1f0ea;
+  --bg-raised: #f7f6f1;
+  --fg: #3c3836;
+  --fg-strong: #1d2021;
+  --fg-muted: #7c6f64;
+  --fg-dim: #928374;
+  --border: #bdae93;
+  --border-light: #d5c4a1;
+  --accent: #d65d0e;
+  --term-red: #cc241d;
+  --term-green: #98971a;
+  --term-blue: #458588;
+  --term-yellow: #d79921;
+  --term-purple: #b16286;
+  --term-orange: #d65d0e;
+  --ascii-face: #ffffff;
+}
+
+html[data-theme='solarized'] {
+  --bg: #002b36;
+  --bg-code: #073642;
+  --bg-raised: #073642;
+  --fg: #839496;
+  --fg-strong: #93a1a1;
+  --fg-muted: #586e75;
+  --fg-dim: #657b83;
+  --border: #586e75;
+  --border-light: #073642;
+  --accent: #dc322f;
+  --term-red: #dc322f;
+  --term-green: #859900;
+  --term-blue: #268bd2;
+  --term-yellow: #b58900;
+  --term-purple: #6c71c4;
+  --term-orange: #cb4b16;
+  --ascii-face: #fdf6e3;
+}
+
+html[data-theme='dracula'] {
+  --bg: #282a36;
+  --bg-code: #44475a;
+  --bg-raised: #343746;
+  --fg: #f8f8f2;
+  --fg-strong: #ffffff;
+  --fg-muted: #6272a4;
+  --fg-dim: #6272a4;
+  --border: #6272a4;
+  --border-light: #44475a;
+  --accent: #ff79c6;
+  --term-red: #ff5555;
+  --term-green: #50fa7b;
+  --term-blue: #8be9fd;
+  --term-yellow: #f1fa8c;
+  --term-purple: #bd93f9;
+  --term-orange: #ffb86c;
+  --ascii-face: #f8f8f2;
+}
+
+html[data-theme='nord'] {
+  --bg: #2e3440;
+  --bg-code: #3b4252;
+  --bg-raised: #3b4252;
+  --fg: #d8dee9;
+  --fg-strong: #eceff4;
+  --fg-muted: #616e88;
+  --fg-dim: #81a1c1;
+  --border: #4c566a;
+  --border-light: #434c5e;
+  --accent: #88c0d0;
+  --term-red: #bf616a;
+  --term-green: #a3be8c;
+  --term-blue: #81a1c1;
+  --term-yellow: #ebcb8b;
+  --term-purple: #b48ead;
+  --term-orange: #d08770;
+  --ascii-face: #eceff4;
+}
+
+html[data-theme='monokai'] {
+  --bg: #272822;
+  --bg-code: #3e3d32;
+  --bg-raised: #34352f;
+  --fg: #f8f8f2;
+  --fg-strong: #ffffff;
+  --fg-muted: #75715e;
+  --fg-dim: #75715e;
+  --border: #75715e;
+  --border-light: #49483e;
+  --accent: #f92672;
+  --term-red: #f92672;
+  --term-green: #a6e22e;
+  --term-blue: #66d9ef;
+  --term-yellow: #e6db74;
+  --term-purple: #ae81ff;
+  --term-orange: #fd971f;
+  --ascii-face: #f8f8f2;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 15px;
   line-height: 1.6;
-  color: #1a1a1a;
-  background: #e8e8e8;
+  color: var(--fg);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
 }
 
 .page { max-width: 900px; margin: 0 auto; padding: 0 24px; overflow-x: hidden; }
 p { margin: 0.8em 0; }
-h2 { font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.6em; text-transform: uppercase; letter-spacing: 2px; }
+h2 { font-size: 1.4em; font-weight: 700; margin: 1.2em 0 0.6em; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
 pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 
-/* hero title — massive responsive text */
-.hero-title {
-  display: flex;
-  flex-direction: column;
-  line-height: 0.95;
-  margin: 0.1em 0;
-}
-.hero-title-line {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(4rem, 18vw, 12rem);
-  font-weight: 400;
-  color: #ffffff;
-  letter-spacing: 0.01em;
+/* hero title — canvas-sampled ASCII art of Anton glyphs (see AsciiTitle.jsx);
+   face layer over an accent-colored extruded depth layer */
+.ascii-title {
+  color: var(--ascii-face);
   display: block;
+  overflow: hidden;
+  font-size: 9px;
+  line-height: 1;
+  margin: 0.5em 0;
 }
+.ascii-title .ascii-depth { color: var(--ascii-depth, var(--accent)); }
 
 /* hero */
 .tagline {
   font-size: 2.4em;
   font-weight: 700;
-  color: #0a0a0a;
+  color: var(--fg-strong);
   margin: 0.4em 0;
   line-height: 1.15;
   letter-spacing: -0.5px;
 }
-.subtitle { font-size: 1.1em; color: #777; margin: 0.3em 0; }
+.subtitle { font-size: 1.1em; color: var(--fg-dim); margin: 0.3em 0; }
 
 /* grids */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 1.5em 0; align-items: stretch; }
@@ -49,10 +234,10 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 /* sections — no background color, separated by heavy rules */
 [class^="section-"] {
   background: transparent;
-  color: #1a1a1a;
+  color: var(--fg);
   padding: 2.5em 0;
   margin: 0;
-  border-top: 4px solid #0a0a0a;
+  border-top: 4px solid var(--fg-strong);
 }
 
 /* cards — clean text blocks */
@@ -62,9 +247,9 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
   flex-direction: column;
   min-width: 0;
   background: transparent;
-  border-left: 2px solid #999;
+  border-left: 2px solid var(--border);
 }
-.card pre { background: #e0e0e0; padding: 12px; margin: 0.5em 0; border: 2px solid #999; }
+.card pre { background: var(--bg-code); padding: 12px; margin: 0.5em 0; border: 2px solid var(--border); }
 
 /* labels — bold text, no background */
 .label {
@@ -74,25 +259,25 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.label-red    { color: #cc0000; }
-.label-green  { color: #007700; }
-.label-blue   { color: #0055cc; }
-.label-yellow { color: #cc8800; }
-.label-purple { color: #8800cc; }
-.label-orange { color: #cc5500; }
+.label-red    { color: var(--term-red); }
+.label-green  { color: var(--term-green); }
+.label-blue   { color: var(--term-blue); }
+.label-yellow { color: var(--term-yellow); }
+.label-purple { color: var(--term-purple); }
+.label-orange { color: var(--term-orange); }
 
 /* text utilities */
-.white { color: #0a0a0a; }
-.dim { color: #888; }
-.bold { font-weight: 700; color: #0a0a0a; }
+.white { color: var(--fg-strong); }
+.dim { color: var(--fg-dim); }
+.bold { font-weight: 700; color: var(--fg-strong); }
 
 /* links — stark, underlined */
-a { color: #0a0a0a; text-decoration: none; border-bottom: 1px solid #999; }
-a:hover { color: #cc0000; border-bottom-color: #cc0000; }
+a { color: var(--fg-strong); text-decoration: none; border-bottom: 1px solid var(--border); }
+a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .link-btn {
   font-weight: 700;
-  color: #0a0a0a;
-  border: 2px solid #0a0a0a;
+  color: var(--fg-strong);
+  border: 2px solid var(--fg-strong);
   padding: 4px 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -100,13 +285,13 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   display: inline-block;
   margin: 2px 4px 2px 0;
 }
-.link-btn:hover { background: #0a0a0a; color: #e8e8e8; border-bottom: 2px solid #0a0a0a; }
-.link-btn-active { background: #0a0a0a; color: #e8e8e8; }
+.link-btn:hover { background: var(--accent); color: var(--bg); border: 2px solid var(--accent); }
+.link-btn-active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 
 /* decorative rules — heavy */
 .decorative-rule {
   border: none;
-  border-top: 4px solid #0a0a0a;
+  border-top: 4px solid var(--fg-strong);
   margin: 0.8em 0;
 }
 
@@ -117,13 +302,13 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   gap: 12px;
   padding: 16px 0;
   margin-bottom: 24px;
-  border-bottom: 4px solid #999;
+  border-bottom: 4px solid var(--border);
 }
 .nav-brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #0a0a0a;
+  color: var(--fg-strong);
   text-decoration: none;
   border-bottom: none;
 }
@@ -141,28 +326,29 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   gap: 8px;
 }
 .nav-links .link-btn { font-size: 0.75em; padding: 3px 8px; }
+.theme-btn { font-family: inherit; background: transparent; cursor: pointer; }
 .nav-toggle {
   display: none;
   background: none;
-  border: 2px solid #999;
-  color: #0a0a0a;
+  border: 2px solid var(--border);
+  color: var(--fg-strong);
   font: inherit;
   font-size: 22px;
   padding: 2px 10px;
   cursor: pointer;
   line-height: 1;
 }
-.nav-toggle:hover { border-color: #0a0a0a; background: #0a0a0a; color: #e8e8e8; }
+.nav-toggle:hover { border-color: var(--accent); background: var(--accent); color: var(--bg); }
 
 /* footer — heavy rule */
 .site-footer {
   margin-top: 3em;
   padding: 1.5em 0;
-  border-top: 4px solid #999;
+  border-top: 4px solid var(--border);
 }
 .site-footer p { margin: 0.3em 0; }
-.site-footer a { border-bottom: 1px solid #999; }
-.site-footer a:hover { border-bottom-color: #cc0000; }
+.site-footer a { border-bottom: 1px solid var(--border); }
+.site-footer a:hover { border-bottom-color: var(--accent); }
 
 /* card stack */
 .card-stack { display: flex; flex-direction: column; gap: 2px; margin: 1em 0; }
@@ -172,18 +358,18 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
 
 /* principle list — hard lines */
 .principle-list { list-style: none; padding: 0; margin: 1em 0; }
-.principle-list li { padding: 0.8em 0; border-bottom: 2px solid #ccc; }
+.principle-list li { padding: 0.8em 0; border-bottom: 2px solid var(--border-light); }
 .principle-list li:last-child { border-bottom: none; }
 
 /* big number stat */
-.stat-number { font-size: 2.5em; font-weight: 700; color: #0a0a0a; line-height: 1; }
-.stat-label { color: #888; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85em; }
+.stat-number { font-size: 2.5em; font-weight: 700; color: var(--fg-strong); line-height: 1; }
+.stat-label { color: var(--fg-dim); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85em; }
 
 /* cta block */
 .cta-block {
   text-align: center;
   padding: 3em 0;
-  border-top: 4px solid #999;
+  border-top: 4px solid var(--border);
   margin-top: 0;
 }
 .cta-block .tagline { font-size: 1.8em; }
@@ -199,7 +385,7 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
 .arch-layer {
   width: 100%;
   max-width: 600px;
-  border: 2px solid #0a0a0a;
+  border: 2px solid var(--fg-strong);
   padding: 20px 24px;
   position: relative;
 }
@@ -212,7 +398,7 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
 }
 .arch-layer-sub {
   font-size: 0.85em;
-  color: #666;
+  color: var(--fg-muted);
   margin-top: 8px;
 }
 .arch-row {
@@ -222,7 +408,7 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   flex-wrap: wrap;
 }
 .arch-box {
-  border: 2px solid #999;
+  border: 2px solid var(--border);
   padding: 6px 14px;
   font-size: 0.85em;
   font-weight: 700;
@@ -237,13 +423,13 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   justify-content: center;
   padding: 6px 0;
   font-size: 1.4em;
-  color: #999;
+  color: var(--border);
   line-height: 1;
 }
 .arch-divider {
   width: 100%;
   max-width: 600px;
-  border-top: 2px dashed #999;
+  border-top: 2px dashed var(--border);
   margin: 0;
   position: relative;
 }
@@ -252,29 +438,29 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
   top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  background: #e8e8e8;
+  background: var(--bg);
   padding: 0 12px;
   font-size: 0.75em;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #999;
+  color: var(--border);
 }
 
 /* markdown body — styles for rendered .md files */
 .markdown-body h1 { font-size: 1.8em; font-weight: 700; margin: 1em 0 0.5em; letter-spacing: -0.5px; }
-.markdown-body h2 { font-size: 1.3em; margin: 1.5em 0 0.5em; border-bottom: 2px solid #ccc; padding-bottom: 0.3em; }
+.markdown-body h2 { font-size: 1.3em; margin: 1.5em 0 0.5em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.3em; }
 .markdown-body h3 { font-size: 1.05em; margin: 1.2em 0 0.4em; text-transform: none; letter-spacing: 0; }
 .markdown-body ul, .markdown-body ol { padding-left: 1.5em; margin: 0.5em 0; }
 .markdown-body li { margin: 0.3em 0; }
-.markdown-body pre { background: #e0e0e0; padding: 12px; margin: 0.8em 0; border: 2px solid #999; overflow-x: auto; }
+.markdown-body pre { background: var(--bg-code); padding: 12px; margin: 0.8em 0; border: 2px solid var(--border); overflow-x: auto; }
 .markdown-body code { font-family: inherit; font-size: 0.95em; }
-.markdown-body p code { background: #e0e0e0; padding: 1px 5px; border: 1px solid #ccc; }
-.markdown-body blockquote { border-left: 3px solid #999; padding-left: 1em; color: #555; margin: 0.8em 0; }
+.markdown-body p code { background: var(--bg-code); padding: 1px 5px; border: 1px solid var(--border-light); }
+.markdown-body blockquote { border-left: 3px solid var(--border); padding-left: 1em; color: var(--fg-muted); margin: 0.8em 0; }
 .markdown-body table { border-collapse: collapse; margin: 1em 0; width: 100%; }
-.markdown-body th, .markdown-body td { border: 1px solid #999; padding: 6px 10px; text-align: left; font-size: 0.9em; }
-.markdown-body th { font-weight: 700; background: #e0e0e0; }
-.markdown-body hr { border: none; border-top: 2px solid #ccc; margin: 2em 0; }
+.markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; font-size: 0.9em; }
+.markdown-body th { font-weight: 700; background: var(--bg-code); }
+.markdown-body hr { border: none; border-top: 2px solid var(--border-light); margin: 2em 0; }
 .markdown-body strong { font-weight: 700; }
 
 /* responsive */
@@ -295,8 +481,8 @@ a:hover { color: #cc0000; border-bottom-color: #cc0000; }
     position: absolute;
     top: 100%;
     right: 16px;
-    background: #f0f0f0;
-    border: 2px solid #999;
+    background: var(--bg-raised);
+    border: 2px solid var(--border);
     flex-direction: column;
     padding: 12px;
     gap: 6px;

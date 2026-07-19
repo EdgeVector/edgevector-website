@@ -44,9 +44,9 @@ const TABS = [
 
 const tabStyle = (active) => ({
   padding: '0.5em 1.25em',
-  border: '2px solid #0a0a0a',
-  borderBottom: active ? '2px solid #e8e8e8' : '2px solid #0a0a0a',
-  background: active ? '#e8e8e8' : 'transparent',
+  border: '2px solid var(--fg-strong)',
+  borderBottom: active ? '2px solid var(--bg)' : '2px solid var(--fg-strong)',
+  background: active ? 'var(--bg)' : 'transparent',
   fontFamily: 'inherit',
   fontSize: '0.85em',
   fontWeight: active ? 'bold' : 'normal',
@@ -124,13 +124,13 @@ export default function Internal() {
               fontFamily: 'inherit',
               fontSize: '1em',
               padding: '0.5em 0.75em',
-              border: '2px solid #0a0a0a',
+              border: '2px solid var(--fg-strong)',
               background: 'transparent',
               outline: 'none',
             }}
             autoFocus
           />
-          {error && <p style={{ color: '#cc0000', margin: 0 }}>Incorrect password.</p>}
+          {error && <p style={{ color: 'var(--term-red)', margin: 0 }}>Incorrect password.</p>}
           <button
             type="submit"
             className="link-btn"
@@ -148,7 +148,7 @@ export default function Internal() {
       <h1 className="tagline">Internal</h1>
       <p className="subtitle">Architecture decisions and design documents</p>
 
-      <div style={{ display: 'flex', gap: '0', borderBottom: '2px solid #0a0a0a', marginBottom: '2em', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0', borderBottom: '2px solid var(--fg-strong)', marginBottom: '2em', flexWrap: 'wrap' }}>
         {TABS.map(t => (
           <button
             key={t.id}
@@ -165,7 +165,7 @@ export default function Internal() {
           <h2 style={{ fontFamily: 'inherit', fontWeight: 'bold', marginBottom: '1em' }}>LastDB Overview</h2>
           <video
             controls
-            style={{ width: '100%', maxWidth: '960px', border: '2px solid #0a0a0a' }}
+            style={{ width: '100%', maxWidth: '960px', border: '2px solid var(--fg-strong)' }}
             src={tab.video}
           >
             Your browser does not support the video tag.
@@ -183,12 +183,12 @@ export default function Internal() {
               rel="noopener noreferrer"
               style={{
                 padding: '0.5em 1em',
-                border: '2px solid #0a0a0a',
+                border: '2px solid var(--fg-strong)',
                 fontFamily: 'inherit',
                 fontSize: '0.85em',
                 letterSpacing: '0.05em',
                 textDecoration: 'none',
-                color: '#0a0a0a',
+                color: 'var(--fg-strong)',
               }}
             >
               PDF: {pdf.label}
@@ -205,7 +205,7 @@ export default function Internal() {
             <p className="dim">Loading...</p>
           )}
           {tab.docs.length > 1 && (
-            <hr style={{ border: 'none', borderTop: '2px solid #999', margin: '3em 0' }} />
+            <hr style={{ border: 'none', borderTop: '2px solid var(--border)', margin: '3em 0' }} />
           )}
         </div>
       ))}
