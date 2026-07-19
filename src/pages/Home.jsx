@@ -4,6 +4,7 @@ import Section from '../components/Section';
 import Card from '../components/Card';
 import Label from '../components/Label';
 import AsciiTitle from '../components/AsciiTitle';
+import AsciiMigration from '../components/AsciiMigration';
 
 export default function Home() {
   return (
@@ -41,25 +42,31 @@ export default function Home() {
 
       <p>We are building an <span className="bold white">open ecosystem</span> where your tools are clients of a database you own &mdash; and where you can deliver slices of your data to the people and apps you choose.</p>
 
-      <p>This makes a new generation of <span className="bold white">on-device AI</span> possible: assistants and agents that can reason over your full personal context &mdash; your notes, files, calendar, messages &mdash; running on your device, with your data never leaving it.</p>
+      <p>Declare a schema, write a thin client, and <span className="bold white">build your own apps</span> &mdash; by hand or with agents &mdash; on data that is yours to keep, move, or delete.</p>
+
+      <Section variant="rose">
+        <h2><span className="bold">FROM CLOUD TO LOCAL</span></h2>
+        <AsciiMigration />
+        <p className="dim">The apps, the databases, and the models are coming home.</p>
+      </Section>
 
       <Section variant="slate">
         <h2><span className="bold">WHAT WE BUILD</span></h2>
 
         <div className="grid-3">
           <Card>
-            <p><Label color="green">INGEST</Label></p>
-            <p>Bring your data in. Import files from your devices or let applications write with your permission. Your files become structured, queryable knowledge.</p>
-          </Card>
-
-          <Card>
             <p><Label color="red">BUILD</Label></p>
-            <p>Build your own tools on your data. Declare a schema, write a thin client &mdash; storage, indexing, and semantic search are already there. Own the whole stack.</p>
+            <p>Declare a schema, write a thin client &mdash; storage, indexing, and semantic search are already there. Build your own tools fast; own the whole stack.</p>
           </Card>
 
           <Card>
             <p><Label color="purple">DELIVER</Label></p>
-            <p>Choose what to deliver and to whom. Hand curated slices of your database to people and apps. You set the terms; you keep the source.</p>
+            <p>Hand curated slices of your database to the people and apps you choose. You set the terms; you keep the source.</p>
+          </Card>
+
+          <Card>
+            <p><Label color="green">INGEST</Label></p>
+            <p>Import your files, or let applications write with your permission. Everything becomes structured, queryable data in one place.</p>
           </Card>
         </div>
 
@@ -75,7 +82,7 @@ export default function Home() {
         <div className="grid-2">
           <Card>
             <p><Label color="blue">LASTDB</Label></p>
-            <p>The core database. Schema-based storage and querying for personal data. Runs locally with encrypted cloud backup. The foundation for user-controlled data infrastructure.</p>
+            <p>The local database you build your own tool stack on. One process on your machine &mdash; schema-based storage, indexing, and semantic search built in. Alpha, macOS Apple Silicon.</p>
             <p>
               <a href="https://thelastdb.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>{'  '}
               <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer" className="link-btn">[GitHub]</a>
@@ -84,7 +91,7 @@ export default function Home() {
 
           <Card>
             <p><Label color="blue">EXEMEM</Label></p>
-            <p>Cloud-resilient infrastructure for networked LastDB nodes. Multi-tenant architecture with user-level encryption. Enables collective computation while preserving individual sovereignty.</p>
+            <p>The cloud counterpart: backup, sync, and sharing for LastDB nodes across your devices and the people you invite. Multi-tenant, per-user encryption.</p>
             <p>
               <a href="https://exemem.com" target="_blank" rel="noreferrer" className="link-btn">[Website]</a>
             </p>
@@ -93,13 +100,13 @@ export default function Home() {
 
         <div className="grid-2">
           <Card>
-            <p><Label color="orange">SCHEMA REGISTRY</Label></p>
-            <p>A shared vocabulary for data schemas that enables interoperability across nodes without centralizing data.</p>
+            <p><Label color="orange">STARTER APPS</Label></p>
+            <p>Brain for durable memory, Kanban for work in flight, Situations for operational state &mdash; the stack we build LastDB with, shipped with the install, yours to extend.</p>
           </Card>
 
           <Card>
-            <p><Label color="orange">FILE_TO_MARKDOWN</Label></p>
-            <p>A universal ingestion pipeline for converting diverse file types into structured Markdown for seamless data ingestion. Now part of the LastDB core.</p>
+            <p><Label color="orange">SCHEMA REGISTRY</Label></p>
+            <p>A shared vocabulary of schemas so tools and nodes interoperate without centralizing data.</p>
           </Card>
         </div>
 
