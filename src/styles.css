@@ -262,6 +262,28 @@ pre { font: inherit; margin: 0; white-space: pre; overflow-x: auto; }
 .ascii-diagram .mig-db   { color: var(--term-green); font-weight: 700; }
 .ascii-diagram .mig-llm  { color: var(--term-purple); font-weight: 700; }
 
+/* architectural line-drawing figure (see ArchDiagram.jsx) — themed via vars */
+.arch-fig { margin: 0.5em 0; }
+.arch-fig svg { width: 100%; height: auto; max-width: 680px; display: block; margin: 0 auto; font-family: inherit; }
+.arch-fig .ink { stroke: var(--fg-muted); stroke-width: 1; }
+.arch-fig .accentline { stroke: var(--accent); stroke-width: 1; }
+.arch-fig .faint { stroke: var(--border); stroke-width: 1; }
+.arch-fig .joint { fill: var(--fg-muted); }
+.arch-fig .arrow { fill: var(--fg-muted); }
+.arch-fig .paper { fill: var(--bg); }
+.arch-fig text { paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+.arch-fig .txt { fill: var(--fg-strong); }
+.arch-fig .dim { fill: var(--fg-muted); }
+.arch-fig .atxt { fill: var(--accent); }
+.arch-fig-caption {
+  color: var(--fg-muted);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 4px 0 2px;
+}
+
 /* hero — tagline is the same size as everything else: bold + accent only */
 .tagline {
   font-size: inherit;
