@@ -1,123 +1,104 @@
 // Hand-authored architectural line drawing (Tom's draftsman diagram style —
-// see the /diagram skill). Current architecture (2026-07): ingestion is an
-// app on the socket like every other client; the daemon holds the document
-// store as RECORDS + BLOBS cylinders plus the semantic index; schemas live
-// in the schema-service cloud and resolve locally; the optional Exemem rail;
-// delivery slices out. Colors ride the theme variables via styles.css.
+// see the /diagram skill). v4, simplified for clarity per Tom: one enclosing
+// YOUR MACHINE box (no dimension bracket, no daemon box-in-box), ingestion
+// folded into the apps list, SCHEMA SERVICE cloud directly above with a
+// straight vertical drop, Exemem drawn as a cloud too. Colors ride the theme
+// variables via styles.css (.arch-fig ...).
 
 const SVG = `
-<svg viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: your files feed the ingestion app; ingestion, apps, and agents all attach to lastdbd over the unix socket; the daemon holds the document store, records and blobs, plus the semantic index; published schemas come from the schema service cloud and resolve locally; the optional Exemem cloud provides backup, sync, and a delivery rail; delivery slices go out to the people and apps you choose.">
+<svg viewBox="0 0 680 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: on your machine, apps and agents — brain, kanban, ingestion, yours — attach to LastDB over the unix socket; LastDB is one process holding records, blobs, and the semantic index; published schemas come from the schema service cloud and resolve locally; the optional Exemem cloud provides backup and sync; delivery slices go out to the people and apps you choose.">
   <defs>
     <pattern id="poche" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y1="0" x2="0" y2="6" class="faint"/>
     </pattern>
   </defs>
 
-  <!-- LEFT COLUMN · files → ingestion app; apps & agents; all on the socket -->
-  <polygon points="36,24 132,24 146,38 146,80 36,80" fill="url(#poche)" class="ink"/>
-  <polyline points="132,24 132,38 146,38" fill="none" class="ink"/>
-  <text x="91" y="56" text-anchor="middle" class="txt" font-size="10" letter-spacing="0.5">YOUR FILES</text>
-  <line x1="91" y1="80" x2="91" y2="104" class="ink"/>
-  <polygon points="91,108 87,100 95,100" class="arrow"/>
-  <rect x="89" y="78" width="4" height="4" class="joint"/>
+  <!-- SCHEMA SERVICE · cloud, straight above the database -->
+  <path d="M 361 90 A 20 20 0 0 1 345 56 A 24 24 0 0 1 379 28 A 28 28 0 0 1 433 20 A 24 24 0 0 1 481 34 A 18 18 0 0 1 495 68 A 16 16 0 0 1 477 90 Z" fill="none" class="ink" stroke-dasharray="4 3"/>
+  <text x="420" y="50" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">SCHEMA SERVICE</text>
+  <polygon points="401,58 431,58 439,66 439,80 401,80" fill="none" class="ink"/>
+  <polyline points="431,58 431,66 439,66" fill="none" class="ink"/>
 
-  <rect x="36" y="108" width="132" height="56" fill="none" class="ink"/>
-  <text x="102" y="130" text-anchor="middle" class="txt" font-size="10.5" letter-spacing="1">INGESTION</text>
-  <text x="102" y="146" text-anchor="middle" class="dim" font-size="8.5">an app &#183; files &#8594; records</text>
-  <polyline points="168,136 184,136 184,232 196,232" fill="none" class="ink"/>
-  <rect x="166" y="134" width="4" height="4" class="joint"/>
+  <line x1="420" y1="90" x2="420" y2="146" class="ink" stroke-dasharray="4 3"/>
+  <polygon points="420,150 416,142 424,142" class="arrow"/>
+  <rect x="418" y="88" width="4" height="4" class="joint"/>
+  <text x="432" y="122" class="dim" font-size="8.5">published schemas &#183; resolve locally</text>
 
-  <rect x="36" y="196" width="132" height="72" fill="none" class="ink"/>
-  <text x="102" y="218" text-anchor="middle" class="txt" font-size="10.5" letter-spacing="0.5">APPS &#38; AGENTS</text>
-  <text x="102" y="234" text-anchor="middle" class="dim" font-size="8.5">brain &#183; kanban &#183; yours</text>
-  <text x="102" y="248" text-anchor="middle" class="dim" font-size="8.5">over the unix socket</text>
-  <line x1="168" y1="232" x2="196" y2="232" class="ink"/>
-  <rect x="166" y="230" width="4" height="4" class="joint"/>
-  <rect x="196" y="228" width="8" height="8" class="joint"/>
+  <!-- YOUR MACHINE · the one enclosure -->
+  <rect x="30" y="150" width="475" height="230" fill="none" class="ink"/>
+  <text x="46" y="172" class="txt" font-size="10" letter-spacing="1.5">YOUR MACHINE</text>
 
-  <!-- side dimension line: the local span -->
-  <line x1="16" y1="108" x2="30" y2="108" class="ink"/>
-  <line x1="16" y1="350" x2="30" y2="350" class="ink"/>
-  <line x1="23" y1="108" x2="23" y2="350" class="ink"/>
-  <text x="10" y="229" class="dim" font-size="9" letter-spacing="1.5" transform="rotate(-90 10 229)" text-anchor="middle">YOUR MACHINE</text>
+  <rect x="55" y="225" width="145" height="90" fill="none" class="ink"/>
+  <text x="127" y="250" text-anchor="middle" class="txt" font-size="10.5" letter-spacing="0.5">APPS &#38; AGENTS</text>
+  <text x="127" y="270" text-anchor="middle" class="dim" font-size="8.5">brain &#183; kanban</text>
+  <text x="127" y="284" text-anchor="middle" class="dim" font-size="8.5">ingestion &#183; yours</text>
+  <text x="127" y="302" text-anchor="middle" class="dim" font-size="8.5">thin clients</text>
 
-  <!-- SCHEMA SERVICE · a cloud, remote -->
-  <path d="M 522 96 A 20 20 0 0 1 506 62 A 24 24 0 0 1 540 34 A 28 28 0 0 1 594 26 A 24 24 0 0 1 642 40 A 18 18 0 0 1 656 74 A 16 16 0 0 1 638 96 Z" fill="none" class="ink" stroke-dasharray="4 3"/>
-  <text x="581" y="56" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">SCHEMA SERVICE</text>
-  <polygon points="562,64 592,64 600,72 600,86 562,86" fill="none" class="ink"/>
-  <polyline points="592,64 592,72 600,72" fill="none" class="ink"/>
-  <text x="581" y="112" text-anchor="middle" class="dim" font-size="8.5">published schemas</text>
-  <polyline points="540,96 540,118 420,118 420,126" fill="none" class="ink" stroke-dasharray="4 3"/>
-  <polygon points="420,130 416,122 424,122" class="arrow"/>
-  <rect x="538" y="94" width="4" height="4" class="joint"/>
-  <text x="480" y="112" text-anchor="middle" class="dim" font-size="8.5">resolve locally</text>
+  <line x1="200" y1="268" x2="255" y2="268" class="ink"/>
+  <rect x="198" y="266" width="4" height="4" class="joint"/>
+  <rect x="251" y="264" width="8" height="8" class="joint"/>
+  <text x="227" y="296" text-anchor="middle" class="dim" font-size="8.5">unix socket</text>
 
-  <!-- CENTER · the daemon: one process; records + blobs + semantic index -->
-  <rect x="200" y="130" width="290" height="220" fill="none" class="ink"/>
-  <text x="345" y="150" text-anchor="middle" class="txt" font-size="11" letter-spacing="1.5">LASTDBD &#183; ONE PROCESS</text>
+  <path d="M 255 212 A 45 8 0 0 1 345 212 L 345 302 A 45 8 0 0 1 255 302 Z" fill="url(#poche)" class="accentline"/>
+  <ellipse cx="300" cy="212" rx="45" ry="8" class="accentline paper"/>
+  <text x="300" y="262" text-anchor="middle" class="atxt" font-size="9.5" letter-spacing="0.5">RECORDS</text>
 
-  <path d="M 218 200 A 42 8 0 0 1 302 200 L 302 272 A 42 8 0 0 1 218 272 Z" fill="url(#poche)" class="accentline"/>
-  <ellipse cx="260" cy="200" rx="42" ry="8" class="accentline paper"/>
-  <text x="260" y="236" text-anchor="middle" class="atxt" font-size="9.5" letter-spacing="0.5">RECORDS</text>
+  <path d="M 360 226 A 30 6 0 0 1 420 226 L 420 294 A 30 6 0 0 1 360 294 Z" fill="url(#poche)" class="accentline"/>
+  <ellipse cx="390" cy="226" rx="30" ry="6" class="accentline paper"/>
+  <text x="390" y="266" text-anchor="middle" class="atxt" font-size="9" letter-spacing="0.5">BLOBS</text>
 
-  <path d="M 314 214 A 29 6 0 0 1 372 214 L 372 264 A 29 6 0 0 1 314 264 Z" fill="url(#poche)" class="accentline"/>
-  <ellipse cx="343" cy="214" rx="29" ry="6" class="accentline paper"/>
-  <text x="343" y="242" text-anchor="middle" class="atxt" font-size="9" letter-spacing="0.5">BLOBS</text>
+  <rect x="430" y="228" width="70" height="60" fill="none" class="ink"/>
+  <text x="465" y="253" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">SEMANTIC</text>
+  <text x="465" y="266" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">INDEX</text>
+  <line x1="420" y1="258" x2="430" y2="258" class="faint"/>
 
-  <text x="300" y="300" text-anchor="middle" class="dim" font-size="8.5">document store &#183; encrypted at rest</text>
+  <text x="380" y="336" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="1">LASTDB &#183; ONE PROCESS</text>
+  <text x="380" y="352" text-anchor="middle" class="dim" font-size="8.5">document store &#183; encrypted at rest</text>
 
-  <rect x="398" y="204" width="80" height="58" fill="none" class="ink"/>
-  <text x="438" y="228" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">SEMANTIC</text>
-  <text x="438" y="241" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">INDEX</text>
-  <text x="438" y="280" text-anchor="middle" class="dim" font-size="8.5">search built in</text>
-  <line x1="372" y1="232" x2="398" y2="232" class="faint"/>
-
-  <!-- optional cloud rail -->
-  <rect x="540" y="196" width="122" height="90" fill="none" class="ink" stroke-dasharray="4 3"/>
-  <text x="601" y="214" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">EXEMEM CLOUD</text>
-  <path d="M 573 230 A 28 5 0 0 1 629 230 L 629 256 A 28 5 0 0 1 573 256 Z" fill="url(#poche)" class="ink"/>
-  <ellipse cx="601" cy="230" rx="28" ry="5" class="ink paper"/>
-  <text x="601" y="276" text-anchor="middle" class="dim" font-size="8.5">backup &#183; sync &#183; rail</text>
-  <line x1="490" y1="240" x2="540" y2="240" class="ink" stroke-dasharray="4 3"/>
-  <rect x="488" y="238" width="4" height="4" class="joint"/>
-  <rect x="538" y="238" width="4" height="4" class="joint"/>
-  <text x="515" y="232" text-anchor="middle" class="dim" font-size="8.5">optional</text>
+  <!-- EXEMEM · cloud, remote, optional -->
+  <path d="M 546 296 A 20 20 0 0 1 530 262 A 24 24 0 0 1 564 234 A 28 28 0 0 1 618 226 A 24 24 0 0 1 666 240 A 18 18 0 0 1 674 274 A 16 16 0 0 1 662 296 Z" fill="none" class="ink" stroke-dasharray="4 3"/>
+  <text x="602" y="256" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">EXEMEM</text>
+  <text x="602" y="270" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">CLOUD</text>
+  <text x="602" y="314" text-anchor="middle" class="dim" font-size="8.5">optional &#183; backup &#183; sync &#183; rail</text>
+  <line x1="505" y1="264" x2="532" y2="264" class="ink" stroke-dasharray="4 3"/>
+  <rect x="503" y="262" width="4" height="4" class="joint"/>
+  <rect x="530" y="262" width="4" height="4" class="joint"/>
 
   <!-- slices out -->
-  <line x1="345" y1="350" x2="345" y2="386" class="ink"/>
-  <polygon points="345,390 341,382 349,382" class="arrow"/>
-  <rect x="343" y="348" width="4" height="4" class="joint"/>
+  <line x1="380" y1="380" x2="380" y2="410" class="ink"/>
+  <polygon points="380,414 376,406 384,406" class="arrow"/>
+  <rect x="378" y="378" width="4" height="4" class="joint"/>
 
-  <rect x="290" y="390" width="110" height="50" fill="url(#poche)" class="ink"/>
-  <polyline points="290,390 345,418 400,390" fill="none" class="ink"/>
-  <text x="345" y="433" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">DELIVERY SLICES</text>
-  <text x="345" y="456" text-anchor="middle" class="dim" font-size="8.5">your terms &#183; you keep the source</text>
+  <rect x="325" y="414" width="110" height="50" fill="url(#poche)" class="ink"/>
+  <polyline points="325,414 380,442 435,414" fill="none" class="ink"/>
+  <text x="380" y="457" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="0.5">DELIVERY SLICES</text>
+  <text x="380" y="480" text-anchor="middle" class="dim" font-size="8.5">your terms &#183; you keep the source</text>
 
-  <line x1="345" y1="466" x2="345" y2="496" class="ink"/>
-  <polygon points="345,500 341,492 349,492" class="arrow"/>
+  <line x1="380" y1="490" x2="380" y2="516" class="ink"/>
+  <polygon points="380,520 376,512 384,512" class="arrow"/>
 
-  <circle cx="320" cy="516" r="8" fill="none" class="ink"/>
-  <path d="M 306 538 A 14 11 0 0 1 334 538" fill="none" class="ink"/>
-  <circle cx="370" cy="525" r="17" fill="none" class="ink"/>
-  <text x="370" y="529" text-anchor="middle" class="txt" font-size="8.5">APP</text>
-  <text x="345" y="566" text-anchor="middle" class="txt" font-size="10" letter-spacing="1">PEOPLE &#38; APPS YOU CHOOSE</text>
+  <circle cx="355" cy="536" r="8" fill="none" class="ink"/>
+  <path d="M 341 558 A 14 11 0 0 1 369 558" fill="none" class="ink"/>
+  <circle cx="405" cy="545" r="17" fill="none" class="ink"/>
+  <text x="405" y="549" text-anchor="middle" class="txt" font-size="8.5">APP</text>
+  <text x="380" y="586" text-anchor="middle" class="txt" font-size="10" letter-spacing="1">PEOPLE &#38; APPS YOU CHOOSE</text>
 
   <!-- legend -->
-  <rect x="40" y="592" width="20" height="14" fill="none" class="ink"/>
-  <text x="66" y="603" class="dim" font-size="8.5">PROCESS</text>
-  <path d="M 128 595 A 10 3 0 0 1 148 595 L 148 606 A 10 3 0 0 1 128 606 Z" fill="none" class="ink"/>
-  <text x="154" y="603" class="dim" font-size="8.5">STORE</text>
-  <polygon points="212,591 230,591 236,597 236,608 212,608" fill="none" class="ink"/>
-  <text x="242" y="603" class="dim" font-size="8.5">RECORDS</text>
-  <rect x="308" y="592" width="22" height="14" fill="none" class="ink"/>
-  <polyline points="308,592 319,600 330,592" fill="none" class="ink"/>
-  <text x="336" y="603" class="dim" font-size="8.5">SLICE</text>
-  <circle cx="402" cy="599" r="7" fill="none" class="ink"/>
-  <text x="413" y="603" class="dim" font-size="8.5">PARTY</text>
-  <path d="M 474 606 A 7 7 0 0 1 469 594 A 9 9 0 0 1 483 587 A 10 10 0 0 1 500 590 A 7 7 0 0 1 505 602 A 6 6 0 0 1 498 606 Z" fill="none" class="ink"/>
-  <text x="512" y="603" class="dim" font-size="8.5">CLOUD SVC</text>
-  <rect x="592" y="592" width="20" height="14" fill="none" class="ink" stroke-dasharray="3 3"/>
-  <text x="618" y="603" class="dim" font-size="8.5">REMOTE</text>
+  <rect x="40" y="608" width="20" height="14" fill="none" class="ink"/>
+  <text x="66" y="619" class="dim" font-size="8.5">PROCESS</text>
+  <path d="M 128 611 A 10 3 0 0 1 148 611 L 148 622 A 10 3 0 0 1 128 622 Z" fill="none" class="ink"/>
+  <text x="154" y="619" class="dim" font-size="8.5">STORE</text>
+  <polygon points="212,607 230,607 236,613 236,624 212,624" fill="none" class="ink"/>
+  <text x="242" y="619" class="dim" font-size="8.5">RECORDS</text>
+  <rect x="308" y="608" width="22" height="14" fill="none" class="ink"/>
+  <polyline points="308,608 319,616 330,608" fill="none" class="ink"/>
+  <text x="336" y="619" class="dim" font-size="8.5">SLICE</text>
+  <circle cx="402" cy="615" r="7" fill="none" class="ink"/>
+  <text x="413" y="619" class="dim" font-size="8.5">PARTY</text>
+  <path d="M 474 622 A 7 7 0 0 1 469 610 A 9 9 0 0 1 483 603 A 10 10 0 0 1 500 606 A 7 7 0 0 1 505 618 A 6 6 0 0 1 498 622 Z" fill="none" class="ink"/>
+  <text x="512" y="619" class="dim" font-size="8.5">CLOUD SVC</text>
+  <rect x="592" y="608" width="20" height="14" fill="none" class="ink" stroke-dasharray="3 3"/>
+  <text x="618" y="619" class="dim" font-size="8.5">REMOTE</text>
 </svg>`;
 
 export default function ArchDiagram() {
