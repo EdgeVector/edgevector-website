@@ -54,6 +54,10 @@ export default function Technology() {
           <Card>
             <p><Label color="green">SCHEMA REGISTRY</Label></p>
             <p>A shared vocabulary of schemas so tools and nodes interoperate without centralizing data. Publish a schema once; every client speaks it.</p>
+            <p>
+              <a href="/papers/canonical_fields_via_embeddings.pdf" target="_blank" rel="noreferrer" className="link-btn">[Paper]</a>{'  '}
+              <a href="/papers/canonical_fields_via_embeddings_eli5.pdf" target="_blank" rel="noreferrer" className="link-btn">[ELI5]</a>
+            </p>
           </Card>
         </div>
       </Section>
@@ -129,7 +133,7 @@ export default function Technology() {
       <div className="cta-block">
         <p>Want the full technical details?</p>
         <p>
-          <Link to="/papers" className="link-btn">[Read the Papers]</Link>{'  '}
+          <a href="https://thelastdb.com" target="_blank" rel="noreferrer" className="link-btn">[Get LastDB]</a>{'  '}
           <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer" className="link-btn">[View the Source]</a>
         </p>
       </div>

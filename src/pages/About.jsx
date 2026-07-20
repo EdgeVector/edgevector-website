@@ -73,7 +73,7 @@ export default function About() {
           <Card>
             <p><Label color="blue">TOM TANG</Label></p>
             <p className="bold white">Founder, Chair &amp; President</p>
-            <p>Lead architect of LastDB and primary author of the foundation&rsquo;s technical papers on data access control, schema convergence, and pseudonymous discovery.</p>
+            <p>Lead architect of LastDB and primary author of the foundation&rsquo;s technical papers.</p>
             <p>
               <a href="https://www.linkedin.com/in/tom-tang-65579616/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
             </p>
@@ -82,7 +82,7 @@ export default function About() {
           <Card>
             <p><Label color="blue">FEI JIA</Label></p>
             <p className="bold white">Director &amp; Treasurer</p>
-            <p>Software Engineer at Google. Co-author of the foundation&rsquo;s papers on canonical schema resolution, anonymized vector discovery, and verifiable classification downgrading.</p>
+            <p>Software Engineer at Google. Co-author of the foundation&rsquo;s paper on canonical schema and field resolution.</p>
             <p>
               <a href="https://www.linkedin.com/in/feijia1/" target="_blank" rel="noreferrer" className="link-btn">[LinkedIn]</a>
             </p>
@@ -102,9 +102,9 @@ export default function About() {
       <Section variant="lavender">
         <h2><span className="bold">THE LONG VIEW</span> <span className="dim">Where we&rsquo;re headed</span></h2>
 
-        <p>Today, we&rsquo;re building the tools for individuals to reclaim control over their personal data. Tomorrow, we&rsquo;re building an ecosystem where <span className="bold white">collective value emerges from personal data</span> without requiring centralized ownership.</p>
+        <p>Today, we&rsquo;re building the tools for individuals to own their data and the whole stack on top of it. Tomorrow, an ecosystem where <span className="bold white">value moves between people because they choose to send it</span> &mdash; not because a platform holds everyone&rsquo;s data.</p>
 
-        <p>Imagine choosing to let anonymized insights from your data contribute to medical research &mdash; without any researcher seeing your records. Or allowing specific queries against your expertise and receiving compensation when matches are found. Or sharing travel recommendations with friends without exposing your trip details.</p>
+        <p>Imagine handing your doctor a slice of your health history that stays current. Or delivering a curated dataset to a collaborator &mdash; they get a usable piece of your stack; you keep the source. Or your agent assembling a digest from your notes and delivering it to your team every Monday.</p>
 
         <p>This is the vision: <span className="bold white">individual control with collective benefit</span> &mdash; personal data infrastructure that serves people, not platforms.</p>
       </Section>
@@ -112,13 +112,12 @@ export default function About() {
       <Section variant="rose">
         <h2><span className="bold">GET INVOLVED</span></h2>
 
-        <p>Edge Vector Foundation is an open community. Whether you&rsquo;re a developer, researcher, privacy advocate, or someone who believes in a better model for personal data &mdash; there&rsquo;s a place for you.</p>
+        <p>Edge Vector Foundation is an open community. Whether you&rsquo;re a developer, researcher, or someone who believes in a better model for personal data &mdash; there&rsquo;s a place for you.</p>
 
         <p>
           <a href="https://github.com/EdgeVector" target="_blank" rel="noreferrer" className="link-btn">[Contribute on GitHub]</a>{'  '}
           <a href="mailto:contact@edgevector.org" className="link-btn">[Contact the Foundation]</a>{'  '}
-          <Link to="/technology" className="link-btn">[Technology]</Link>{'  '}
-          <Link to="/papers" className="link-btn">[Papers]</Link>
+          <Link to="/technology" className="link-btn">[Technology]</Link>
         </p>
       </Section>
     </>

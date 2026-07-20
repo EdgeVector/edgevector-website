@@ -71,8 +71,7 @@ export default function Home() {
         </div>
 
         <p>
-          <Link to="/technology" className="link-btn">[How it works]</Link>{'  '}
-          <Link to="/papers" className="link-btn">[Read the research]</Link>
+          <Link to="/technology" className="link-btn">[How it works]</Link>
         </p>
       </Section>
 
@@ -118,7 +117,6 @@ export default function Home() {
 
         <p>
           <Link to="/technology" className="link-btn">[Technology]</Link>{'  '}
-          <Link to="/papers" className="link-btn">[Papers]</Link>{'  '}
           <Link to="/about" className="link-btn">[About the Foundation]</Link>{'  '}
           <a href="mailto:contact@edgevector.org" className="link-btn">[Contact]</a>
         </p>
