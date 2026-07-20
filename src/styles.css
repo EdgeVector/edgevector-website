@@ -438,6 +438,11 @@ a:hover { border-bottom-color: var(--accent); }
 .card-stack { display: flex; flex-direction: column; gap: 0; margin: 0.5em -12px; }
 .card-stack > * + * { border-top: 1px solid var(--border); }
 
+/* papers — rows split by full-bleed lines; titles at body size, not heading caps */
+.papers-list { display: flex; flex-direction: column; margin: 0.5em -12px; }
+.papers-list > * + * { border-top: 1px solid var(--border); }
+.paper-title { font-size: inherit; font-weight: 700; text-transform: none; letter-spacing: 0; margin: 0.2em 0; }
+
 /* section subheading */
 .section-subheading { margin-top: 1.5em; }
 
