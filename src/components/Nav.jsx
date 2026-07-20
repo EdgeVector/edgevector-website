@@ -5,7 +5,6 @@ import ThemeSwitcher from './ThemeSwitcher';
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/technology', label: 'Technology' },
-  { to: '/papers', label: 'Papers' },
   { to: '/about', label: 'About' },
 ];
 
