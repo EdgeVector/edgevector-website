@@ -1,47 +1,80 @@
 // Hand-authored architectural line drawing (Tom's draftsman diagram style —
-// see the /diagram skill). v5 layout per Tom: YOUR MACHINE is a tall column
-// on the LEFT (apps over the socket over the store); everything that leaves
-// the machine lines up on the RIGHT under a THE CLOUD header — schema
-// service, Exemem, and delivery slices — with horizontal connectors, so
-// what goes to the cloud is spatially obvious. Colors ride the theme vars.
+// see the /diagram skill). v6 per Tom: inside YOUR MACHINE, an AI-agent
+// robot glyph drives a row of separate mini app boxes (brain · kanban ·
+// ingestion · yours), which all attach over the unix socket to a boxed
+// LASTDB process containing the records/blobs cylinders and semantic index.
+// The cloud column stays on the right. Colors ride the theme variables.
 
 const SVG = `
-<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: on the left, your machine — apps and agents including ingestion attach to LastDB over the unix socket; LastDB is one process holding records, blobs, and the semantic index. On the right, the cloud column — the schema service publishing schemas that resolve locally, the optional Exemem cloud for backup and sync, and delivery slices going out to the people and apps you choose.">
+<svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: on the left, your machine — AI agents drive separate apps (brain, kanban, ingestion, yours), which attach over the unix socket to the LastDB process holding records, blobs, and the semantic index. On the right, the cloud column — the schema service publishing schemas that resolve locally, the optional Exemem cloud for backup and sync, and delivery slices going out to the people and apps you choose.">
   <defs>
     <pattern id="poche" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y1="0" x2="0" y2="6" class="faint"/>
     </pattern>
   </defs>
 
-  <!-- LEFT · YOUR MACHINE, a vertical column -->
-  <rect x="30" y="40" width="370" height="400" fill="none" class="ink"/>
+  <!-- LEFT · YOUR MACHINE -->
+  <rect x="30" y="40" width="370" height="376" fill="none" class="ink"/>
   <text x="46" y="62" class="txt" font-size="10" letter-spacing="1.5">YOUR MACHINE</text>
 
-  <rect x="90" y="95" width="240" height="80" fill="none" class="ink"/>
-  <text x="210" y="122" text-anchor="middle" class="txt" font-size="10.5" letter-spacing="0.5">APPS &#38; AGENTS</text>
-  <text x="210" y="140" text-anchor="middle" class="dim" font-size="8.5">brain &#183; kanban &#183; ingestion &#183; yours</text>
-  <text x="210" y="158" text-anchor="middle" class="dim" font-size="8.5">thin clients</text>
+  <!-- the agent: a little robot driving the apps -->
+  <line x1="218" y1="78" x2="218" y2="72" class="ink"/>
+  <circle cx="218" cy="69" r="2.5" fill="none" class="ink"/>
+  <rect x="204" y="78" width="28" height="24" fill="none" class="ink"/>
+  <rect x="211" y="86" width="4" height="4" class="joint"/>
+  <rect x="221" y="86" width="4" height="4" class="joint"/>
+  <text x="240" y="90" class="txt" font-size="9.5" letter-spacing="0.5">AI AGENTS</text>
+  <text x="240" y="104" class="dim" font-size="8.5">driving your apps</text>
 
-  <line x1="210" y1="175" x2="210" y2="220" class="ink"/>
-  <rect x="208" y="173" width="4" height="4" class="joint"/>
-  <rect x="206" y="216" width="8" height="8" class="joint"/>
-  <text x="222" y="205" class="dim" font-size="8.5">unix socket</text>
+  <line x1="218" y1="102" x2="218" y2="122" class="ink"/>
+  <line x1="95" y1="122" x2="341" y2="122" class="ink"/>
+  <line x1="95" y1="122" x2="95" y2="136" class="ink"/>
+  <line x1="177" y1="122" x2="177" y2="136" class="ink"/>
+  <line x1="259" y1="122" x2="259" y2="136" class="ink"/>
+  <line x1="341" y1="122" x2="341" y2="136" class="ink"/>
+  <polygon points="95,140 91,132 99,132" class="arrow"/>
+  <polygon points="177,140 173,132 181,132" class="arrow"/>
+  <polygon points="259,140 255,132 263,132" class="arrow"/>
+  <polygon points="341,140 337,132 345,132" class="arrow"/>
+  <rect x="216" y="100" width="4" height="4" class="joint"/>
 
-  <path d="M 105 232 A 45 8 0 0 1 195 232 L 195 322 A 45 8 0 0 1 105 322 Z" fill="url(#poche)" class="accentline"/>
-  <ellipse cx="150" cy="232" rx="45" ry="8" class="accentline paper"/>
-  <text x="150" y="282" text-anchor="middle" class="atxt" font-size="9.5" letter-spacing="0.5">RECORDS</text>
+  <!-- separate mini apps -->
+  <rect x="60" y="140" width="70" height="32" fill="none" class="ink"/>
+  <text x="95" y="159" text-anchor="middle" class="txt" font-size="8.5" letter-spacing="0.5">BRAIN</text>
+  <rect x="142" y="140" width="70" height="32" fill="none" class="ink"/>
+  <text x="177" y="159" text-anchor="middle" class="txt" font-size="8.5" letter-spacing="0.5">KANBAN</text>
+  <rect x="224" y="140" width="70" height="32" fill="none" class="ink"/>
+  <text x="259" y="159" text-anchor="middle" class="txt" font-size="8.5" letter-spacing="0.5">INGESTION</text>
+  <rect x="306" y="140" width="70" height="32" fill="none" class="ink"/>
+  <text x="341" y="159" text-anchor="middle" class="txt" font-size="8.5" letter-spacing="0.5">YOURS</text>
 
-  <path d="M 215 246 A 30 6 0 0 1 275 246 L 275 314 A 30 6 0 0 1 215 314 Z" fill="url(#poche)" class="accentline"/>
-  <ellipse cx="245" cy="246" rx="30" ry="6" class="accentline paper"/>
-  <text x="245" y="286" text-anchor="middle" class="atxt" font-size="9" letter-spacing="0.5">BLOBS</text>
+  <!-- apps onto the socket bus, into the boxed LastDB process -->
+  <line x1="95" y1="172" x2="95" y2="186" class="ink"/>
+  <line x1="177" y1="172" x2="177" y2="186" class="ink"/>
+  <line x1="259" y1="172" x2="259" y2="186" class="ink"/>
+  <line x1="341" y1="172" x2="341" y2="186" class="ink"/>
+  <line x1="95" y1="186" x2="341" y2="186" class="ink"/>
+  <line x1="218" y1="186" x2="218" y2="200" class="ink"/>
+  <rect x="214" y="196" width="8" height="8" class="joint"/>
+  <text x="230" y="198" class="dim" font-size="8.5">unix socket</text>
 
-  <rect x="290" y="248" width="80" height="60" fill="none" class="ink"/>
-  <text x="330" y="272" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">SEMANTIC</text>
-  <text x="330" y="285" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">INDEX</text>
-  <line x1="275" y1="278" x2="290" y2="278" class="faint"/>
+  <rect x="60" y="204" width="316" height="196" fill="none" class="ink"/>
+  <text x="218" y="224" text-anchor="middle" class="txt" font-size="10" letter-spacing="1">LASTDB &#183; ONE PROCESS</text>
 
-  <text x="215" y="356" text-anchor="middle" class="txt" font-size="9.5" letter-spacing="1">LASTDB &#183; ONE PROCESS</text>
-  <text x="215" y="372" text-anchor="middle" class="dim" font-size="8.5">document store &#183; encrypted at rest</text>
+  <path d="M 88 246 A 42 8 0 0 1 172 246 L 172 330 A 42 8 0 0 1 88 330 Z" fill="url(#poche)" class="accentline"/>
+  <ellipse cx="130" cy="246" rx="42" ry="8" class="accentline paper"/>
+  <text x="130" y="292" text-anchor="middle" class="atxt" font-size="9.5" letter-spacing="0.5">RECORDS</text>
+
+  <path d="M 197 258 A 28 6 0 0 1 253 258 L 253 322 A 28 6 0 0 1 197 322 Z" fill="url(#poche)" class="accentline"/>
+  <ellipse cx="225" cy="258" rx="28" ry="6" class="accentline paper"/>
+  <text x="225" y="294" text-anchor="middle" class="atxt" font-size="9" letter-spacing="0.5">BLOBS</text>
+
+  <rect x="268" y="258" width="80" height="60" fill="none" class="ink"/>
+  <text x="308" y="282" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">SEMANTIC</text>
+  <text x="308" y="295" text-anchor="middle" class="txt" font-size="9" letter-spacing="0.5">INDEX</text>
+  <line x1="253" y1="288" x2="268" y2="288" class="faint"/>
+
+  <text x="218" y="368" text-anchor="middle" class="dim" font-size="8.5">document store &#183; encrypted at rest</text>
 
   <!-- RIGHT · the cloud column -->
   <text x="555" y="26" text-anchor="middle" class="dim" font-size="9" letter-spacing="2">THE CLOUD</text>
