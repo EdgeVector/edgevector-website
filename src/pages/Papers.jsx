@@ -85,10 +85,10 @@ export default function Papers() {
     <>
       <Helmet>
         <title>Papers — Edge Vector Foundation</title>
-        <meta name="description" content="Technical papers from the Edge Vector Foundation covering personal data sovereignty, LastDB, privacy-preserving network effects, schema convergence, and more." />
-        <meta name="keywords" content="Edge Vector papers, LastDB whitepaper, data sovereignty, privacy, schema convergence, WASM transforms, access control" />
+        <meta name="description" content="Technical papers and disclosures from the Edge Vector Foundation: architecture, schema convergence, canonical field resolution, classification downgrading, and data discovery." />
+        <meta name="keywords" content="Edge Vector papers, LastDB whitepaper, data ownership, schema convergence, canonical schemas, classification downgrading, vector discovery" />
         <meta property="og:title" content="Papers — Edge Vector Foundation" />
-        <meta property="og:description" content="Technical papers on personal data sovereignty, privacy-preserving computation, and distributed schema systems." />
+        <meta property="og:description" content="Technical papers and disclosures on personal data ownership, schema systems, and data discovery." />
         <meta property="og:url" content="https://edgevector.org/papers" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
@@ -98,6 +98,7 @@ export default function Papers() {
 
       <h1 className="tagline">Papers</h1>
       <p className="subtitle">Technical papers from the Edge Vector Foundation</p>
+      <p className="dim">Dated disclosures, kept as published. Some designs described here have since been simplified or retired &mdash; see <Link to="/technology">Technology</Link> for the current architecture.</p>
 
       {PAPERS.map((section) => (
         <Section key={section.category} variant="slate">
