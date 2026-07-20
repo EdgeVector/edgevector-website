@@ -37,11 +37,11 @@ export default function About() {
         <h2><span className="bold">PRINCIPLES</span> <span className="dim">What we stand for</span></h2>
 
         <ul className="principle-list">
-          <li><span className="bold white">User control is non-negotiable</span> &mdash; People decide what data to store, who can access it, and for how long. Real revocation, not permission theater.</li>
+          <li><span className="bold white">User control is non-negotiable</span> &mdash; People decide what to store, what to send, and to whom. Sending a slice is explicit; nothing leaves your database by default.</li>
           <li><span className="bold white">Ownership by default</span> &mdash; Your database runs on your machine. Tools are clients of it, not custodians of copies; swap a tool and keep the data.</li>
-          <li><span className="bold white">Lightweight and personal</span> &mdash; No heavyweight cryptographic ceremony. A lighter, personal system keeps building fast, and data provenance keeps derived data traceable.</li>
-          <li><span className="bold white">Practical ownership</span> &mdash; Data control is meaningful only when people can use their data &mdash; through personal assistants, selective disclosure, and permissioned APIs.</li>
-          <li><span className="bold white">Built for decades</span> &mdash; Personal data infrastructure must be resilient, with secure cloud backups and accessible permission management for non-technical users.</li>
+          <li><span className="bold white">Lightweight and personal</span> &mdash; No heavyweight cryptographic ceremony. A lighter, personal system keeps building fast; the database is yours, on your hardware, so trust follows ownership.</li>
+          <li><span className="bold white">Practical ownership</span> &mdash; Data control is meaningful only when people can use their data &mdash; apps built in an afternoon, agents with full context, slices delivered on your terms.</li>
+          <li><span className="bold white">Built for decades</span> &mdash; Personal data infrastructure must be resilient: optional cloud backup, open formats, and data that stays portable for non-technical users too.</li>
           <li><span className="bold white">Open by design</span> &mdash; Open protocols, open schemas, and published research keep your data portable. No proprietary lock-in. No closed ecosystems.</li>
         </ul>
       </Section>
@@ -52,13 +52,13 @@ export default function About() {
         <div className="grid-2">
           <Card>
             <p><Label color="yellow">NON-PROFIT FOUNDATION</Label></p>
-            <p>The Edge Vector Foundation governs the open ecosystem. We maintain LastDB, the schema registry, and the network protocols. Our mandate is the long-term health of personal data infrastructure.</p>
+            <p>The Edge Vector Foundation governs the open ecosystem. We maintain LastDB, the starter apps, and the schema registry. Our mandate is the long-term health of personal data infrastructure.</p>
             <p className="dim">Open governance. Community-driven. No shareholders.</p>
           </Card>
 
           <Card>
-            <p><Label color="yellow">COMMERCIAL SUBSIDIARY</Label></p>
-            <p>A for-profit subsidiary builds commercial products on top of the foundation&rsquo;s technology. Revenue funds continued development of the free tools. The subsidiary can never close-source the foundation&rsquo;s published work.</p>
+            <p><Label color="yellow">EDGE VECTOR LABS LLC</Label></p>
+            <p>A for-profit subsidiary, wholly owned by the foundation, builds commercial products &mdash; like Exemem &mdash; on top of the foundation&rsquo;s technology. Revenue funds continued development of the free tools. The subsidiary can never close-source the foundation&rsquo;s published work.</p>
             <p className="dim">Sustainable funding. Aligned incentives.</p>
           </Card>
         </div>
