@@ -6,74 +6,16 @@ import Label from '../components/Label';
 
 const PAPERS = [
   {
-    category: 'Vision',
-    color: 'yellow',
+    category: 'Schema Systems',
+    color: 'green',
     items: [
-      {
-        title: 'Personal Data Sovereignty: A Vision for Individual Control',
-        authors: 'Edge Vector Foundation',
-        description: 'The foundation\'s vision for an open ecosystem where individuals control how their data is stored, who can access it, and how it is used.',
-        pdf: '/papers/vision.pdf',
-      },
-    ],
-  },
-  {
-    category: 'Core Technology',
-    color: 'red',
-    items: [
-      {
-        title: 'EdgeVector Architecture Overview',
-        authors: 'Edge Vector Foundation',
-        description: 'End-to-end architecture: user-controlled LastDB nodes, schema-enforced access control, e2e encrypted relay via Exemem, passkey-based key derivation, and multi-node availability.',
-        link: '/whitepaper',
-        linkLabel: 'Read',
-      },
-      {
-        title: 'Fold DB: Compute Without Exposure',
-        authors: 'Tom Tang',
-        description: 'Formalizes the access-control model: composable, multi-layer policies over stored data with a data-minimality proof.',
-        pdf: '/papers/compute_without_exposure.pdf',
-        simplified: [
-          { label: 'ELI5 Version', pdf: '/papers/compute_without_exposure_eli5.pdf' },
-        ],
-      },
-      {
-        title: 'Schema Convergence Through Views and Transforms',
-        authors: 'Tom Tang',
-        description: 'How user schemas converge over time through WASM-based views, a content-addressed view registry, bidirectional consistency, and micropayment incentives.',
-        pdf: '/papers/schema_convergence_views.pdf',
-        simplified: [
-          { label: 'ELI5 Version', pdf: '/papers/schema_convergence_views_eli5.pdf' },
-        ],
-      },
       {
         title: 'Preventing Data Structure Fragmentation Through Canonical Schema and Field Resolution',
         authors: 'Tom Tang, Fei Jia',
-        description: 'Two-tier canonicalization using vector embeddings to resolve schema-level and field-level fragmentation, with zero-migration schema expansion via field mappers to deprecated schemas.',
+        description: 'Two-tier canonicalization using vector embeddings to resolve schema-level and field-level fragmentation, with zero-migration schema expansion via field mappers to deprecated schemas. The foundation of the shared schema registry.',
         pdf: '/papers/canonical_fields_via_embeddings.pdf',
         simplified: [
           { label: 'ELI5 Version', pdf: '/papers/canonical_fields_via_embeddings_eli5.pdf' },
-        ],
-      },
-      {
-        title: 'Verifiable Classification Downgrading Through Information-Destroying Transforms',
-        authors: 'Tom Tang, Fei Jia',
-        description: 'A formal mechanism for controlled downgrading of data classification levels through publicly visible, automatically verified statistical aggregation transforms. Unverifiable information loss does not get downgraded.',
-        pdf: '/papers/classification_downgrading.pdf',
-      },
-    ],
-  },
-  {
-    category: 'Data Discovery & Retrieval',
-    color: 'blue',
-    items: [
-      {
-        title: 'Anonymized Vector Discovery Through Semantic Atomization',
-        authors: 'Tom Tang, Fei Jia',
-        description: 'A system for discovering private data without exposing it, using semantic atomization and anonymized vector fragments that enable search while preserving privacy.',
-        pdf: '/papers/pseudonymous_vectorized_discovery.pdf',
-        simplified: [
-          { label: 'ELI5 Version', pdf: '/papers/pseudonymous_vectorized_discovery_eli5.pdf' },
         ],
       },
     ],
@@ -85,10 +27,10 @@ export default function Papers() {
     <>
       <Helmet>
         <title>Papers — Edge Vector Foundation</title>
-        <meta name="description" content="Technical papers and disclosures from the Edge Vector Foundation: architecture, schema convergence, canonical field resolution, classification downgrading, and data discovery." />
-        <meta name="keywords" content="Edge Vector papers, LastDB whitepaper, data ownership, schema convergence, canonical schemas, classification downgrading, vector discovery" />
+        <meta name="description" content="Technical papers from the Edge Vector Foundation: canonical schema and field resolution — the schema systems behind LastDB." />
+        <meta name="keywords" content="Edge Vector papers, LastDB, data ownership, canonical schemas, field resolution, schema registry" />
         <meta property="og:title" content="Papers — Edge Vector Foundation" />
-        <meta property="og:description" content="Technical papers and disclosures on personal data ownership, schema systems, and data discovery." />
+        <meta property="og:description" content="Technical papers on the schema systems behind LastDB." />
         <meta property="og:url" content="https://edgevector.org/papers" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary" />
@@ -98,7 +40,6 @@ export default function Papers() {
 
       <h1 className="tagline">Papers</h1>
       <p className="subtitle">Technical papers from the Edge Vector Foundation</p>
-      <p className="dim">Dated disclosures, kept as published. Some designs described here have since been simplified or retired &mdash; see <Link to="/technology">Technology</Link> for the current architecture.</p>
 
       {PAPERS.map((section) => (
         <Section key={section.category} variant="slate">
