@@ -30,11 +30,7 @@ contents as-is.
 
 ## Source Of Truth
 
-This repository is homed at `http://localhost:3300/EdgeVector/edgevector-website.git`. LastGit change
-requests and `.lastgit/ci.sh` are the merge gate; GitHub is a read-only public
-mirror for clone and browse workflows. Repo-local GitHub Actions are
-intentionally inert.
-
-Mirror sync is handled by `.lastgit/sync-github-mirror.sh`, optionally installed
-as `com.edgevector.lastgit-mirror-edgevector-website` with
-`.lastgit/install-mirror-launchd.sh`.
+This repository is homed on GitHub (`EdgeVector/edgevector-website`). Pull
+requests are gated by the `ci-required` GitHub Actions job, which runs
+`.lastgit/ci.sh` (`npm ci` and `npm run build`). The LastGit and Forgejo copies
+are frozen (moved 2026-09-30).
