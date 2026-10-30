@@ -2,32 +2,41 @@
 
 Four orthogonal planes, composed — not a monolith with features bolted on. This page describes what the platform *is* at the systems level, independent of any particular feature it exposes.
 
-## 1. The substrate: molecule-addressed storage
+## 1. The substrate: schema-owned records and keys
 
-The database is not rows-in-tables. It's a bag of UUID-addressed **molecules** (mutable atoms of data). Schemas are *lenses*, not containers — they bind a field name to a molecule UUID. Two schemas pointing at the same molecule see and write the same bytes.
+The database is not rows-in-tables. Each schema owns its records. A schema names its fields, its primary key, and its named alternate keys. A **molecule** holds the keys for one field in one schema and one key layout. An **atom** holds the data for one field at one key and points at a file.
+
+Two schemas can reuse one canonical field definition. The canonical field supplies the name, the description, and the type. It does not share values: each schema owns its record values, and a write to one schema does not change another schema.
+
+A second lookup does not need a second schema. The schema declares a named alternate key, and the write updates the related molecules for that key. A read by the alternate key returns the record and its primary key.
 
 ```mermaid
 flowchart TB
-  subgraph lenses["Lens layer — Schemas"]
+  subgraph schemas["Schema layer — each schema owns its records"]
     direction LR
-    A["SchemaA"]
-    B["SchemaB"]
+    A["SchemaA<br/>primary key + alternate key"]
+    B["SchemaB<br/>primary key"]
   end
-  subgraph mols["Molecule layer — UUID-keyed atoms"]
+  subgraph mols["Molecule layer — keys per schema, field, and key layout"]
     direction LR
-    m77[("mol-77")]
-    m92[("mol-92")]
+    ap[("A · x · primary")]
+    aa[("A · x · alternate")]
+    bp[("B · x · primary")]
   end
-  subgraph phys["Physical layer"]
-    sled[("Sled — local embedded KV")]
+  subgraph atoms["Atom layer — data at one key"]
+    direction LR
+    a1[("atom: A.x")]
+    b1[("atom: B.x")]
   end
-  A -- "field: x" --> m77
-  B -- "field: x" --> m77
-  B -- "field: y" --> m92
-  mols --> sled
+  A --> ap
+  A --> aa
+  B --> bp
+  ap --> a1
+  aa --> a1
+  bp --> b1
 ```
 
-Consequence: schema evolution is a *lens swap*, not a data migration. Trigger-driven transforms (WASM) recompute derived molecules when upstream ones mutate — views are first-class data, not queries.
+Consequence: a schema change that adds an alternate key backfills the existing keys of that schema. It does not read or write another schema. Trigger-driven transforms (WASM) recompute derived records when upstream ones mutate — views are first-class data, not queries.
 
 ## 2. The sync plane: append-only encrypted log per prefix
 
@@ -124,4 +133,4 @@ flowchart TB
 
 ## The shape, in one sentence
 
-**FoldDB** is a molecule-addressed local-first store whose schemas are lenses and whose views are triggered transforms. **Exemem** is what you get when you point that store's write-log at a shared object store, assign sequence numbers via a primitives Lambda stack, and let any number of nodes replay the same prefix under the same key. Trust domains, orgs, and multi-device are all the same mechanism with a different prefix + key.
+**FoldDB** is a local-first store whose schemas own their records and keys and whose views are triggered transforms. **Exemem** is what you get when you point that store's write-log at a shared object store, assign sequence numbers via a primitives Lambda stack, and let any number of nodes replay the same prefix under the same key. Trust domains, orgs, and multi-device are all the same mechanism with a different prefix + key.
